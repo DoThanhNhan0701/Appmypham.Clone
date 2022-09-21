@@ -16,17 +16,16 @@
             android:orientation="vertical">
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/idToolbar"
+                app:title="Home"
                 android:background="@color/purple_200"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize">
-
                 <EditText
                     android:hint="Tìm kiếm"
                     android:drawableRight="@drawable/icon_search"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
                 </EditText>
-
             </androidx.appcompat.widget.Toolbar>
             <ViewFlipper
                 android:id="@+id/viewFlipper"
@@ -39,36 +38,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
-                    android:text="Categrory"
+                    android:text="SẢN PHẨM MỚI NHẤT"
+                    android:gravity="center"
+                    android:layout_marginTop="6dp"
                     android:textStyle="bold"
                     android:layout_marginLeft="8dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                 </TextView>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
                 </androidx.recyclerview.widget.RecyclerView>
-                <com.google.android.material.navigation.NavigationView
-                    android:id="@+id/navigation"
-                    android:layout_gravity="start"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <ListView
-                        android:id="@+id/listViewItem"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    </ListView>
-
-                </com.google.android.material.navigation.NavigationView>
             </LinearLayout>
         </LinearLayout>
-
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/navigation"
+                android:layout_gravity="start"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ListView
+                    android:id="@+id/listViewItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </ListView>
+        </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

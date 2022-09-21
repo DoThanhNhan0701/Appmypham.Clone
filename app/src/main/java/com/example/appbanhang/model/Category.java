@@ -3,15 +3,18 @@ package com.example.appbanhang.model;
 public class Category {
     int id;
     String name;
-    String picture;
+    String decription;
+    String image;
 
     public Category() {
+
     }
 
-    public Category(int id, String name, String picture) {
+    public Category(int id, String name, String decription, String image) {
         this.id = id;
         this.name = name;
-        this.picture = picture;
+        this.decription = decription;
+        this.image = image;
     }
 
     public int getId() {
@@ -30,12 +33,19 @@ public class Category {
         this.name = name;
     }
 
-    public String getPicture() {
-        return picture;
+    public String getDecription() {
+        return decription;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setDecription(String decription) {
+        this.decription = decription;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

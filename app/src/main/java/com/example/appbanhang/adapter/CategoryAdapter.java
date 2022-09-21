@@ -38,8 +38,9 @@ public class CategoryAdapter extends BaseAdapter {
         return 0;
     }
     public class ViewHolder{
+        TextView decription;
         TextView name;
-        ImageView picture;
+        ImageView Images;
     }
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
@@ -47,16 +48,18 @@ public class CategoryAdapter extends BaseAdapter {
         if(view == null){
             viewHolder = new ViewHolder();
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = layoutInflater.inflate(R.layout.items_products, null);
+            view = layoutInflater.inflate(R.layout.items_category, null);
 
             viewHolder.name = view.findViewById(R.id.nameCategrory);
-            viewHolder.picture = view.findViewById(R.id.imagesCategory);
+            viewHolder.decription = view.findViewById(R.id.decription);
+            viewHolder.Images = view.findViewById(R.id.imagesCategory);
             view.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) view.getTag();
         }
         viewHolder.name.setText(listCategory.get(i).getName());
-        Glide.with(context).load(listCategory.get(i).getPicture()).into(viewHolder.picture);
+        viewHolder.decription.setText(listCategory.get(i).getDecription());
+        Glide.with(context).load(listCategory.get(i).getImage()).into(viewHolder.Images);
         return view;
     }
 }
