@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="7dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+        android:id="@+id/imagesCategory"
+        android:src="@drawable/img"
+        android:layout_marginLeft="7dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp">
+
+    </ImageView>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <TextView
+            android:id="@+id/nameCategrory"
+            android:text="Son môi cao cấp"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:textColor="#070707"
+            android:layout_height="wrap_content">
+
+        </TextView>
+        <TextView
+            android:id="@+id/decription"
+            android:text="Việt Nam"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="10dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#918585"
+            android:layout_height="wrap_content">
+        </TextView>
+    </LinearLayout>
+
+</LinearLayout>
