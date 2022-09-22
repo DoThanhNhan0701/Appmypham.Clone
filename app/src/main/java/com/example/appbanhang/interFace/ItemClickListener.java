@@ -1,2 +1,7 @@
-package com.example.appbanhang.interFace;public interface ItemClickListener {
+package com.example.appbanhang.interFace;
+
+import android.view.View;
+
+public interface ItemClickListener {
+    void onClick(View view, int position, boolean isLongClick);
 }

@@ -53,8 +53,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         Product product = listItemsProduct.get(position);
         holder.textViewName.setText(product.getName());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        holder.textViewPrice.setText("Giá: " + decimalFormat.format(Double.parseDouble(String.valueOf(product.getPrice()))) + " VNĐ");
-//        holder.textViewPrice.setText(String.valueOf(product.getPrice()));
+        holder.textViewPrice.setText(decimalFormat.format(Double.parseDouble(String.valueOf(product.getPrice()))));
         Glide.with(context).load(product.getImages()).into(holder.imageViewProduct);
     }
 

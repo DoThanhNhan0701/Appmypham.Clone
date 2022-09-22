@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -44,12 +45,13 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
-    Toolbar toolbar;
+
+    ImageView imageViewUser;
     ViewFlipper viewFlipper;
-    RecyclerView recyclerView;
-    NavigationView navigationView;
+    RecyclerView recyclerViewProduct;
+    RecyclerView recyclerViewCategory;
     ListView listViewCategory;
-    DrawerLayout drawerLayout;
+    LinearLayoutManager linearLayoutManager;
     ApiSell apiSell;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
@@ -68,13 +70,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
         mapping();
-        actionBar();
 
         if(ConnectInternet(this)){
+            Toast.makeText(getApplicationContext(), "Connect", Toast.LENGTH_SHORT).show();
             actionViewFlipper();
             getProduct();
             getCategory();
-            setOnItemClickListener();
+
         }else{
             Toast.makeText(getApplicationContext(), "notConnect", Toast.LENGTH_SHORT).show();
         }
@@ -89,9 +91,8 @@ public class MainActivity extends AppCompatActivity {
                         productModel -> {
                             if(productModel.isSuccess()){
                                 listItemsProducts = productModel.getResult();
-                                Log.d("listProduct", "cc"+ listItemsProducts);
                                 productAdapter = new ProductAdapter(getApplicationContext(), listItemsProducts);
-                                recyclerView.setAdapter(productAdapter);
+                                recyclerViewProduct.setAdapter(productAdapter);
                             }
                         },
                         throwable -> {
@@ -107,9 +108,11 @@ public class MainActivity extends AppCompatActivity {
             .subscribe(
                 categoryModel ->{
                     if (categoryModel.isSuccess()) {
+                        Toast.makeText(getApplicationContext(), categoryModel.getResult().get(0).getName(), Toast.LENGTH_SHORT).show();
+                        Log.d("getCategory", "getCategory: " + categoryModel);
                         categoryList = categoryModel.getResult();
                         categoryAdapter = new CategoryAdapter(getApplicationContext(), categoryList);
-                        listViewCategory.setAdapter(categoryAdapter);
+                        recyclerViewCategory.setAdapter(categoryAdapter);
                     }
                 },
                     throwable -> {
@@ -118,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
             )
         );
     }
+
     private void setOnItemClickListener(){
         listViewCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -163,18 +167,6 @@ public class MainActivity extends AppCompatActivity {
         viewFlipper.setOutAnimation(slide_left);
     }
 
-    private void actionBar() {
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationIcon(R.drawable.iconmenu3);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
-
-    }
     private boolean ConnectInternet(Context context){
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -197,20 +189,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void mapping() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
-        toolbar = (Toolbar) findViewById(R.id.idToolbar);
         viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
+        recyclerViewProduct = (RecyclerView) findViewById(R.id.recyclerViewProduct);
+        recyclerViewCategory = (RecyclerView) findViewById(R.id.recyclerViewCategory);
+        //category
+        linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewCategory.setLayoutManager(linearLayoutManager);
+        //product
+        linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewProduct.setLayoutManager(linearLayoutManager);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
+        imageViewUser = (ImageView) findViewById(R.id.imageViewUser);
 
-        navigationView = (NavigationView) findViewById(R.id.navigation);
-        listViewCategory = (ListView) findViewById(R.id.listViewItem);
         categoryList = new ArrayList<>();
         listItemsProducts = new ArrayList<>();
-
     }
 
 }

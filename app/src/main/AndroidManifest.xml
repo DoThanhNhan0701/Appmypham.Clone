@@ -18,29 +18,27 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".IntroActivity"
+            android:name=".activity.TrangdiemActivity"
             android:exported="false" />
         <activity
-            android:name=".TrangdiemActivity"
+            android:name=".activity.TreatmentActivity"
             android:exported="false" />
         <activity
-            android:name=".TreatmentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DuongdaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HomeActivity"
+            android:name=".activity.DuongdaActivity"
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".activity.IntroActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
