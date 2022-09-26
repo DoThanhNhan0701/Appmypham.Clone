@@ -1,6 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint"
+    android:background="@drawable/product_background"
+    android:elevation="3dp"
+    tools:ignore="RtlHardcoded"
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:layout_height="150dp">
 
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:layout_margin="5dp"
+            android:id="@+id/imageViewProduct"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/icon_user"
+            >
+        </ImageView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textViewNameTitle"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textColor="#0C0C0C"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nhan">
+            </TextView>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/textViewPrice_old"
+                    android:layout_marginTop="4dp"
+                    android:textColor="#D6C0C0"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/price">
+                </TextView>
+                <TextView
+                    android:id="@+id/textViewPrice_new"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#f00"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/price">
+                </TextView>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewSl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="55dp"
+                android:text="@string/sl"
+                android:textColor="@color/black"
+                android:textSize="10sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/textViewCreatedate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="left|bottom"
+                android:text="@string/price"
+                android:textColor="@color/black"
+                android:textSize="11sp"
+                >
+
+            </TextView>
+
+        </LinearLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

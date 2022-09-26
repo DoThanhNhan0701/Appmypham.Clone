@@ -95,7 +95,6 @@ public class SlideAdapter extends PagerAdapter {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
                 IntroActivity.viewPager.setCurrentItem(i - 1);
             }
         });

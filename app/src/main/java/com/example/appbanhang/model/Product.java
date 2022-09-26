@@ -1,26 +1,32 @@
 package com.example.appbanhang.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Product {
+public class Product implements Serializable {
     private int id;
-    private String category;
+    private int category;
     private String name;
     private String images;
-    private int price;
+    private int price_new;
+    private int price_old;
     private String description;
+    private int amount;
     private Date create_date;
     private boolean active;
+
     public Product() {
     }
 
-    public Product(int id, String category, String name, String images, int price, String description, Date create_date, boolean active) {
+    public Product(int id, int category, String name, String images, int price_new, int price_old, String description, int amount, Date create_date, boolean active) {
         this.id = id;
         this.category = category;
         this.name = name;
         this.images = images;
-        this.price = price;
+        this.price_new = price_new;
+        this.price_old = price_old;
         this.description = description;
+        this.amount = amount;
         this.create_date = create_date;
         this.active = active;
     }
@@ -33,11 +39,11 @@ public class Product {
         this.id = id;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 
@@ -57,12 +63,20 @@ public class Product {
         this.images = images;
     }
 
-    public int getPrice() {
-        return price;
+    public int getPrice_new() {
+        return price_new;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setPrice_new(int price_new) {
+        this.price_new = price_new;
+    }
+
+    public int getPrice_old() {
+        return price_old;
+    }
+
+    public void setPrice_old(int price_old) {
+        this.price_old = price_old;
     }
 
     public String getDescription() {
@@ -71,6 +85,14 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public Date getCreate_date() {

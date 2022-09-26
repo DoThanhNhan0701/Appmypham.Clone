@@ -15,9 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appbanhang.R;
-import com.example.appbanhang.activity.DuongdaActivity;
-import com.example.appbanhang.activity.TrangdiemActivity;
-import com.example.appbanhang.activity.TreatmentActivity;
+import com.example.appbanhang.activity.TitleCategoryActivity;
+import com.example.appbanhang.activity.TitleProductActivity;
 import com.example.appbanhang.interFace.ItemClickListener;
 import com.example.appbanhang.model.Category;
 
@@ -73,19 +72,34 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
             public void onClick(View view, int position, boolean isLongClick) {
                 switch (position){
                     case 0:
-                        Intent intentDuongda = new Intent(context, DuongdaActivity.class);
-                        intentDuongda.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intentDuongda);
+                            Intent intentTitleCategory = new Intent(context, TitleCategoryActivity.class);
+                            intentTitleCategory.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intentTitleCategory.putExtra("category", 1);
+                            context.startActivity(intentTitleCategory);
                         break;
                     case 1:
-                        Intent intentTrangdiem = new Intent(context, TrangdiemActivity.class);
-                        intentTrangdiem.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intentTrangdiem);
+                            Intent intentTrangdiem = new Intent(context, TitleCategoryActivity.class);
+                            intentTrangdiem.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intentTrangdiem.putExtra("category", 2);
+                            context.startActivity(intentTrangdiem);
                         break;
                     case 2:
-                        Intent intentTreatment = new Intent(context, TreatmentActivity.class);
-                        intentTreatment.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intentTreatment);
+                            Intent intentTreatment = new Intent(context, TitleCategoryActivity.class);
+                            intentTreatment.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intentTreatment.putExtra("category", 3);
+                            context.startActivity(intentTreatment);
+                        break;
+                    case 3:
+                        Intent intentNuochoa = new Intent(context, TitleCategoryActivity.class);
+                        intentNuochoa.putExtra("category", 4);
+                        intentNuochoa.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intentNuochoa);
+                        break;
+                    case 4:
+                        Intent test = new Intent(context, TitleProductActivity.class);
+                        test.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(test);
+                        Log.d("TAGBug", "onClick: "+ test);
                         break;
                     default:
                         break;

@@ -5,19 +5,32 @@
       <map>
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable-v24/btn_bg.xml" value="0.1175" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable-v24/unselected.xml" value="0.1175" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/btn_button_cart.xml" value="0.243" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/custom_spinner.xml" value="0.1655" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/images_category.xml" value="0.1305" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/images_view_radius.xml" value="0.2395" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/layout_title_product.xml" value="0.1" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/product_background.xml" value="0.2395" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/search_items.xml" value="0.17" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/slide_itemqs.xml" value="0.17" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/title_product.xml" value="0.1" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/toolbar_menu.xml" value="0.1685" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_cart.xml" value="0.25" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_duongda.xml" value="0.20885416666666667" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_home.xml" value="0.20885416666666667" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_intro.xml" value="0.1875" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_intro_slide.xml" value="0.2078125" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_items_title.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_main.xml" value="0.20833333333333334" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_sonmoi.xml" value="0.1953125" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_title_product.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_trangdiem.xml" value="0.19635416666666666" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_treatment.xml" value="0.11296296296296296" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_cart.xml" value="0.2" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_category.xml" value="0.6" />
-        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_products.xml" value="0.2" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_category_product.xml" value="0.264" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_loading.xml" value="0.25" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_products.xml" value="0.6" />
       </map>
     </option>
   </component>

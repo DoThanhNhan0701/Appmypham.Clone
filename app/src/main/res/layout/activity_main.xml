@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Heloo"
+                    android:text="Son M.O.I"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -76,7 +76,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/search_items"
-                    android:drawableStart="@drawable/icon_search"
+                    android:drawableStart="@drawable/icons_search3"
                     android:ems="10"
                     android:textStyle="italic"
                     android:hint="Search..."
@@ -117,8 +117,9 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="320dp"
+                    android:textSize="18dp"
                     android:text="Category"
-                    android:textColor="@color/black"
+                    android:textColor="#FF5722"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -143,8 +144,9 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="321dp"
+                    android:textSize="18dp"
                     android:text="Product"
-                    android:textColor="@color/black"
+                    android:textColor="#FF5722"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -224,7 +226,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_weight="1"
-                        android:src="@drawable/icon_profile"></ImageView>
+                        android:src="@drawable/icon_profile">
+
+                    </ImageView>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -249,7 +253,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@drawable/icon_new"></ImageView>
+                        android:src="@drawable/icon_new">
+
+                    </ImageView>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -281,7 +287,9 @@
                         android:text="Support"
                         android:textAlignment="center"
                         android:textColor="#0B0A0A"
-                        android:textSize="14dp"></TextView>
+                        android:textSize="14dp">
+
+                    </TextView>
                 </LinearLayout>
 
                 <LinearLayout
@@ -316,7 +324,7 @@
             android:layout_height="wrap_content"
             app:maxImageSize="40dp"
             app:tint="@null"
-            android:backgroundTint="@color/purple_200"
+            android:backgroundTint="#FF5722"
             android:elevation="1dp"
             android:src="@drawable/icon_cart"
             app:backgroundTint="@color/purple_700"
