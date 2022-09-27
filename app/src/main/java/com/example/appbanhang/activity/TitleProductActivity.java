@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class TitleProductActivity extends AppCompatActivity {
     Toolbar toolbar;
-    ImageView imageViewTitile, imageViewUser;
+    ImageView imageViewTitile, imageViewUser, imageViewAddCart;
     TextView textViewNameTitle, textViewNamePrice_new, textViewNamePrice_old, textViewCreteDate;
     TextView textViewDescipTitle, textViewSl;
     Button buttonAddCart;
@@ -34,12 +34,6 @@ public class TitleProductActivity extends AppCompatActivity {
     Product product;
     NotificationBadge notificationBadge;
 
-//    int id = 0;
-//    String name = "";
-//    int price_new = 0;
-//    String title = "";
-//    String images = "";
-//    int idCategory = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +45,17 @@ public class TitleProductActivity extends AppCompatActivity {
         setActionToolBar();
         setSpinner();
         setEvenSpinner();
+        setIntentCart();
+    }
+
+    private void setIntentCart() {
+        imageViewAddCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentCart = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(intentCart);
+            }
+        });
     }
 
     private void setNotificationBadge() {
@@ -87,9 +92,12 @@ public class TitleProductActivity extends AppCompatActivity {
             cart.setId(product.getId());
             ArrayListCart.arrayListCart.add(cart);
         }
-//        notificationBadge.setText(String.valueOf(ArrayListCart.arrayListCart.size()));
-        Intent intent = new Intent(getApplicationContext(), CartActivity.class);
-        startActivity(intent);
+        int pos = 0;
+        for(int i = 0; i < ArrayListCart.arrayListCart.size(); i++){
+            pos = pos + ArrayListCart.arrayListCart.get(i).getAmount_cart();
+        }
+        notificationBadge.setText(String.valueOf(pos));
+
     }
 
 
@@ -106,7 +114,6 @@ public class TitleProductActivity extends AppCompatActivity {
         Integer[] sol = new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         ArrayAdapter<Integer> arraySol = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_dropdown_item, sol);
         spinner.setAdapter(arraySol);
-
     }
 
     @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
@@ -142,15 +149,20 @@ public class TitleProductActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        int pos = 0;
+        for(int i = 0; i < ArrayListCart.arrayListCart.size(); i++){
+            pos = pos + ArrayListCart.arrayListCart.get(i).getAmount_cart();
+        }
+        notificationBadge.setText(String.valueOf(pos));
+        super.onResume();
+    }
+
     private void mapping() {
-//        id = product.getId();
-//        name = product.getName();
-//        title = product.getDescription();
-//        price_new = product.getPrice_new();
-//        images = product.getImages();
-//        idCategory = product.getCategory();
 
         toolbar = (Toolbar) findViewById(R.id.app_bar_title);
+        imageViewAddCart = (ImageView) findViewById(R.id.imageViewAddCart);
         imageViewTitile = (ImageView) findViewById(R.id.imageView);
         textViewNameTitle = (TextView) findViewById(R.id.textViewNameTitle);
         imageViewUser = (ImageView) findViewById(R.id.imageViewUser);
@@ -164,7 +176,11 @@ public class TitleProductActivity extends AppCompatActivity {
         notificationBadge = (NotificationBadge) findViewById(R.id.notificationbadge);
 
         if(ArrayListCart.arrayListCart != null){
-            notificationBadge.setText(String.valueOf(ArrayListCart.arrayListCart.size()));
+            int pos = 0;
+            for(int i = 0; i < ArrayListCart.arrayListCart.size(); i++){
+                pos = pos + ArrayListCart.arrayListCart.get(i).getAmount_cart();
+            }
+            notificationBadge.setText(String.valueOf(pos));
         }
         else{
             ArrayListCart.arrayListCart = new ArrayList<>();

@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
     NotificationBadge notificationBadge;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -3,5 +3,10 @@
     <string name="price">Price</string>
     <string name="nhan">Nhan</string>
     <string name="sl">Số lượng</string>
+    <string name="gmail">Gmail</string>
+    <string name="pass">Mật khẩu</string>
+    <string name="repass">Nhập lại mật khẩu</string>
+    <string name="login">Đăng kí</string>
+    <string name="logindn">ĐĂNG NHÂP</string>
 
 </resources>

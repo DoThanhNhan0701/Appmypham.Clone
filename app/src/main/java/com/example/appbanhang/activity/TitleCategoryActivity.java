@@ -62,7 +62,7 @@ public class TitleCategoryActivity extends AppCompatActivity {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if(loading == false){
+                if(!loading){
                     if(linearLayoutManager.findLastCompletelyVisibleItemPosition() == productList.size() - 1){
                         loading = true;
                         loadingMore();
