@@ -54,7 +54,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.textViewPriceCartItems.setText(decimalFormat.format(Double.parseDouble(String.valueOf(cart.getPrice()))) + "đ");
 
 
-        long priceItemCartAll = (long) cart.getAmount_cart() * cart.getPrice();
+        long priceItemCartAll = (long) cart.getAmount_cart() * Long.parseLong(cart.getPrice());
         holder.textViewItemsPriceAllCart.setText(decimalFormat.format(Long.parseLong(String.valueOf(priceItemCartAll))) + "đ");
 
         Log.d("So luong", "onBindViewHolder: " +cart.getAmount_cart());
@@ -70,7 +70,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                         listCart.get(position).setAmount_cart(amount_new);
                     }
                     holder.soluongCartItems.setText(String.valueOf(listCart.get(position).getAmount_cart()));
-                    long priceItemNew = (long) listCart.get(position).getPrice() * listCart.get(position).getAmount_cart();
+                    long priceItemNew = Long.parseLong(listCart.get(position).getPrice()) * listCart.get(position).getAmount_cart();
                     DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
                     holder.textViewItemsPriceAllCart.setText(decimalFormat.format(priceItemNew));
                     EventBus.getDefault().postSticky(new TotalEventBus());
@@ -81,7 +81,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                         listCart.get(position).setAmount_cart(amount_new);
                     }
                     holder.soluongCartItems.setText(String.valueOf(listCart.get(position).getAmount_cart()));
-                    long priceItemNew = (long) listCart.get(position).getPrice() * listCart.get(position).getAmount_cart();
+                    long priceItemNew = Long.parseLong(listCart.get(position).getPrice()) * listCart.get(position).getAmount_cart();
                     DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
                     holder.textViewItemsPriceAllCart.setText(decimalFormat.format(priceItemNew));
                     EventBus.getDefault().postSticky(new TotalEventBus());

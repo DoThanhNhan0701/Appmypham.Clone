@@ -29,6 +29,7 @@ import com.example.appbanhang.model.Product;
 import com.example.appbanhang.retrofit.ApiSell;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.ArrayList;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     NotificationBadge notificationBadge;
+    FloatingActionButton floatingActionButton;
 
 
     @Override
@@ -69,11 +71,22 @@ public class MainActivity extends AppCompatActivity {
             actionViewFlipper();
             getProduct();
             getCategory();
+            cartProduct();
 
         }else{
             Toast.makeText(getApplicationContext(), "notConnect", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void cartProduct() {
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentCart = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(intentCart);
+            }
+        });
     }
 
     private void getProduct(){
@@ -170,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
         categoryList = new ArrayList<>();
         listItemsProducts = new ArrayList<>();
         notificationBadge = (NotificationBadge) findViewById(R.id.notificationbadge);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
 
 
     }

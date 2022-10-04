@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -31,7 +32,8 @@ public class CartActivity extends AppCompatActivity {
     TextView textViewNull;
     TextView btntotalPrice, btnbackHome, btnPay, textAmount;
     CartAdapter cartAdapter;
-    List<Cart> listCart;
+    long priceTotal;
+    int dem;
 
 
 
@@ -45,12 +47,26 @@ public class CartActivity extends AppCompatActivity {
         setDataCartProduct();
         totalPriceProduct();
         amountProduct();
+        payProduct();
 
+    }
+
+    private void payProduct() {
+        btnPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentPay = new Intent(getApplicationContext(), PayActivity.class);
+                intentPay.putExtra("priceTotal", priceTotal);
+                intentPay.putExtra("soluong", dem);
+                startActivity(intentPay);
+                finish();
+            }
+        });
     }
 
     @SuppressLint("SetTextI18n")
     private void amountProduct() {
-        int dem = 0;
+        dem = 0;
         for(int i = 0; i < ArrayListCart.arrayListCart.size(); i++){
             dem = dem + ArrayListCart.arrayListCart.get(i).getAmount_cart();
         }
@@ -59,10 +75,9 @@ public class CartActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void totalPriceProduct() {
-        long priceTotal = 0;
+        priceTotal = 0;
         for(int i = 0; i < ArrayListCart.arrayListCart.size(); i++){
-            priceTotal = priceTotal + ((long) ArrayListCart.arrayListCart.get(i).getPrice()
-                    * ArrayListCart.arrayListCart.get(i).getAmount_cart());
+            priceTotal = priceTotal + ((Long.parseLong(ArrayListCart.arrayListCart.get(i).getPrice()) * ArrayListCart.arrayListCart.get(i).getAmount_cart()));
         }
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         btntotalPrice.setText("TỔNG: "+decimalFormat.format(priceTotal));
@@ -123,9 +138,5 @@ public class CartActivity extends AppCompatActivity {
 
         textAmount = (TextView) findViewById(R.id.textViewAmount_cart);
         btntotalPrice = (TextView) findViewById(R.id.textViewPrice_cart_tong);
-
-
-
-
     }
 }

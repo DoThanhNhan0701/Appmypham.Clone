@@ -46,6 +46,7 @@ public class TitleProductActivity extends AppCompatActivity {
         setSpinner();
         setEvenSpinner();
         setIntentCart();
+
     }
 
     private void setIntentCart() {
@@ -66,14 +67,14 @@ public class TitleProductActivity extends AppCompatActivity {
                 if (ArrayListCart.arrayListCart.get(i).getId() == product.getId()){
                     ArrayListCart.arrayListCart.get(i).setAmount_cart(soluong + ArrayListCart.arrayListCart.get(i).getAmount_cart());
                     int price_new = product.getPrice_new() * ArrayListCart.arrayListCart.get(i).getAmount_cart();
-                    ArrayListCart.arrayListCart.get(i).setPrice((int) price_new);
+                    ArrayListCart.arrayListCart.get(i).setPrice(String.valueOf(price_new));
                     add = true;
                 }
             }
             if(!add){
                 int price_new = product.getPrice_new() * soluong;
                 Cart cart = new Cart();
-                cart.setPrice(price_new);
+                cart.setPrice(String.valueOf(price_new));
                 cart.setName(product.getName());
                 cart.setImages(product.getImages());
                 cart.setAmount_cart(soluong);
@@ -85,7 +86,7 @@ public class TitleProductActivity extends AppCompatActivity {
             int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
             int price_new = product.getPrice_new() * soluong;
             Cart cart = new Cart();
-            cart.setPrice(price_new);
+            cart.setPrice(String.valueOf(price_new));
             cart.setName(product.getName());
             cart.setImages(product.getImages());
             cart.setAmount_cart(soluong);
@@ -119,6 +120,7 @@ public class TitleProductActivity extends AppCompatActivity {
     @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
     private void actionTitle() {
         product = (Product) getIntent().getSerializableExtra("title");
+        toolbar.setTitle(product.getName());
 
         textViewNameTitle.setText(product.getName());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");

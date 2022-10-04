@@ -3,14 +3,14 @@ package com.example.appbanhang.model;
 public class Cart {
     private int id;
     private String name;
-    private int price;
+    private String price;
     private String images;
     private int amount_cart;
 
     public Cart() {
     }
 
-    public Cart(int id, String name, int price, String images, int amount_cart) {
+    public Cart(int id, String name, String price, String images, int amount_cart) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -34,11 +34,11 @@ public class Cart {
         this.name = name;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

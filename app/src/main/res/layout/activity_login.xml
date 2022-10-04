@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputGmail"
+            android:id="@+id/inputGmailLogin"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:textColor="#5B5B5B"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputPassword"
+            android:id="@+id/inputPasswordLogin"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:textColor="#5B5B5B"
@@ -58,7 +58,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/buttonSignup"
+        android:id="@+id/buttonLogin"
         android:layout_width="300dp"
         android:layout_height="55dp"
         android:layout_marginTop="200dp"
@@ -88,10 +88,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSignup" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textViewSignUpInLogin"
         android:layout_width="135dp"
         android:layout_height="16dp"
         android:layout_marginStart="7dp"
@@ -103,7 +103,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSignup" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
 
     <TextView
         android:id="@+id/textView7"
@@ -130,7 +130,7 @@
         android:layout_marginEnd="70dp"
         android:text="Forgot Password?"
         android:textColor="#3BA8BE"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSignup"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

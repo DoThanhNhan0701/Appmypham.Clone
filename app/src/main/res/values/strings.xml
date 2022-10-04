@@ -8,5 +8,15 @@
     <string name="repass">Nhập lại mật khẩu</string>
     <string name="login">Đăng kí</string>
     <string name="logindn">ĐĂNG NHÂP</string>
+    <string name="category">Sản phẩm mới nhất</string>
+    <string name="phone">Số điện thoại</string>
+    <string name="total_price">Tổng tiền</string>
+    <string name="district">Quận / huyện</string>
+    <string name="cityy">Tỉnh / thành</string>
+    <string name="address">Địa chỉ</string>
+    <string name="firstlastname">Họ và tên</string>
+    <string name="delivery">Thông tin giao hàng</string>
+    <string name="amount">Số lượng</string>
+    <string name="payproduct">THANH TOÁN</string>
 
 </resources>
