@@ -1,9 +1,11 @@
 package com.example.appbanhang.retrofit;
 
-import com.example.appbanhang.model.CartModel;
-import com.example.appbanhang.model.CategoryModel;
-import com.example.appbanhang.model.ProductModel;
-import com.example.appbanhang.model.UserModel;
+import com.example.appbanhang.list_result.CartModel;
+import com.example.appbanhang.list_result.CategoryModel;
+import com.example.appbanhang.list_result.ProductModel;
+import com.example.appbanhang.list_result.UserModel;
+
+import java.util.Date;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.Field;
@@ -18,7 +20,8 @@ public interface ApiSell {
     @GET("getproduct.php")
     Observable<ProductModel> getProduct();
 
-
+    @GET("getuser.php")
+    Observable<UserModel> getUser();
 
     @POST("getdetailcategory.php")
     @FormUrlEncoded
@@ -56,10 +59,21 @@ public interface ApiSell {
             @Field("phuong") String phuong,
             @Field("quan") String quan,
             @Field("diachi") String diachi,
+            @Field("create_date") Date create_date,
             @Field("chitiet") String chitiet
     );
 
-    @GET("getUser.php")
-    Observable<ProductModel> getUser();
+
+    @POST("forgotpassword.php")
+    @FormUrlEncoded
+    Observable<UserModel> getGmailRePass(
+            @Field("gmail") String gmail
+    );
+
+    @POST("vieworder.php")
+    @FormUrlEncoded
+    Observable<UserModel> getViewOrder(
+            @Field("gmail") int iduser
+    );
 
 }

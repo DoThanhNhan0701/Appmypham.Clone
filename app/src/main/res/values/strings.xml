@@ -7,7 +7,8 @@
     <string name="pass">Mật khẩu</string>
     <string name="repass">Nhập lại mật khẩu</string>
     <string name="login">Đăng kí</string>
-    <string name="logindn">ĐĂNG NHÂP</string>
+    <string name="logindn">ĐĂNG NHẬP</string>
+    <string name="loginrepass">QUÊN MẬT KHẨU</string>
     <string name="category">Sản phẩm mới nhất</string>
     <string name="phone">Số điện thoại</string>
     <string name="total_price">Tổng tiền</string>
@@ -18,5 +19,7 @@
     <string name="delivery">Thông tin giao hàng</string>
     <string name="amount">Số lượng</string>
     <string name="payproduct">THANH TOÁN</string>
+    <string name="codepass">Lấy mã</string>
+    <string name="detailorder">Detail</string>
 
 </resources>

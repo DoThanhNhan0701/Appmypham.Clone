@@ -22,6 +22,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -61,13 +64,9 @@ public class PayActivity extends AppCompatActivity {
 
         txtTotalPricePay.setText("Tổng tiền: " + decimalFormat.format(totalPrice) + " đ");
         txtSoluong.setText("Số lượng: " + soluong);
-        txtNamePay.setText("Họ và tên: " + Utils.userCurrent.getFirst_name());
+        txtNamePay.setText("Họ và tên: " + Utils.userCurrent.getFirst_name() + " " + Utils.userCurrent.getLast_name());
+        txtGmailPay.setText("Gmail: " + Utils.userCurrent.getGmail());
         txtPhonePay.setText("Số điện thoại: "+ Utils.userCurrent.getPhone());
-
-        Log.d("totalPrice", "setInforPayDB: " + Utils.userCurrent.getFirst_name());
-        Log.d("totalPrice", "setInforPayDB: " + Utils.userCurrent.getPhone());
-        Log.d("totalPrice", "setInforPayDB: " + Utils.userCurrent.getGmail());
-
 
     }
 
@@ -95,16 +94,19 @@ public class PayActivity extends AppCompatActivity {
                 else{
                     Log.d("", new Gson().toJson(ArrayListCart.arrayListCart));
                     int idUser = Utils.userCurrent.getId();
+                    String sdt = Utils.userCurrent.getPhone();
                     String gmail = Utils.userCurrent.getGmail();
+                    long millis=System.currentTimeMillis();
+                    java.sql.Date date = new java.sql.Date(millis);
+
 
                     compositeDisposable.add(apiSell.addCreateOrder
-                            (idUser, String.valueOf(totalPrice), soluong, gmail, 123456789, nameCity, nameDistrict, nameXa, nameAddress, new Gson().toJson(ArrayListCart.arrayListCart))
+                            (idUser, String.valueOf(totalPrice), soluong, gmail, Integer.parseInt(sdt), nameCity, nameDistrict, nameXa, nameAddress, date, new Gson().toJson(ArrayListCart.arrayListCart))
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                     cartModel -> {
-                                        Log.d("PPPay", "onClick: " + cartModel.isSuccess());
-                                        Toast.makeText(PayActivity.this, "thanh cong", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(PayActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
                                         Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intentMain);
                                         finish();

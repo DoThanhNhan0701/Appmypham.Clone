@@ -18,6 +18,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.ViewOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.PayActivity"
             android:exported="false" />
         <activity
@@ -36,16 +42,16 @@
             android:name=".activity.CartActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.TitleProductActivity"
+            android:name=".activity.DetailProductActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.TitleCategoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.DetailCategoryActivity"
             android:exported="false" />
         <activity
             android:name=".activity.IntroActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MainActivity"
             android:exported="false" />
     </application>
 

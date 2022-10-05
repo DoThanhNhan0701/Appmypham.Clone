@@ -1,11 +1,13 @@
-package com.example.appbanhang.model;
+package com.example.appbanhang.list_result;
+
+import com.example.appbanhang.model.User;
 
 import java.util.List;
 
-public class ProductModel {
+public class UserModel {
     private boolean success;
     private String message;
-    List<Product> result;
+    private List<User> result;
 
     public boolean isSuccess() {
         return success;
@@ -23,11 +25,11 @@ public class ProductModel {
         this.message = message;
     }
 
-    public List<Product> getResult() {
+    public List<User> getResult() {
         return result;
     }
 
-    public void setResult(List<Product> result) {
+    public void setResult(List<User> result) {
         this.result = result;
     }
 }

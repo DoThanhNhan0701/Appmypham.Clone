@@ -40,8 +40,8 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
-
-    ImageView imageViewUser;
+    ImageView imageViewDetailOrder;
+    ImageView imageViewUser, imageLogin;
     ViewFlipper viewFlipper;
     RecyclerView recyclerViewProduct;
     RecyclerView recyclerViewCategory;
@@ -72,11 +72,22 @@ public class MainActivity extends AppCompatActivity {
             getProduct();
             getCategory();
             cartProduct();
+            getDetailOrder();
 
         }else{
             Toast.makeText(getApplicationContext(), "notConnect", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void getDetailOrder() {
+        imageViewDetailOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentDetailOrder = new Intent(getApplicationContext(), ViewOrderActivity.class);
+                startActivity(intentDetailOrder);
+            }
+        });
     }
 
     private void cartProduct() {
@@ -114,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 categoryModel ->{
+                    Log.d("#", "test : "+ categoryModel.getResult());
                     if (categoryModel.isSuccess()) {
                         categoryList = categoryModel.getResult();
                         categoryAdapter = new CategoryAdapter(getApplicationContext(), categoryList);
@@ -169,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void mapping() {
+        imageLogin = (ImageView) findViewById(R.id.imageLogin);
         viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
         recyclerViewProduct = (RecyclerView) findViewById(R.id.recyclerViewProduct);
         recyclerViewCategory = (RecyclerView) findViewById(R.id.recyclerViewCategory);
@@ -184,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         listItemsProducts = new ArrayList<>();
         notificationBadge = (NotificationBadge) findViewById(R.id.notificationbadge);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        imageViewDetailOrder = (ImageView) findViewById(R.id.imageDetailOrder);
 
 
     }

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appbanhang.R;
-import com.example.appbanhang.activity.TitleProductActivity;
+import com.example.appbanhang.activity.DetailProductActivity;
 import com.example.appbanhang.interFace.ItemClickListener;
 import com.example.appbanhang.model.Product;
 
@@ -114,7 +114,7 @@ public class TitileCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 @Override
                 public void onClick(View view, int position, boolean isLongClick) {
                     if(!isLongClick){
-                        Intent intentTitle = new Intent(context, TitleProductActivity.class);
+                        Intent intentTitle = new Intent(context, DetailProductActivity.class);
                         intentTitle.putExtra("title", product);
                         intentTitle.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intentTitle);

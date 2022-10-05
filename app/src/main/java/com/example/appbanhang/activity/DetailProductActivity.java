@@ -24,7 +24,7 @@ import com.nex3z.notificationbadge.NotificationBadge;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class TitleProductActivity extends AppCompatActivity {
+public class DetailProductActivity extends AppCompatActivity {
     Toolbar toolbar;
     ImageView imageViewTitile, imageViewUser, imageViewAddCart;
     TextView textViewNameTitle, textViewNamePrice_new, textViewNamePrice_old, textViewCreteDate;

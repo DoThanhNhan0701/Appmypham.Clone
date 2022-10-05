@@ -1,4 +1,6 @@
-package com.example.appbanhang.model;
+package com.example.appbanhang.list_result;
+
+import com.example.appbanhang.model.Category;
 
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class CategoryModel {
     }
 
     public List<Category> getResult() {
+//        this.result.add(new Category(1, "test", "note", "https://didongviet.vn/dchannel/wp-content/uploads/2022/01/cute-didongviet.jpg"));
         return result;
     }
 
