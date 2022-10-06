@@ -93,7 +93,13 @@ public class TitileCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         if(holder instanceof MyViewHolder){
             MyViewHolder myViewHolder = (MyViewHolder) holder;
             Product product = listTitleCategoryAdapter.get(position);
-            myViewHolder.textViewName.setText(product.getName());
+
+            String categoryProduct = product.getName();
+            if(categoryProduct.length() <= 19){
+                myViewHolder.textViewName.setText(categoryProduct);
+            }else{
+                myViewHolder.textViewName.setText(categoryProduct.substring(0, 20) +"...");
+            }
 
             DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
             myViewHolder.textViewPrice_new.setText(decimalFormat.format(Double

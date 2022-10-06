@@ -47,9 +47,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Cart cart = listCart.get(position);
-        holder.textViewNameCartItems.setText(cart.getName());
-        holder.soluongCartItems.setText(String.valueOf(cart.getAmount_cart()));
+        String nameCart = cart.getName();
+        if(nameCart.length() <= 15){
+            holder.textViewNameCartItems.setText(nameCart);
+        }else{
+            holder.textViewNameCartItems.setText(nameCart.substring(0,16) +"...");
+        }
 
+        holder.soluongCartItems.setText(String.valueOf(cart.getAmount_cart()));
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         holder.textViewPriceCartItems.setText(decimalFormat.format(Double.parseDouble(String.valueOf(cart.getPrice()))) + "đ");
 

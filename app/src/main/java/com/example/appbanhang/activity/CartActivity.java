@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.appbanhang.R;
@@ -55,11 +56,16 @@ public class CartActivity extends AppCompatActivity {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentPay = new Intent(getApplicationContext(), PayActivity.class);
-                intentPay.putExtra("priceTotal", priceTotal);
-                intentPay.putExtra("soluong", dem);
-                startActivity(intentPay);
-                finish();
+                if(priceTotal == 0){
+                    Toast.makeText(CartActivity.this, "Giỏ hàng của bạn đang trống, không thể thanh toán được !", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Intent intentPay = new Intent(getApplicationContext(), PayActivity.class);
+                    intentPay.putExtra("priceTotal", priceTotal);
+                    intentPay.putExtra("soluong", dem);
+                    startActivity(intentPay);
+                    finish();
+                }
             }
         });
     }
@@ -97,7 +103,6 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void setActionToolBar() {
-
         toolbar.setNavigationIcon(R.drawable.icon_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

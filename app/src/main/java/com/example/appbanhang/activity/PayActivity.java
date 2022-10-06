@@ -94,14 +94,16 @@ public class PayActivity extends AppCompatActivity {
                 else{
                     Log.d("", new Gson().toJson(ArrayListCart.arrayListCart));
                     int idUser = Utils.userCurrent.getId();
-                    String sdt = Utils.userCurrent.getPhone();
-                    String gmail = Utils.userCurrent.getGmail();
-                    long millis=System.currentTimeMillis();
+                    String sdt = Utils.userCurrent.getPhone().toString().trim();
+                    String gmail = Utils.userCurrent.getGmail().toString().trim();
+                    long millis = System.currentTimeMillis();
                     java.sql.Date date = new java.sql.Date(millis);
 
 
                     compositeDisposable.add(apiSell.addCreateOrder
-                            (idUser, String.valueOf(totalPrice), soluong, gmail, Integer.parseInt(sdt), nameCity, nameDistrict, nameXa, nameAddress, date, new Gson().toJson(ArrayListCart.arrayListCart))
+                            (idUser, String.valueOf(totalPrice), soluong, gmail, Integer.parseInt(sdt),
+                                    nameCity, nameDistrict, nameXa, nameAddress, date, new Gson().toJson(ArrayListCart.arrayListCart))
+
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(

@@ -2,7 +2,10 @@ package com.example.appbanhang.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -38,7 +41,11 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
         mapping();
-        setSignupApp();
+        if(ConnectInternet(SignupActivity.this)){
+            setSignupApp();
+        }else{
+            Toast.makeText(getApplicationContext(), "Bạn chưa kết nối Internet", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setSignupApp() {
@@ -113,7 +120,20 @@ public class SignupActivity extends AppCompatActivity {
 
 
     }
+    private boolean ConnectInternet(Context context){
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if((wifi != null && wifi.isConnected()) || (mobile != null && mobile.isConnected())){
+            Log.d("connect", "Connect thanh cong");
+            return true;
+        }
+        else{
+            Log.d("connect", "Connect that bai");
+            return false;
+        }
 
+    }
     @Override
     protected void onDestroy() {
         compositeDisposable.clear();

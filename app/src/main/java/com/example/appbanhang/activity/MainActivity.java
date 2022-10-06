@@ -16,11 +16,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.example.appbanhang.R;
+import com.example.appbanhang.adapter.CartAdapter;
 import com.example.appbanhang.adapter.CategoryAdapter;
 import com.example.appbanhang.adapter.ProductAdapter;
 import com.example.appbanhang.model.Cart;
@@ -28,6 +30,7 @@ import com.example.appbanhang.model.Category;
 import com.example.appbanhang.model.Product;
 import com.example.appbanhang.retrofit.ApiSell;
 import com.example.appbanhang.retrofit.RetrofitCliend;
+import com.example.appbanhang.utils.ArrayListCart;
 import com.example.appbanhang.utils.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nex3z.notificationbadge.NotificationBadge;
@@ -40,6 +43,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
+    TextView textViewUser;
     ImageView imageViewDetailOrder;
     ImageView imageViewUser, imageLogin;
     ViewFlipper viewFlipper;
@@ -71,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
             actionViewFlipper();
             getProduct();
             getCategory();
-            cartProduct();
-            getDetailOrder();
+            setActivityLayout();
+            setDataUser();
 
         }else{
             Toast.makeText(getApplicationContext(), "notConnect", Toast.LENGTH_SHORT).show();
@@ -80,22 +84,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void getDetailOrder() {
-        imageViewDetailOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentDetailOrder = new Intent(getApplicationContext(), ViewOrderActivity.class);
-                startActivity(intentDetailOrder);
-            }
-        });
+    private void setDataUser() {
+        String userName = Utils.userCurrent.getLast_name();
+        textViewUser.setText(userName);
     }
 
-    private void cartProduct() {
+    private void setActivityLayout() {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentCart = new Intent(getApplicationContext(), CartActivity.class);
                 startActivity(intentCart);
+            }
+        });
+        imageViewDetailOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentDetailOrder = new Intent(getApplicationContext(), ViewOrderActivity.class);
+                startActivity(intentDetailOrder);
             }
         });
     }
@@ -181,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void mapping() {
+        textViewUser = (TextView) findViewById(R.id.textNameUser);
         imageLogin = (ImageView) findViewById(R.id.imageLogin);
         viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
         recyclerViewProduct = (RecyclerView) findViewById(R.id.recyclerViewProduct);

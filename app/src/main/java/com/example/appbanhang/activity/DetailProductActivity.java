@@ -122,7 +122,13 @@ public class DetailProductActivity extends AppCompatActivity {
         product = (Product) getIntent().getSerializableExtra("title");
         toolbar.setTitle(product.getName());
 
-        textViewNameTitle.setText(product.getName());
+        String detailProduct = product.getName();
+        if(detailProduct.length() <= 17){
+            textViewNameTitle.setText(detailProduct);
+        }else{
+            textViewNameTitle.setText(detailProduct.substring(0, 18) +"...");
+        }
+
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         textViewNamePrice_new.setText(decimalFormat.format(Double
                 .parseDouble(String.valueOf(product.getPrice_new()))) + " đ");

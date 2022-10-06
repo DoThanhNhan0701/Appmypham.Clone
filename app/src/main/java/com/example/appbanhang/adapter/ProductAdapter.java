@@ -70,7 +70,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Product product = listItemsProduct.get(position);
-        holder.textViewName.setText(product.getName());
+        String nameProduct = product.getName();
+        if(nameProduct.length() <= 15){
+            holder.textViewName.setText(nameProduct);
+        }
+        else{
+            holder.textViewName.setText(nameProduct.substring(0, 16) +"...");
+        }
 
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         holder.textViewPrice_new.setText(decimalFormat.format(Double

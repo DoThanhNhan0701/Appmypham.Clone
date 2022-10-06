@@ -21,5 +21,16 @@
     <string name="payproduct">THANH TOÁN</string>
     <string name="codepass">Lấy mã</string>
     <string name="detailorder">Detail</string>
+    <string name="soluong">Số lượng</string>
+    <string name="next">Tiếp tục mua</string>
+    <string name="pay">Thanh toán</string>
+    <string name="cart">GIỎ HÀNG</string>
+    <string name="nullcart">Giỏ hàng của bạn trống</string>
+    <string name="resuiltpay">Tiếp tục với phương thức thanh toán</string>
+    <string name="addcart">Thêm vào giỏ hàng</string>
+    <string name="data_detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="datedetail">22/09/2022</string>
+    <string name="nameproduct">TNhan</string>
+    <string name="product">SẢN PHẨM</string>
 
 </resources>

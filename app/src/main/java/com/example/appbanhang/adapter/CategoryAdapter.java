@@ -1,6 +1,7 @@
 package com.example.appbanhang.adapter;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -62,10 +63,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         return new CategoryAdapter.MyViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.MyViewHolder holder, int position) {
         Category category = listItemsCategory.get(position);
-        holder.textViewName.setText(category.getName());
+
+        String nameCategory = category.getName();
+        if(nameCategory.length() <= 8){
+            holder.textViewName.setText(nameCategory);
+        }
+        else{
+            holder.textViewName.setText(nameCategory.substring(0, 9)+"...");
+        }
+
         Glide.with(context).load(category.getImage()).into(holder.imageViewCategory);
         holder.setItemClickListener(new ItemClickListener() {
             @Override
