@@ -4,6 +4,7 @@ import com.example.appbanhang.list_result.CartModel;
 import com.example.appbanhang.list_result.CategoryModel;
 import com.example.appbanhang.list_result.ProductModel;
 import com.example.appbanhang.list_result.UserModel;
+import com.example.appbanhang.list_result.ViewOrderModel;
 
 import java.util.Date;
 
@@ -72,8 +73,8 @@ public interface ApiSell {
 
     @POST("vieworder.php")
     @FormUrlEncoded
-    Observable<UserModel> getViewOrder(
-            @Field("gmail") int iduser
+    Observable<ViewOrderModel> getViewOrder(
+            @Field("iduser") int iduser
     );
 
 }

@@ -32,5 +32,6 @@
     <string name="datedetail">22/09/2022</string>
     <string name="nameproduct">TNhan</string>
     <string name="product">SẢN PHẨM</string>
+    <string name="title_cart">ĐƠN HÀNG</string>
 
 </resources>

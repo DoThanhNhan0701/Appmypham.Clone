@@ -26,7 +26,6 @@ public class CategoryModel {
     }
 
     public List<Category> getResult() {
-//        this.result.add(new Category(1, "test", "note", "https://didongviet.vn/dchannel/wp-content/uploads/2022/01/cute-didongviet.jpg"));
         return result;
     }
 

@@ -79,19 +79,15 @@ public class PayActivity extends AppCompatActivity {
                 String nameXa = Objects.requireNonNull(textInputXa.getText()).toString().trim();
                 String nameAddress = Objects.requireNonNull(textInputAdress.getText()).toString().trim();
 
-                if (TextUtils.isEmpty(nameCity)){
+                if (TextUtils.isEmpty(nameCity)) {
                     Toast.makeText(getApplicationContext(), "Bạn chưa nhập Tỉnh / thành", Toast.LENGTH_SHORT).show();
-                }
-                else if(TextUtils.isEmpty(nameDistrict)){
+                } else if (TextUtils.isEmpty(nameDistrict)) {
                     Toast.makeText(getApplicationContext(), "Bạn chưa nhập Quận / huyện", Toast.LENGTH_SHORT).show();
-                }
-                else if(TextUtils.isEmpty(nameXa)){
+                } else if (TextUtils.isEmpty(nameXa)) {
                     Toast.makeText(getApplicationContext(), "Bạn chưa nhập Phường / xã", Toast.LENGTH_SHORT).show();
-                }
-                else if(TextUtils.isEmpty(nameAddress)){
+                } else if (TextUtils.isEmpty(nameAddress)) {
                     Toast.makeText(getApplicationContext(), "Bạn chưa nhập địa chỉ", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     Log.d("", new Gson().toJson(ArrayListCart.arrayListCart));
                     int idUser = Utils.userCurrent.getId();
                     String sdt = Utils.userCurrent.getPhone().toString().trim();
@@ -101,8 +97,7 @@ public class PayActivity extends AppCompatActivity {
 
 
                     compositeDisposable.add(apiSell.addCreateOrder
-                            (idUser, String.valueOf(totalPrice), soluong, gmail, Integer.parseInt(sdt),
-                                    nameCity, nameDistrict, nameXa, nameAddress, date, new Gson().toJson(ArrayListCart.arrayListCart))
+                                    (idUser, String.valueOf(totalPrice), soluong, gmail, Integer.parseInt(sdt), nameCity, nameDistrict, nameXa, nameAddress, date, new Gson().toJson(ArrayListCart.arrayListCart))
 
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
@@ -122,6 +117,7 @@ public class PayActivity extends AppCompatActivity {
                     );
                 }
             }
+
         });
     }
 

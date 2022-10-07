@@ -1,11 +1,15 @@
 package com.example.appbanhang.list_result;
 
-import com.example.appbanhang.model.ItemOrder;
-import com.example.appbanhang.model.User;
+import com.example.appbanhang.model.ViewOrder;
 
 import java.util.List;
 
 public class ViewOrderModel {
+    private boolean success;
+    private String message;
+    private List<ViewOrder> result;
+
+
     public boolean isSuccess() {
         return success;
     }
@@ -22,15 +26,11 @@ public class ViewOrderModel {
         this.message = message;
     }
 
-    public List<ItemOrder> getResult() {
+    public List<ViewOrder> getResult() {
         return result;
     }
 
-    public void setResult(List<ItemOrder> result) {
+    public void setResult(List<ViewOrder> result) {
         this.result = result;
     }
-
-    private boolean success;
-    private String message;
-    private List<ItemOrder> result;
 }
