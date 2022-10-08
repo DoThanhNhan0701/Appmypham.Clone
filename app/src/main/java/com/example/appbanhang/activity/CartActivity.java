@@ -1,20 +1,20 @@
 package com.example.appbanhang.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.appbanhang.R;
 import com.example.appbanhang.adapter.CartAdapter;
-import com.example.appbanhang.model.Cart;
 import com.example.appbanhang.utils.ArrayListCart;
 import com.example.appbanhang.utils.eventbus.TotalEventBus;
 
@@ -23,15 +23,14 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     RecyclerView recyclerViewCart;
     TextView textViewNull;
-    TextView btntotalPrice, btnbackHome, btnPay, textAmount;
+    Button buttonPay, buttonBackHome;
+    TextView btntotalPrice, textAmount;
     CartAdapter cartAdapter;
     long priceTotal;
     int dem;
@@ -53,7 +52,7 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void payProduct() {
-        btnPay.setOnClickListener(new View.OnClickListener() {
+        buttonPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(priceTotal == 0){
@@ -68,6 +67,16 @@ public class CartActivity extends AppCompatActivity {
                 }
             }
         });
+        buttonBackHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intentMain);
+                finish();
+            }
+        });
+
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -138,8 +147,8 @@ public class CartActivity extends AppCompatActivity {
         recyclerViewCart = (RecyclerView) findViewById(R.id.RecycleViewCartUser);
         textViewNull = (TextView) findViewById(R.id.textNameCartNull);
 
-        btnbackHome = (TextView) findViewById(R.id.textViewBack_cart);
-        btnPay = (TextView) findViewById(R.id.textViewAddCartItem);
+        buttonBackHome = (Button) findViewById(R.id.textViewBack_cart);
+        buttonPay = (Button) findViewById(R.id.textViewAddCartItem);
 
         textAmount = (TextView) findViewById(R.id.textViewAmount_cart);
         btntotalPrice = (TextView) findViewById(R.id.textViewPrice_cart_tong);

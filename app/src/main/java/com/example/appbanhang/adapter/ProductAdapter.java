@@ -77,7 +77,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         else{
             holder.textViewName.setText(nameProduct.substring(0, 16) +"...");
         }
-
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         holder.textViewPrice_new.setText(decimalFormat.format(Double
                 .parseDouble(String.valueOf(product.getPrice_new()))) + "đ");

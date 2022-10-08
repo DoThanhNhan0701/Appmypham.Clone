@@ -1,5 +1,6 @@
 package com.example.appbanhang.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.example.appbanhang.R;
 import com.example.appbanhang.activity.IntroActivity;
 import com.example.appbanhang.activity.MainActivity;
+
 
 public class SlideAdapter extends PagerAdapter {
     Context context;
@@ -34,10 +36,11 @@ public class SlideAdapter extends PagerAdapter {
     }
 
 
+    @SuppressLint("SetTextI18n")
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int i) {
-        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.activity_intro, container,  false);
 
 
@@ -56,7 +59,7 @@ public class SlideAdapter extends PagerAdapter {
                 imageView1.setImageResource(R.drawable.seleted);
                 imageView2.setImageResource(R.drawable.unselected);
                 imageView3.setImageResource(R.drawable.unselected);
-                logoView.setImageResource(R.drawable.logo1);
+                logoView.setImageResource(R.drawable.introl0);
                 title.setText("Mua sắm mõi lúc, mọi nơi");
                 description.setText("Thời gian miễn phí, nhưng nó vô giá. Bạn không thể sở hữu nó, nhưng bạn có thể sử dụng nói");
                 back.setVisibility(View.GONE);
@@ -66,7 +69,7 @@ public class SlideAdapter extends PagerAdapter {
                 imageView1.setImageResource(R.drawable.unselected);
                 imageView2.setImageResource(R.drawable.seleted);
                 imageView3.setImageResource(R.drawable.unselected);
-                logoView.setImageResource(R.drawable.logo2);
+                logoView.setImageResource(R.drawable.intro1);
                 title.setText("Mua sắm mõi lúc, mọi nơi");
                 description.setText("Thời gian miễn phí, nhưng nó vô giá. Bạn không thể sở hữu nó, nhưng bạn có thể sử dụng nói");
                 back.setVisibility(View.VISIBLE);
@@ -76,7 +79,7 @@ public class SlideAdapter extends PagerAdapter {
                 imageView1.setImageResource(R.drawable.unselected);
                 imageView2.setImageResource(R.drawable.unselected);
                 imageView3.setImageResource(R.drawable.seleted);
-                logoView.setImageResource(R.drawable.logo3);
+                logoView.setImageResource(R.drawable.introl2);
 
                 title.setText("Mua sắm mõi lúc, mọi nơi");
                 description.setText("Thời gian miễn phí, nhưng nó vô giá. Bạn không thể sở hữu nó, nhưng bạn có thể sử dụng nói");

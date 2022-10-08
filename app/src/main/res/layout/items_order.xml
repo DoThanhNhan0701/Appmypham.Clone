@@ -3,20 +3,38 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-
     android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/txtNameOrder"
-        android:text="@string/title_cart"
-        android:textColor="#FF5722"
-        android:textSize="18sp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:textStyle="bold"
-        android:layout_marginStart="10dp"
+    <LinearLayout
+        android:weightSum="10"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </TextView>
+
+        <TextView
+            android:layout_weight="6"
+            android:id="@+id/txtIdOrder"
+            android:text="@string/title_cart"
+            android:textColor="#FF5722"
+            android:textSize="18sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+        <TextView
+            android:layout_weight="4"
+            android:id="@+id/txtDateOder"
+            android:text="@string/date"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerItemOrder"
         android:layout_width="match_parent"

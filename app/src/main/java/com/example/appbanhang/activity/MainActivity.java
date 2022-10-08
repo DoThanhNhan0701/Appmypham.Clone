@@ -1,9 +1,5 @@
 package com.example.appbanhang.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -13,19 +9,19 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.appbanhang.R;
-import com.example.appbanhang.adapter.CartAdapter;
 import com.example.appbanhang.adapter.CategoryAdapter;
 import com.example.appbanhang.adapter.ProductAdapter;
-import com.example.appbanhang.model.Cart;
 import com.example.appbanhang.model.Category;
 import com.example.appbanhang.model.Product;
 import com.example.appbanhang.retrofit.ApiSell;
@@ -44,6 +40,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
     TextView textViewUser;
+    TextView textViewSearch;
     ImageView imageViewDetailOrder;
     ImageView imageViewUser, imageLogin;
     ViewFlipper viewFlipper;
@@ -71,17 +68,26 @@ public class MainActivity extends AppCompatActivity {
         apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
         mapping();
 
-        if(ConnectInternet(this)){
+        if (ConnectInternet(this)) {
             actionViewFlipper();
             getProduct();
             getCategory();
             setActivityLayout();
             setDataUser();
-
-        }else{
+            searchProduct();
+        } else {
             Toast.makeText(getApplicationContext(), "notConnect", Toast.LENGTH_SHORT).show();
         }
+    }
 
+    private void searchProduct() {
+        textViewSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentSearch = new Intent(getApplicationContext(), SearchProductActivity.class);
+                startActivity(intentSearch);
+            }
+        });
     }
 
     private void setDataUser() {
@@ -90,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setActivityLayout() {
+        if(ArrayListCart.arrayListCart == null){
+            ArrayListCart.arrayListCart = new ArrayList<>();
+        }
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,13 +115,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void getProduct(){
+    private void getProduct() {
         compositeDisposable.add(apiSell.getProduct()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         productModel -> {
-                            if(productModel.isSuccess()){
+                            if (productModel.isSuccess()) {
                                 listItemsProducts = productModel.getResult();
                                 productAdapter = new ProductAdapter(getApplicationContext(), listItemsProducts);
                                 recyclerViewProduct.setAdapter(productAdapter);
@@ -125,23 +134,23 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    private void getCategory(){
+    private void getCategory() {
         compositeDisposable.add(apiSell.getCategory()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                categoryModel ->{
-                    Log.d("#", "test : "+ categoryModel.getResult());
-                    if (categoryModel.isSuccess()) {
-                        categoryList = categoryModel.getResult();
-                        categoryAdapter = new CategoryAdapter(getApplicationContext(), categoryList);
-                        recyclerViewCategory.setAdapter(categoryAdapter);
-                    }
-                },
-                    throwable -> {
-                        Toast.makeText(getApplicationContext(), "Khong get category duuo", Toast.LENGTH_SHORT).show();
-                    }
-            )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        categoryModel -> {
+                            Log.d("#", "test : " + categoryModel.getResult());
+                            if (categoryModel.isSuccess()) {
+                                categoryList = categoryModel.getResult();
+                                categoryAdapter = new CategoryAdapter(getApplicationContext(), categoryList);
+                                recyclerViewCategory.setAdapter(categoryAdapter);
+                            }
+                        },
+                        throwable -> {
+                            Toast.makeText(getApplicationContext(), "Khong get category duuo", Toast.LENGTH_SHORT).show();
+                        }
+                )
         );
     }
 
@@ -151,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         listItemsQuangcao.add("http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-Le-hoi-phu-kien-800-300.png");
         listItemsQuangcao.add("http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-HC-Tra-Gop-800-300.png");
         listItemsQuangcao.add("http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-big-ky-nguyen-800-300.jpg");
-        for (int i = 0 ; i < listItemsQuangcao.size(); i++){
+        for (int i = 0; i < listItemsQuangcao.size(); i++) {
             ImageView imageView = new ImageView(getApplicationContext());
             Glide.with(getApplicationContext()).load(listItemsQuangcao.get(i)).into(imageView);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -165,15 +174,14 @@ public class MainActivity extends AppCompatActivity {
         viewFlipper.setOutAnimation(slide_left);
     }
 
-    private boolean ConnectInternet(Context context){
+    private boolean ConnectInternet(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        if((wifi != null && wifi.isConnected()) || (mobile != null && mobile.isConnected())){
+        if ((wifi != null && wifi.isConnected()) || (mobile != null && mobile.isConnected())) {
             Log.d("connect", "Connect thanh cong");
             return true;
-        }
-        else{
+        } else {
             Log.d("connect", "Connect that bai");
             return false;
         }
@@ -187,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void mapping() {
+        textViewSearch = (TextView) findViewById(R.id.txtSearchNameProduct);
         textViewUser = (TextView) findViewById(R.id.textNameUser);
         imageLogin = (ImageView) findViewById(R.id.imageLogin);
         viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
@@ -208,5 +217,4 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
 }

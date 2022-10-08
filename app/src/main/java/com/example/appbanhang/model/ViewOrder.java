@@ -1,5 +1,6 @@
 package com.example.appbanhang.model;
 
+import java.util.Date;
 import java.util.List;
 
 public class ViewOrder {
@@ -10,6 +11,7 @@ public class ViewOrder {
     private String quan;
     private String phuong;
     private String diachi;
+    private Date dateOrder;
     List<ProductOrder> productorder;
 
     public int getId() {
@@ -66,6 +68,14 @@ public class ViewOrder {
 
     public void setDiachi(String diachi) {
         this.diachi = diachi;
+    }
+
+    public Date getDateOrder() {
+        return dateOrder;
+    }
+
+    public void setDateOrder(Date dateOrder) {
+        this.dateOrder = dateOrder;
     }
 
     public List<ProductOrder> getProductorder() {

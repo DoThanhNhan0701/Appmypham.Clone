@@ -33,5 +33,8 @@
     <string name="nameproduct">TNhan</string>
     <string name="product">SẢN PHẨM</string>
     <string name="title_cart">ĐƠN HÀNG</string>
+    <string name="date">Ngày</string>
+    <string name="search">Search</string>
+    <string name="search_input">Search...</string>
 
 </resources>

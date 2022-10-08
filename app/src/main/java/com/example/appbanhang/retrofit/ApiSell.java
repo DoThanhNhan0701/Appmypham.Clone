@@ -77,4 +77,9 @@ public interface ApiSell {
             @Field("iduser") int iduser
     );
 
+    @POST("searchproduct.php")
+    @FormUrlEncoded
+    Observable<ProductModel> getSearchProduct(
+            @Field("search") String search
+    );
 }

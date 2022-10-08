@@ -5,6 +5,24 @@ public class ProductOrder {
     private int idorder;
     private String name;
     private String images;
+    private String price;
+    private int soluong;
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public int getSoluong() {
+        return soluong;
+    }
+
+    public void setSoluong(int soluong) {
+        this.soluong = soluong;
+    }
 
     public int getId() {
         return id;

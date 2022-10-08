@@ -36,10 +36,10 @@
         android:layout_marginTop="20dp"
         android:layout_toEndOf="@id/imageViewDetailOrder"
         android:text="@string/price"
-        android:textColor="#070707"
-        android:textSize="18sp"
-        android:textStyle="bold">
-    </TextView>
+        android:textColor="#FD0808"
+        android:textSize="16sp"
+        android:textStyle="bold"></TextView>
+
     <TextView
         android:id="@+id/txtNameDetailSoLuong"
         android:layout_width="match_parent"
@@ -50,8 +50,7 @@
         android:layout_toEndOf="@id/imageViewDetailOrder"
         android:text="@string/sl"
         android:textColor="#070707"
-        android:textSize="18sp"
-        android:textStyle="bold">
-    </TextView>
+        android:textSize="16sp"
+        android:textStyle="bold"></TextView>
 
 </RelativeLayout>

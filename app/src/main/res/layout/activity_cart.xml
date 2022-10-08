@@ -19,35 +19,35 @@
     </Toolbar>
 
     <LinearLayout
-        android:layout_weight="9.3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_marginTop="0dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_weight="9.3"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textNameCartNull"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:visibility="gone"
+            android:text="@string/nullcart"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:text="@string/nullcart"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:visibility="gone">
 
         </TextView>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecycleViewCartUser"
             android:layout_width="match_parent"
-            android:layout_height="515dp">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="510dp"></androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
     <LinearLayout
         android:layout_weight="0.7"
-        android:layout_margin="5dp"
         android:layout_marginBottom="0dp"
+        android:layout_gravity="bottom"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -81,6 +81,7 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -88,8 +89,7 @@
                 android:id="@+id/textViewBack_cart"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-
+                android:layout_marginRight="20dp"
                 android:backgroundTint="@color/purple_700"
                 android:text="@string/next"
                 android:textAllCaps="false">
@@ -100,7 +100,7 @@
                 android:id="@+id/textViewAddCartItem"
                 android:textAllCaps="false"
                 android:backgroundTint="@color/purple_700"
-                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="20dp"
                 android:text="@string/pay"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content">
