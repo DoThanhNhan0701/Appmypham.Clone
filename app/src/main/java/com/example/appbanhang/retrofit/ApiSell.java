@@ -1,7 +1,10 @@
 package com.example.appbanhang.retrofit;
 
+import com.example.appbanhang.list_result.AddProductModel;
+import com.example.appbanhang.list_result.AddressModel;
 import com.example.appbanhang.list_result.CartModel;
 import com.example.appbanhang.list_result.CategoryModel;
+import com.example.appbanhang.list_result.MagazineModel;
 import com.example.appbanhang.list_result.ProductModel;
 import com.example.appbanhang.list_result.UserModel;
 import com.example.appbanhang.list_result.ViewOrderModel;
@@ -18,16 +21,18 @@ public interface ApiSell {
     @GET("getcategory.php")
     Observable<CategoryModel> getCategory();
 
-    @GET("getproduct.php")
-    Observable<ProductModel> getProduct();
+//    @GET("getproduct.php")
+//    Observable<ProductModel> getProduct();
 
-    @GET("getuser.php")
-    Observable<UserModel> getUser();
+    @POST("getproduct.php")
+    @FormUrlEncoded
+    Observable<ProductModel> getProduct(
+            @Field("page") int page
+    );
 
     @POST("getdetailcategory.php")
     @FormUrlEncoded
     Observable<ProductModel> getTitleCategory(
-            @Field("page") int page,
             @Field("category") int category
     );
 
@@ -38,7 +43,8 @@ public interface ApiSell {
             @Field("first_name") String first_name,
             @Field("last_name") String last_name,
             @Field("phone") String phone,
-            @Field("password") String password
+            @Field("password") String password,
+            @Field("user_role") String user_role
     );
 
     @POST("login.php")
@@ -46,6 +52,7 @@ public interface ApiSell {
     Observable<UserModel> getLogin(
             @Field("gmail") String gmail,
             @Field("password") String password
+
     );
 
     @POST("getorderproduct.php")
@@ -64,7 +71,6 @@ public interface ApiSell {
             @Field("chitiet") String chitiet
     );
 
-
     @POST("forgotpassword.php")
     @FormUrlEncoded
     Observable<UserModel> getGmailRePass(
@@ -77,9 +83,34 @@ public interface ApiSell {
             @Field("iduser") int iduser
     );
 
+    @POST("viewaddress.php")
+    @FormUrlEncoded
+    Observable<AddressModel> getViewAddress(
+            @Field("iduser") int iduser
+    );
+
     @POST("searchproduct.php")
     @FormUrlEncoded
     Observable<ProductModel> getSearchProduct(
             @Field("search") String search
     );
+
+    @GET("getmagazine.php")
+    Observable<MagazineModel> getMagazine();
+
+
+    // Admin
+    @POST("addproduct.php")
+    @FormUrlEncoded
+    Observable<AddProductModel> addProduct(
+            @Field("category") int category,
+            @Field("name") String name,
+            @Field("images") String images,
+            @Field("price_new") int price_new,
+            @Field("price_old") int price_old,
+            @Field("amount") int amount,
+            @Field("create_date") String create_date,
+            @Field("description") String description
+
+            );
 }

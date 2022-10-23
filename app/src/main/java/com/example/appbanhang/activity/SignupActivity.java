@@ -1,7 +1,5 @@
 package com.example.appbanhang.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -13,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appbanhang.R;
 import com.example.appbanhang.retrofit.ApiSell;
@@ -64,6 +64,8 @@ public class SignupActivity extends AppCompatActivity {
         String phone = txtSignUpPhone.getText().toString().trim();
         String password = txtSignUpPassword.getText().toString().trim();
         String repassword = txtSignUpRePassword.getText().toString().trim();
+        String user_role = "ROLE_USER";
+
 
 
 
@@ -87,16 +89,15 @@ public class SignupActivity extends AppCompatActivity {
         }
         else {
             if(password.equals(repassword)){
-                compositeDisposable.add(apiSell.getSignup(gmail, firstname, lastname, phone, password)
+                compositeDisposable.add(apiSell.getSignup(gmail, firstname, lastname, phone, password, user_role)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 userModel -> {
                                     if(userModel.isSuccess()){
-                                        Log.d("User", "" + userModel.isSuccess());
-
                                         Utils.userCurrent.setGmail(gmail);
                                         Utils.userCurrent.setPassword(password);
+                                        Utils.userCurrent.setUser_role(user_role);
 
                                         Intent intentLogin = new Intent(getApplicationContext(), LoginActivity.class);
                                         startActivity(intentLogin);

@@ -1,21 +1,24 @@
 package com.example.appbanhang.model;
 
 
+import java.util.Date;
+
 public class Category {
-    int id;
-    String name;
-    String decription;
-    String image;
+    private int id;
+    private String name;
+    private String decription;
+    private String image;
+    private Date create_date;
 
     public Category() {
-
     }
 
-    public Category(int id, String name, String decription, String image) {
+    public Category(int id, String name, String decription, String image, Date create_date) {
         this.id = id;
         this.name = name;
         this.decription = decription;
         this.image = image;
+        this.create_date = create_date;
     }
 
     public int getId() {
@@ -48,5 +51,13 @@ public class Category {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Date getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(Date create_date) {
+        this.create_date = create_date;
     }
 }

@@ -6,6 +6,5 @@
         android:font="@font/font_family"
         android:fontStyle="normal"
         tools:ignore="ResourceCycle">
-
     </font>
 </font-family>

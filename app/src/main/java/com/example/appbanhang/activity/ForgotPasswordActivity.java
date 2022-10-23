@@ -1,14 +1,14 @@
 package com.example.appbanhang.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appbanhang.R;
 import com.example.appbanhang.retrofit.ApiSell;
@@ -25,6 +25,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class ForgotPasswordActivity extends AppCompatActivity {
     Button btnResetPass;
     TextInputEditText txtResetPass;
+    ProgressBar progressBar;
     ApiSell apiSell;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     @Override
@@ -45,26 +46,27 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Bạn chưa nhập gmail !", Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    progressBar.setVisibility(View.VISIBLE);
                     compositeDisposable.add(apiSell.getGmailRePass(txtGmail)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                 userModel -> {
                                     if(userModel.isSuccess()){
-                                        Toast.makeText(getApplicationContext(), userModel.getMessage(), Toast.LENGTH_SHORT).show();
-                                        Log.d("HH1", "Pass" + userModel.getMessage());
+                                        // Failed
+                                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
                                     }else{
                                         Toast.makeText(getApplicationContext(), userModel.getMessage(), Toast.LENGTH_SHORT).show();
-                                        Log.d("HH2", "Pass" + userModel.getMessage());
-
                                     }
+
                                 },
                                 throwable -> {
-                                    Log.d("HH3", "Pass" + throwable.getMessage());
-
-//                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-//                                    startActivity(intent);
-//                                    finish();
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
                                 }
                             )
                     );
@@ -80,6 +82,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void mapping() {
+        progressBar = (ProgressBar) findViewById(R.id.progressBarForgotpass);
         btnResetPass = (Button) findViewById(R.id.buttonResetpass);
         txtResetPass = (TextInputEditText) findViewById(R.id.inputGmailResetpass);
     }

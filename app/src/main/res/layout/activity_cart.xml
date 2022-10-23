@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="RtlHardcoded"
     android:layout_width="match_parent"
     android:weightSum="10"
     android:orientation="vertical"
+    tools:ignore="BottomAppBar"
     tools:context=".activity.CartActivity"
     android:layout_height="match_parent">
+
     <Toolbar
         android:id="@+id/toolbar_cart_home"
-        android:title="@string/cart"
-        android:textColor="#FF5722"
-        app:layout_collapseMode="pin"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        android:textColor="#FF5722"
+        android:title="@string/cart"
+        app:layout_collapseMode="pin">
+
     </Toolbar>
 
     <LinearLayout
+        android:layout_below="@+id/toolbar_cart_home"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginTop="0dp"
-        android:layout_weight="9.3"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
@@ -33,81 +33,99 @@
             android:gravity="center"
             android:text="@string/nullcart"
             android:textColor="@color/black"
-            android:textSize="18sp"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:textSize="18sp">
 
         </TextView>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecycleViewCartUser"
+            android:layout_marginBottom="145dp"
             android:layout_width="match_parent"
-            android:layout_height="510dp"></androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="match_parent">
+        </androidx.recyclerview.widget.RecyclerView>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_weight="0.7"
-        android:layout_marginBottom="0dp"
-        android:layout_gravity="bottom"
-        android:orientation="vertical"
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/app_bar_bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginLeft="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/textViewAmount_cart"
-                android:text="@string/soluong"
-                android:textColor="#f00"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="4dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </TextView>
-            <TextView
-                android:id="@+id/textViewPrice_cart_tong"
-                android:layout_marginTop="8dp"
-                android:text="Tổng"
-                android:textColor="#f00"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </TextView>
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
-            <Button
-                android:id="@+id/textViewBack_cart"
-                android:layout_width="150dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:backgroundTint="@color/purple_700"
-                android:text="@string/next"
-                android:textAllCaps="false">
+                android:orientation="vertical">
 
-            </Button>
+                <TextView
+                    android:id="@+id/textViewAmount_cart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/soluong"
+                    android:textColor="#f00"
+                    android:textSize="18sp"
+                    android:textStyle="bold">
 
-            <Button
-                android:id="@+id/textViewAddCartItem"
-                android:textAllCaps="false"
-                android:backgroundTint="@color/purple_700"
-                android:layout_marginLeft="20dp"
-                android:text="@string/pay"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content">
-            </Button>
+                </TextView>
+
+                <TextView
+                    android:id="@+id/textViewPrice_cart_tong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Tổng"
+                    android:textColor="#f00"
+                    android:textSize="28sp"
+                    android:fontFamily="@font/font_family"
+                    android:textStyle="bold">
+
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:background="@drawable/botron_button"
+                    android:id="@+id/textViewBack_cart"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="50dp"
+                    android:textColor="#fff"
+                    android:backgroundTint="@color/purple_700"
+                    android:text="@string/next"
+                    android:textAllCaps="false">
+
+                </Button>
+
+                <Button
+                    android:background="@drawable/botron_button"
+                    android:id="@+id/textViewAddCartItem"
+                    android:layout_width="150dp"
+                    android:textColor="#fff"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/purple_700"
+                    android:text="@string/pay"
+                    android:textAllCaps="false">
+
+                </Button>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
-</LinearLayout>
+</RelativeLayout>

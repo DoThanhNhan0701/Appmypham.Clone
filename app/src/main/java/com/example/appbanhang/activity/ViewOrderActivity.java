@@ -32,9 +32,9 @@ public class ViewOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_order);
         apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
-        mapping();
-        setActionToolbar();
-        getDetailOrder();
+//        mapping();
+//        setActionToolbar();
+//        getDetailOrder();
 
 
     }
@@ -46,6 +46,7 @@ public class ViewOrderActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intentMain);
+                finish();
             }
         });
     }

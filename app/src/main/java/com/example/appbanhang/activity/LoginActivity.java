@@ -1,12 +1,11 @@
 package com.example.appbanhang.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -14,15 +13,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.appbanhang.R;
-import com.example.appbanhang.adapter.ProductAdapter;
-import com.example.appbanhang.model.Product;
 import com.example.appbanhang.model.User;
 import com.example.appbanhang.retrofit.ApiSell;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +38,11 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText textInputEditTextPass;
     Button buttonLogin;
     ApiSell apiSell;
+    List<User> userList;
+
     String gmail;
     String password;
-    List<User> userList;
+    boolean isLogin = false;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
@@ -58,20 +58,59 @@ public class LoginActivity extends AppCompatActivity {
             setSignupInLogin();
             setLoginApp();
             ForgotPassword();
+            isLoginAutomatic();
         }else{
             Toast.makeText(getApplicationContext(), "Bạn chưa kết nối Internet", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private void ForgotPassword() {
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentForgot = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
-                startActivity(intentForgot);
+    private void isLoginAutomatic() {
+        // Read data login
+        Paper.init(this);
+        if(Paper.book().read("gmail") != null && Paper.book().read("password") != null){
+            textInputEditTextGmail.setText(Paper.book().read("gmail"));
+            textInputEditTextPass.setText(Paper.book().read("password"));
+
+            if(Paper.book().read("isLogin") != null){
+                boolean tamp = Boolean.TRUE.equals(Paper.book().read("isLogin"));
+                if(tamp){
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+//                            login(Paper.book().read("gmail"), Paper.book().read("password"), Paper.book().read("role"));
+                        }
+                    }, 1000);
+                }
             }
-        });
+        }
+    }
+
+    private void login(String gmail, String password) {
+        compositeDisposable.add(apiSell.getLogin(gmail,password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        userModel -> {
+                            if(userModel.isSuccess()){
+                                isLogin = true;
+                                Paper.book().write("isLogin", isLogin);
+                                Utils.userCurrent = userModel.getResult().get(0);
+                                // Note user
+                                Paper.book().write("user", userModel.getResult().get(0));
+                                Intent intentIntro = new Intent(getApplicationContext(), IntroActivity.class);
+                                startActivity(intentIntro);
+                                finish();
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(), "Tài khoản và mật khẩu của bạn bị sai !", Toast.LENGTH_SHORT).show();
+                            }
+                        },
+                        throwable -> {
+                            Toast.makeText(LoginActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                )
+        );
     }
 
     private void setLoginApp() {
@@ -90,32 +129,24 @@ public class LoginActivity extends AppCompatActivity {
                 else{
                     Paper.book().write("gmail", gmail);
                     Paper.book().write("password", password);
-                    compositeDisposable.add(apiSell.getLogin(gmail,password)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                    userModel -> {
-                                        if(userModel.isSuccess()){
-                                            Utils.userCurrent = userModel.getResult().get(0);
-                                            Intent intentIntro = new Intent(getApplicationContext(), IntroActivity.class);
-                                            startActivity(intentIntro);
-                                            finish();
-                                        }
-                                        else {
-                                            Toast.makeText(getApplicationContext(), "Tài khoản và mật khẩu của bạn sai", Toast.LENGTH_SHORT).show();
-                                        }
-                                    },
-                                    throwable -> {
-                                        Toast.makeText(LoginActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                                        Log.d("Gmail", "" + throwable.getMessage());
-
-                                    }
-                            )
-                    );
+                    login(gmail, password);
                 }
             }
         });
     }
+
+
+    private void ForgotPassword() {
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentForgot = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+                startActivity(intentForgot);
+            }
+        });
+    }
+
+
     private boolean ConnectInternet(Context context){
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -158,17 +189,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void mapping() {
-        Paper.init(this);
         textViewSignup = (TextView) findViewById(R.id.textViewSignUpInLogin);
         forgotPassword = (TextView) findViewById(R.id.txtForgotPassword);
         textInputEditTextGmail = (TextInputEditText) findViewById(R.id.inputGmailLogin);
         textInputEditTextPass = (TextInputEditText) findViewById(R.id.inputPasswordLogin);
         buttonLogin = (Button) findViewById(R.id.buttonLogin);
         userList = new ArrayList<>();
-        // Read data login
-        if(Paper.book().read("gmail") != null && Paper.book().read("password") != null){
-            textInputEditTextGmail.setText(Paper.book().read("gmail"));
-            textInputEditTextPass.setText(Paper.book().read("password"));
-        }
     }
 }

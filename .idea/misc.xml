@@ -5,44 +5,75 @@
       <map>
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable-v24/btn_bg.xml" value="0.1175" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable-v24/unselected.xml" value="0.1175" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/background_buy_product.xml" value="0.1535" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/background_product.xml" value="0.1535" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/border_acount.xml" value="0.1535" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/botron_button.xml" value="0.1535" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/btn_button_cart.xml" value="0.243" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/custom_spinner.xml" value="0.1655" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/ic_cat_bg.xml" value="0.1615" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/images_category.xml" value="0.1305" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/images_view_radius.xml" value="0.2395" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/layout_title_product.xml" value="0.1" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/magazine_background.xml" value="0.1" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/product_background.xml" value="0.2395" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/search_items.xml" value="0.17" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/slide_itemqs.xml" value="0.17" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/title_product.xml" value="0.1" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/toolbar_menu.xml" value="0.1685" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/font-v26/font_family.xml" value="0.2791666666666667" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/font-v26/font_sell.xml" value="0.27589743589743587" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/font/font_family.xml" value="0.2791666666666667" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/font/font_sell.xml" value="0.27487179487179486" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout-v26/activity_detail_magazine.xml" value="0.24895833333333334" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_account.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_cart.xml" value="0.264" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_debug_detail_product.xml" value="0.25" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_detail_magazine.xml" value="0.25" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_duongda.xml" value="0.20885416666666667" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_forgot_password.xml" value="0.25" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_home.xml" value="0.20885416666666667" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_intro.xml" value="0.1875" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_intro_slide.xml" value="0.2078125" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_items_title.xml" value="0.264" />
-        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_magazine.xml" value="0.19166666666666668" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_mana_add_categories.xml" value="0.18697916666666667" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_mana_add_product.xml" value="0.25" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_management_add_product.xml" value="0.16944444444444445" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_management_categories.xml" value="0.20277777777777778" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_management_main.xml" value="0.1649122807017544" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_order.xml" value="0.25" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_pay.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_search_product.xml" value="0.2" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_signup.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_sonmoi.xml" value="0.1953125" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_splash_screen.xml" value="0.2265625" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_tag_acconut.xml" value="0.24895833333333334" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_title_product.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_trangdiem.xml" value="0.19635416666666666" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_treatment.xml" value="0.11296296296296296" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_view_order.xml" value="0.25" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/admin_items_categories.xml" value="0.25" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/admin_items_product.xml" value="0.4" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/cart.xml" value="0.264" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/design_detail.xml" value="0.24895833333333334" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/design_view.xml" value="0.24895833333333334" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/fragment_delivery.xml" value="0.25" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/fragment_purchase_application.xml" value="0.2111111111111111" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_cart.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_category.xml" value="0.6" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_category_product.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_detail_order.xml" value="0.25" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_loading.xml" value="0.25" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_magazine.xml" value="0.24895833333333334" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_order.xml" value="0.24895833333333334" />
-        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_products.xml" value="0.6" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_products.xml" value="0.536" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/loading_forgotpassword.xml" value="0.23796296296296296" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/loading_product_main.xml" value="0.24895833333333334" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/menu/memu_account.xml" value="0.24895833333333334" />
       </map>
     </option>
   </component>

@@ -1,87 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:elevation="3dp"
     android:layout_margin="10dp"
-    android:background="@drawable/product_background"
+    android:orientation="vertical"
+    android:background="@drawable/background_product"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-
+    <ImageView
+        android:id="@+id/imagesProduct"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="8dp"
+        tools:srcCompat="@tools:sample/avatars" />
     <TextView
         android:id="@+id/textNameProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/product"/>
 
-    <ImageView
-        android:id="@+id/imagesProduct"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textNameProduct"
-        app:layout_constraintVertical_bias="0.085"
-        tools:srcCompat="@tools:sample/avatars" />
+    <LinearLayout
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textPriceProductOld"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:textColor="#AFA2A2"
+            android:textSize="10sp"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:id="@+id/textPriceProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price"
+            android:textColor="#f00"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        android:gravity="center|start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/star"
+            android:layout_marginStart="10dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp">
+        </ImageView>
+        <ImageView
+            android:src="@drawable/star"
+            android:layout_marginStart="2dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp">
+        </ImageView>
+        <ImageView
+            android:src="@drawable/star"
+            android:layout_marginStart="2dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp">
+        </ImageView>
+        <ImageView
+            android:src="@drawable/star"
+            android:layout_marginStart="2dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp">
+        </ImageView>
+        <ImageView
+            android:src="@drawable/star"
+            android:layout_marginStart="2dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp">
+        </ImageView>
+        <TextView
+            android:textSize="10sp"
+            android:text="@string/comment_product"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="SmallSp">
+        </TextView>
+    </LinearLayout>
     <TextView
-        android:id="@+id/textPriceProduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/price"
-        android:textColor="#f00"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imagesProduct"
-        app:layout_constraintHorizontal_bias="0.160"
-        app:layout_constraintStart_toEndOf="@+id/textPriceProductOld"
-        app:layout_constraintTop_toBottomOf="@+id/imagesProduct" />
-
-    <TextView
-        android:id="@+id/textPriceProductOld"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="12.0000"
-        android:textColor="#AFA2A2"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="@+id/imagesProduct"
-        app:layout_constraintHorizontal_bias="0.161"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagesProduct"
-        tools:ignore="SmallSp" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_marginTop="4dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/btn_bg"
-        android:paddingStart="10dp"
-        android:paddingTop="3dp"
-        android:paddingEnd="10dp"
-        android:paddingBottom="3dp"
-        android:textStyle="bold"
-        android:text="+Add"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:padding="1dp"
         android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imagesProduct"
-        app:layout_constraintStart_toStartOf="@+id/imagesProduct"
-        app:layout_constraintTop_toBottomOf="@+id/textPriceProduct" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:background="@drawable/background_buy_product"
+        android:textSize="10sp"
+        android:text="@string/puy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="SmallSp">
+
+    </TextView>
+</LinearLayout>

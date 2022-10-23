@@ -7,20 +7,20 @@
     android:elevation="3dp"
     android:padding="5dp"
     android:layout_height="wrap_content">
+
     <ImageView
         android:id="@+id/imageViewDetailOrder"
-        android:src="@drawable/logo2"
         android:layout_width="120dp"
-        android:layout_height="120dp">
-    </ImageView>
+        android:layout_height="120dp"
+        android:src="@drawable/logo2"></ImageView>
 
     <TextView
         android:id="@+id/txtNameDetailOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_toEndOf="@id/imageViewDetailOrder"
         android:text="@string/nameproduct"
-        android:layout_marginStart="5dp"
         android:textColor="#070707"
         android:textSize="18sp"
         android:textStyle="bold">
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtNameDetailOrder"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_toEndOf="@id/imageViewDetailOrder"
         android:text="@string/price"
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtNameDetailPrice"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_toEndOf="@id/imageViewDetailOrder"
         android:text="@string/sl"

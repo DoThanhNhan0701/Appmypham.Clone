@@ -63,6 +63,7 @@ android:layout_height="match_parent">
     android:text="Get Started"
     android:textColor="#fff"
     android:textAllCaps="false"
+    android:background="@drawable/botron_button"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent" />

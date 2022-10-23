@@ -36,5 +36,47 @@
     <string name="date">Ngày</string>
     <string name="search">Search</string>
     <string name="search_input">Search...</string>
+    <string name="title_sign">ĐĂNG KÍ NGƯỜI DÙNG</string>
+    <string name="menu_info">Thông tin tài khoản</string>
+    <string name="menu_signup">Đăng xuất</string>
+    <string name="menu_repass">Đổi mật khẩu</string>
+    <string name="comment">Comment</string>
+    <string name="other">Khác</string>
+    <string name="product_manager">Sản phẩm</string>
+    <string name="user_manager">Tài khoản</string>
+    <string name="cate_manager">Danh mục</string>
+    <string name="notify_manager">Thông báo</string>
+    <string name="dashboard">DASHBOARD</string>
+    <string name="admin_manager">Hi Admin</string>
+    <string name="view">View SP</string>
+    <string name="website">Website</string>
+    <string name="nameuser">NameUser</string>
+    <string name="category_main">Danh mục sản phẩm</string>
+    <string name="tapchism">Tạp chí son môi</string>
+    <string name="text_magazine">Dưỡng trắng da với công nghệ 3 tầng tác động của Lanci</string>
+    <string name="all"><![CDATA[Xem tất cả >]]></string>
+    <string name="SellName">Son M.O.I</string>
+    <string name="nameUser">DoTNhan</string>
+    <string name="txtMagazine">Nga cảnh báo nguy cơ Thế chiến sau tuyên bố của Ukraine</string>
+    <string name="description_magazine">Trước đó, trong hội nghị hôm 6/10 do Viện Lowy tổ chức, giám đốc điều hành viện nghiên cứu chính sách hàng đầu của Australia Michael Fullilove hỏi Tổng thống Zelensky rằng, liệu ông có tin Nga sẽ dùng vũ khí hạt nhân để chống của Australia Michael Fullilove hỏi Tổng thống Zelensky rằng, liệu ông có tin Nga sẽ dùng vũ khí hạt nhân để chống Ukraine và liệu Kiev muốn NATO làm gì hơn nữa để ngăn chặn Moscow.</string>
+    <string name="comment_product">(0 nhận xét)</string>
+    <string name="puy">ĐÃ BÁN 125800</string>
+    <string name="htv">Hạng thành viên</string>
+    <string name="tlht">Tích lũy hiện tại</string>
+    <string name="dhct">Đơn hàng của tôi</string>
+    <string name="dcct">Địa chỉ của tôi</string>
+    <string name="vouchers">Vouchers của tôi</string>
+    <string name="nxct">Nhận xét của tôi</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="qlwebsite">Quản lí website</string>
+    <string name="add_product">Thêm sản phẩm</string>
+    <string name="delete_product">Xóa sp</string>
+    <string name="update">Update</string>
+    <string name="txt_Admin_des">Chúng ta vẫn biết rằng, làm việc với một đoạn văn bản dễ đọc và rõ nghĩa dễ gây rối trí và cản trở việc tập trung vào yếu tố trình bày văn bản.</string>
+    <string name="categories">Categories</string>
+    <string name="delete">Delete</string>
+    <string name="order">Đơn hàng</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

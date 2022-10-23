@@ -55,7 +55,7 @@ public class DetailOrderAdapter extends RecyclerView.Adapter<DetailOrderAdapter.
         return detailOrderList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageViewOrder;
         TextView txtNameOrder, txtPriceOrder, txtPriceSoLuong;
         public MyViewHolder(@NonNull View itemView) {

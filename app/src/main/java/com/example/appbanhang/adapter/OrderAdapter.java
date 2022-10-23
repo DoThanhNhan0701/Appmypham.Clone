@@ -2,6 +2,7 @@ package com.example.appbanhang.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import com.example.appbanhang.model.ViewOrder;
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
-    private RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+    private final RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
     Context context;
     List<ViewOrder> viewOrderList;
 
@@ -38,9 +39,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         ViewOrder donhang = viewOrderList.get(position);
         holder.idOrder.setText("Đơn hàng: "+ donhang.getId());
-
-//        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-//        holder.txtDateOrder.setText(dateFormat.format(donhang.getDateOrder()));
+//        holder.txtDateOrder.setText(dateOrder);
+        Log.d("date", "onBindViewHolder: " + donhang.getDateOrder());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
                 holder.detailRecyclerView.getContext(), LinearLayoutManager.VERTICAL, false
@@ -58,7 +58,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         return viewOrderList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView idOrder, txtDateOrder;
         RecyclerView detailRecyclerView;
         public MyViewHolder(@NonNull View itemView) {

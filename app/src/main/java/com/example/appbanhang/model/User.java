@@ -7,6 +7,7 @@ public class User {
     private String last_name;
     private String phone;
     private String password;
+    private String user_role;
 
     public User() {
     }
@@ -66,5 +67,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUser_role() {
+        return user_role;
+    }
+
+    public void setUser_role(String user_role) {
+        this.user_role = user_role;
     }
 }

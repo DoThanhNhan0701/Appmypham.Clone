@@ -9,6 +9,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -113,7 +114,7 @@ public class SearchProductActivity extends AppCompatActivity {
         toolbarSearch = (Toolbar) findViewById(R.id.app_barSearch);
         txtSearchProduct = (EditText) findViewById(R.id.txtSearchProduct);
 
-        linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         recyclerViewSearch.setHasFixedSize(true);
         recyclerViewSearch.setLayoutManager(linearLayoutManager);
 

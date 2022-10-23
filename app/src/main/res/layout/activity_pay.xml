@@ -1,206 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.PayActivity">
-
     <Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:title="@string/payproduct"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        android:title="@string/payproduct">
     </Toolbar>
-
-    <LinearLayout
-        android:id="@+id/linearLayoutInformation"
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_margin="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
-        <TextView
-            android:id="@+id/txtTotalPay"
-            android:text="@string/total_price"
-            android:layout_gravity="center"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:gravity="bottom"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/linearLayoutInformation"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
-        </TextView>
-        <TextView
-            android:id="@+id/txtTotalSoLuong"
-            android:text="@string/amount"
-            android:layout_gravity="center"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:gravity="bottom"
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-        </TextView>
-        <TextView
-            android:id="@+id/txtNamePay"
-            android:text="@string/firstlastname"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:gravity="bottom"
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-        </TextView>
-        <TextView
-            android:id="@+id/txtGmailPay"
-            android:text="@string/gmail"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:gravity="bottom"
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-        </TextView>
-        <TextView
-            android:id="@+id/txtPhonePay"
-            android:text="@string/phone"
-            android:textSize="18sp"
-            android:gravity="bottom"
-            android:textColor="@color/black"
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-        </TextView>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewAdress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/delivery"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:layout_marginLeft="10dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutInformation">
-
-    </TextView>
-    <LinearLayout
-        android:id="@+id/linearLayoutInput"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAdress">
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtCity"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="@string/cityy"
-            android:textColorHint="#A7A7A7"
-            app:boxStrokeColor="#EAEAEE"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputCity"
+            <TextView
+                android:id="@+id/txtTotalPay"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:textColor="#5B5B5B"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                tools:ignore="TouchTargetSizeCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtDistrict"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="@string/district"
-            android:textColorHint="#A7A7A7"
-            app:boxStrokeColor="#EAEAEE"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:gravity="bottom"
+                android:text="@string/total_price"
+                android:textColor="@color/black"
+                android:textSize="18sp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputDistrict"
+            </TextView>
+
+            <TextView
+                android:id="@+id/txtTotalSoLuong"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:textColor="#5B5B5B"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                tools:ignore="TouchTargetSizeCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtXa"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="Phường / xã"
-            android:textColorHint="#A7A7A7"
-            app:boxStrokeColor="#EAEAEE"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:gravity="bottom"
+                android:text="@string/amount"
+                android:textColor="@color/black"
+                android:textSize="18sp"></TextView>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputXa"
+            <TextView
+                android:id="@+id/txtNamePay"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:textColor="#5B5B5B"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                tools:ignore="TouchTargetSizeCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtUsername"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="@string/address"
-            android:textColorHint="#A7A7A7"
-            app:boxStrokeColor="#EAEAEE"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="40dp"
+                android:gravity="bottom"
+                android:text="@string/firstlastname"
+                android:textColor="@color/black"
+                android:textSize="18sp"></TextView>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputAddress"
+            <TextView
+                android:id="@+id/txtGmailPay"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:textColor="#5B5B5B"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                tools:ignore="TouchTargetSizeCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="40dp"
+                android:gravity="bottom"
+                android:text="@string/gmail"
+                android:textColor="@color/black"
+                android:textSize="18sp"></TextView>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/txtPhonePay"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="bottom"
+                android:text="@string/phone"
+                android:textColor="@color/black"
+                android:textSize="18sp"></TextView>
 
-    <Button
-        android:id="@+id/btnPayPt"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="#FF5722"
-        android:text="@string/resuiltpay"
-        android:textAllCaps="false"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent">
+            <TextView
+                android:id="@+id/textViewAdress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/delivery"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold">
 
-    </Button>
+            </TextView>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtAutoAddress"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:textColorHint="#A7A7A7"
+                app:boxStrokeColor="#EAEAEE">
+                <Spinner
+                    android:id="@+id/inputAutoSpiner"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/custom_spinner"
+                    android:layout_height="55dp"
+                    android:textColor="#5B5B5B"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtCity"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="@string/cityy"
+                android:textColorHint="#A7A7A7"
+                app:boxStrokeColor="#EAEAEE">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:textColor="#5B5B5B"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtDistrict"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="@string/district"
+                android:textColorHint="#A7A7A7"
+                app:boxStrokeColor="#EAEAEE">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputDistrict"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:textColor="#5B5B5B"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtXa"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Phường / xã"
+                android:textColorHint="#A7A7A7"
+                app:boxStrokeColor="#EAEAEE">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputXa"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:textColor="#5B5B5B"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtUsername"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="@string/address"
+                android:textColorHint="#A7A7A7"
+                app:boxStrokeColor="#EAEAEE">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:textColor="#5B5B5B"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnPayPt"
+                android:layout_width="320dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:background="@drawable/botron_button"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:backgroundTint="#FF5722"
+                android:text="@string/resuiltpay"
+                android:textColor="#fff">
+            </Button>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</LinearLayout>

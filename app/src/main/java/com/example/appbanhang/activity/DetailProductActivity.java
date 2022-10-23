@@ -1,8 +1,5 @@
 package com.example.appbanhang.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -14,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.bumptech.glide.Glide;
 import com.example.appbanhang.R;
 import com.example.appbanhang.model.Cart;
@@ -22,13 +22,14 @@ import com.example.appbanhang.utils.ArrayListCart;
 import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class DetailProductActivity extends AppCompatActivity {
     Toolbar toolbar;
     ImageView imageViewTitile, imageViewUser, imageViewAddCart;
-    TextView textViewNameTitle, textViewNamePrice_new, textViewNamePrice_old, textViewCreteDate;
-    TextView textViewDescipTitle, textViewSl;
+    TextView textViewNameTitle, textViewNamePrice_new, textViewNamePrice_old, textViewDate;
+    TextView textViewDescipTitle;
     Button buttonAddCart;
     Spinner spinner;
     Product product;
@@ -117,6 +118,8 @@ public class DetailProductActivity extends AppCompatActivity {
         spinner.setAdapter(arraySol);
     }
 
+
+
     @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
     private void actionTitle() {
         product = (Product) getIntent().getSerializableExtra("title");
@@ -136,7 +139,9 @@ public class DetailProductActivity extends AppCompatActivity {
                 .parseDouble(String.valueOf(product.getPrice_old()))) + " đ");
         textViewNamePrice_old.setPaintFlags(textViewNamePrice_old.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
 
-//        textViewCreteDate.setText(DateFormat.getTimeInstance().format(product.getCreate_date()));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String dateProduct = simpleDateFormat.format(product.getCreate_date());
+        textViewDate.setText(dateProduct);
 
         textViewDescipTitle.setText(product.getDescription());
         Glide.with(getApplicationContext()).load(product.getImages()).into(imageViewTitile);
@@ -176,9 +181,8 @@ public class DetailProductActivity extends AppCompatActivity {
         imageViewUser = (ImageView) findViewById(R.id.imageViewUser);
         textViewNamePrice_new = (TextView) findViewById(R.id.textViewPriceTitle);
         textViewNamePrice_old = (TextView) findViewById(R.id.textViewPrice);
-        textViewCreteDate = (TextView) findViewById(R.id.textViewCreatedate);
         textViewDescipTitle = (TextView) findViewById(R.id.textViewDesciptionTitle);
-        textViewSl = (TextView) findViewById(R.id.textViewSl);
+        textViewDate = (TextView) findViewById(R.id.textViewDate);
         buttonAddCart = (Button) findViewById(R.id.buttonAddCart);
         spinner = (Spinner) findViewById(R.id.spiner);
         notificationBadge = (NotificationBadge) findViewById(R.id.notificationbadge);
