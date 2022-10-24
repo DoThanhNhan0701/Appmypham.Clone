@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,19 +24,17 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class PurchaseApplicationFragment extends Fragment {
     RecyclerView recyclerView;
     OrderAdapter orderAdapter;
-    Toolbar toolbar;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     ApiSell apiSell;
     View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_view_order, container, false);
+        view = inflater.inflate(R.layout.fragment_purchase_application, container, false);
         apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
         mapping();
         getDetailOrder();
         return view;
-
     }
     private void getDetailOrder() {
         compositeDisposable.add(apiSell.getViewOrder(Utils.userCurrent.getId())
@@ -64,7 +61,6 @@ public class PurchaseApplicationFragment extends Fragment {
     }
 
     private void mapping() {
-        toolbar = (Toolbar) view.findViewById(R.id.app_baroder);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerOrder);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);

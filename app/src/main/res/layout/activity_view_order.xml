@@ -6,13 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.ViewOrderActivity">
-    <Toolbar
-        android:id="@+id/app_baroder"
-        android:title="@string/title_cart"
-        android:textColor="#FF5722"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Toolbar>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerOrder"
         android:layout_margin="5dp"

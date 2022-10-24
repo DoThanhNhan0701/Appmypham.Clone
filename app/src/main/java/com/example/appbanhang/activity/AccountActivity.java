@@ -87,9 +87,6 @@ public class AccountActivity extends AppCompatActivity {
                                             + addressList.get(0).getPhuong() + "-" + addressList.get(0).getQuan() + "-" + addressList.get(0).getThanhpho());
                                 }
                             }
-                            else {
-                                Toast.makeText(getApplicationContext(), addressModel.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
                         },
                         throwable -> {
                             Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();

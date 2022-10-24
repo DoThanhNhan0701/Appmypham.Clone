@@ -2,14 +2,13 @@ package com.example.appbanhang.retrofit;
 
 import com.example.appbanhang.list_result.AddProductModel;
 import com.example.appbanhang.list_result.AddressModel;
+import com.example.appbanhang.list_result.AdvertisementModel;
 import com.example.appbanhang.list_result.CartModel;
 import com.example.appbanhang.list_result.CategoryModel;
 import com.example.appbanhang.list_result.MagazineModel;
 import com.example.appbanhang.list_result.ProductModel;
 import com.example.appbanhang.list_result.UserModel;
 import com.example.appbanhang.list_result.ViewOrderModel;
-
-import java.util.Date;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.Field;
@@ -20,6 +19,9 @@ import retrofit2.http.POST;
 public interface ApiSell {
     @GET("getcategory.php")
     Observable<CategoryModel> getCategory();
+
+    @GET("getadvertisement.php")
+    Observable<AdvertisementModel> getAdvertisement();
 
 //    @GET("getproduct.php")
 //    Observable<ProductModel> getProduct();
@@ -67,7 +69,7 @@ public interface ApiSell {
             @Field("phuong") String phuong,
             @Field("quan") String quan,
             @Field("diachi") String diachi,
-            @Field("create_date") Date create_date,
+            @Field("create_date") String create_date,
             @Field("chitiet") String chitiet
     );
 

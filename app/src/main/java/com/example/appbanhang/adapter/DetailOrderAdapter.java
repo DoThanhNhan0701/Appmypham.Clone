@@ -46,7 +46,7 @@ public class DetailOrderAdapter extends RecyclerView.Adapter<DetailOrderAdapter.
         }
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         holder.txtPriceOrder.setText("Giá: " +decimalFormat.format(Double.parseDouble(productOrder.getPrice() )) + "đ");
-        holder.txtPriceSoLuong.setText(String.valueOf(productOrder.getSoluong()));
+        holder.txtPriceSoLuong.setText("Số lượng: " + String.valueOf(productOrder.getSoluong()) +"sp");
         Glide.with(context).load(productOrder.getImages()).into(holder.imageViewOrder);
     }
 

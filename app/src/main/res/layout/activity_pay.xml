@@ -87,6 +87,16 @@
                 android:textStyle="bold">
 
             </TextView>
+            <TextView
+                android:text="Địa chỉ cũ của bạn"
+                android:textColor="#716F6F"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_height="wrap_content">
+
+            </TextView>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txtAutoAddress"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

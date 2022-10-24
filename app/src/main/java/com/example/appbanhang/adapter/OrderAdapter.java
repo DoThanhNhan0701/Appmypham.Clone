@@ -2,7 +2,6 @@ package com.example.appbanhang.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,17 +36,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     @SuppressLint({"SetTextI18n"})
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        ViewOrder donhang = viewOrderList.get(position);
-        holder.idOrder.setText("Đơn hàng: "+ donhang.getId());
-//        holder.txtDateOrder.setText(dateOrder);
-        Log.d("date", "onBindViewHolder: " + donhang.getDateOrder());
+        ViewOrder order = viewOrderList.get(position);
+        holder.idOrder.setText("Đơn hàng: "+ order.getId());
+        holder.txtDateOrder.setText(order.getCreate_date());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
-                holder.detailRecyclerView.getContext(), LinearLayoutManager.VERTICAL, false
-        );
-        linearLayoutManager.setInitialPrefetchItemCount(donhang.getProductorder().size());
-        // DeitailOrderAdapter ReCyclerView nam trong ReCyclerView
-        DetailOrderAdapter detailOrderAdapter = new DetailOrderAdapter(context, donhang.getProductorder());
+                holder.detailRecyclerView.getContext(), LinearLayoutManager.VERTICAL, false);
+        linearLayoutManager.setInitialPrefetchItemCount(order.getProductorder().size());
+        //
+        DetailOrderAdapter detailOrderAdapter = new DetailOrderAdapter(context, order.getProductorder());
         holder.detailRecyclerView.setLayoutManager(linearLayoutManager);
         holder.detailRecyclerView.setAdapter(detailOrderAdapter);
         holder.detailRecyclerView.setRecycledViewPool(recycledViewPool);

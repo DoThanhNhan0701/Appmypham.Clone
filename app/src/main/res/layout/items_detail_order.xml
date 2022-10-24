@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/product_background"
     android:layout_margin="5dp"
-    android:elevation="3dp"
+    android:background="@drawable/border_acount"
     android:padding="5dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    tools:ignore="RtlSymmetry">
 
     <ImageView
         android:id="@+id/imageViewDetailOrder"

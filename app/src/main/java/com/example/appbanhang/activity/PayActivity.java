@@ -24,8 +24,11 @@ import com.example.appbanhang.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -79,6 +82,7 @@ public class PayActivity extends AppCompatActivity {
                                     arrayAdd = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, stringList);
                                     spinnerAddress.setAdapter(arrayAdd);
                                 }
+                                setDataAddressPay();
                             }
                             else {
                                 stringList.add("Bạn chưa có địa chỉ, vui lòng nhập địa chỉ bên dưới!");
@@ -91,7 +95,9 @@ public class PayActivity extends AppCompatActivity {
                         }
                 )
         );
+    }
 
+    private void setDataAddressPay() {
         spinnerAddress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -119,6 +125,7 @@ public class PayActivity extends AppCompatActivity {
 
     private void setPayProduct() {
         buttonPayTT.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SimpleDateFormat")
             @Override
             public void onClick(View view) {
                 String nameCity = Objects.requireNonNull(textInputCity.getText()).toString().trim();
@@ -141,12 +148,15 @@ public class PayActivity extends AppCompatActivity {
                     String gmail = Utils.userCurrent.getGmail().toString().trim();
                     String jsonArray = new Gson().toJson(ArrayListCart.arrayListCart);
 
-                    long millis = System.currentTimeMillis();
-                    java.sql.Date date = new java.sql.Date(millis);
+                    Date date = java.util.Calendar.getInstance().getTime();
+                    DateFormat dateFormat = null;
+                    dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                    String nameDate = dateFormat.format(date);
+
 
 
                     compositeDisposable.add(apiSell.addCreateOrder
-                                    (idUser, String.valueOf(totalPrice), soluong, gmail, Integer.parseInt(sdt), nameCity, nameDistrict, nameXa, nameAddress, date, jsonArray)
+                                    (idUser, String.valueOf(totalPrice), soluong, gmail, Integer.parseInt(sdt), nameCity, nameDistrict, nameXa, nameAddress, nameDate, jsonArray)
 
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())

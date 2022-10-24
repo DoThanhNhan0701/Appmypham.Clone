@@ -26,6 +26,7 @@ import com.example.appbanhang.R;
 import com.example.appbanhang.adapter.CategoryAdapter;
 import com.example.appbanhang.adapter.MagazineAdapter;
 import com.example.appbanhang.adapter.ProductAdapter;
+import com.example.appbanhang.model.Advertisement;
 import com.example.appbanhang.model.Category;
 import com.example.appbanhang.model.Magazine;
 import com.example.appbanhang.model.Product;
@@ -56,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
     LinearLayoutManager linearLayoutManagerProduct, linearLayoutManagerCategory, linearLayoutManagerMagazine;
     ApiSell apiSell;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    List<String> listItemsQuangcao;
+    List<Advertisement> advertisementList;
 
     CategoryAdapter categoryAdapter;
     List<Category> categoryList;
@@ -116,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     private void loadingMore() {
         handler.post(new Runnable() {
             @Override
@@ -138,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 2000);
     }
-
     private void setDataUser() {
         Paper.init(this);
         Utils.userCurrent = Paper.book().read("user");
@@ -229,7 +231,6 @@ public class MainActivity extends AppCompatActivity {
                 )
         );
     }
-
     private void getMagazine() {
         compositeDisposable.add(apiSell.getMagazine()
                 .subscribeOn(Schedulers.io())
@@ -253,25 +254,39 @@ public class MainActivity extends AppCompatActivity {
         );
 
     }
-
     private void actionViewFlipper() {
-        List<String> listItemsQuangcao = new ArrayList<>();
-        listItemsQuangcao.add("https://myphamhanskinaz.com/wp-content/uploads/2021/09/kinh-doanh-online-nen-lay-hang-o-dau1.jpg");
-        listItemsQuangcao.add("http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-Le-hoi-phu-kien-800-300.png");
-        listItemsQuangcao.add("http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-HC-Tra-Gop-800-300.png");
-        listItemsQuangcao.add("http://mauweb.monamedia.net/thegioididong/wp-content/uploads/2017/12/banner-big-ky-nguyen-800-300.jpg");
-        for (int i = 0; i < listItemsQuangcao.size(); i++) {
-            ImageView imageView = new ImageView(getApplicationContext());
-            Glide.with(getApplicationContext()).load(listItemsQuangcao.get(i)).into(imageView);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            viewFlipper.addView(imageView);
-        }
+        compositeDisposable.add(apiSell.getAdvertisement()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        advertisementModel -> {
+                            if (advertisementModel.isSuccess()){
+                                advertisementList = advertisementModel.getResult();
+                                for (int i = 0; i < advertisementList.size(); i++){
+                                    String images = advertisementList.get(i).getImages();
+                                    listItemsQuangcao.add(images);
+                                }
+                            }
+                            for (int i = 0; i < listItemsQuangcao.size(); i++) {
+                                ImageView imageView = new ImageView(getApplicationContext());
+                                Glide.with(getApplicationContext()).load(listItemsQuangcao.get(i)).into(imageView);
+                                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                viewFlipper.addView(imageView);
+                            }
+                        },
+                        throwable -> {
+                            Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                )
+        );
+
         viewFlipper.setFlipInterval(4000);
         viewFlipper.setAutoStart(true);
         Animation slide_right = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_right);
         Animation slide_left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
         viewFlipper.setInAnimation(slide_right);
         viewFlipper.setOutAnimation(slide_left);
+
     }
 
     private boolean ConnectInternet(Context context) {
@@ -303,6 +318,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewProduct = (RecyclerView) findViewById(R.id.recyclerViewProduct);
         recyclerViewCategory = (RecyclerView) findViewById(R.id.recyclerViewCategory);
         recyclerViewMagazine = (RecyclerView) findViewById(R.id.recyclerViewMagazine);
+
+        listItemsQuangcao = new ArrayList<>();
+        advertisementList = new ArrayList<>();
+
         //category
         linearLayoutManagerCategory = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewCategory.setLayoutManager(linearLayoutManagerCategory);
