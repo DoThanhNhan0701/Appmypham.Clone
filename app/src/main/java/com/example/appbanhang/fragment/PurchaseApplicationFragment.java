@@ -1,7 +1,6 @@
 package com.example.appbanhang.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appbanhang.R;
-import com.example.appbanhang.adapter.OrderAdapter;
+import com.example.appbanhang.adapter.adpterUser.OrderAdapter;
 import com.example.appbanhang.retrofit.ApiSell;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;

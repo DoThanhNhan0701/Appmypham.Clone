@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SearchProductActivity">
+    tools:context=".activity.screenUser.SearchProductActivity">
     <Toolbar
         android:id="@+id/app_barSearch"
         android:textColor="#FF5722"

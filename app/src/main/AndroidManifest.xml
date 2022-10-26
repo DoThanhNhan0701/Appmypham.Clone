@@ -18,22 +18,25 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ManagementOrderActivity"
+            android:name=".activity.screenAdmin.AdminAdvertiseActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.OrderActivity"
+            android:name=".activity.screenAdmin.AdminOrderActivity"
             android:exported="false" />
         <activity
-            android:name=".activityManagement.ManagementCategoriesActivity"
+            android:name=".activity.screenUser.OrderActivity"
             android:exported="false" />
         <activity
-            android:name=".activityManagement.ManaAddCategoriesActivity"
+            android:name=".activity.screenAdmin.AdminCategoriesActivity"
             android:exported="false" />
         <activity
-            android:name=".activityManagement.ManaAddProductActivity"
+            android:name=".activity.screenAdmin.AdminCategories"
             android:exported="false" />
         <activity
-            android:name=".activity.SplashScreenActivity"
+            android:name=".activity.screenAdmin.AdminProduct"
+            android:exported="false" />
+        <activity
+            android:name=".activity.screenUser.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,49 +45,49 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activityManagement.ManagementProductActivity"
+            android:name=".activity.screenAdmin.AdminProductActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.AccountActivity"
+            android:name=".activity.screenUser.AccountActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.DetailMagazineActivity"
+            android:name=".activity.screenUser.DetailMagazineActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.MagazineActivity"
+            android:name=".activity.screenUser.MagazineActivity"
             android:exported="false" />
         <activity
-            android:name=".activityManagement.ManagementMainActivity"
+            android:name=".activity.screenAdmin.MainActivityAdmin"
             android:exported="false" />
         <activity
-            android:name=".activity.SearchProductActivity"
+            android:name=".activity.screenUser.SearchProductActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ForgotPasswordActivity"
+            android:name=".activity.screenUser.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.PayActivity"
+            android:name=".activity.screenUser.PayActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.screenUser.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.SignupActivity"
+            android:name=".activity.screenUser.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.CartActivity"
+            android:name=".activity.screenUser.CartActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.DetailProductActivity"
+            android:name=".activity.screenUser.DetailProductActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.DetailCategoryActivity"
+            android:name=".activity.screenUser.DetailCategoryActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.IntroActivity"
+            android:name=".activity.screenUser.IntroActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.screenUser.MainActivity"
             android:exported="false" />
     </application>
 

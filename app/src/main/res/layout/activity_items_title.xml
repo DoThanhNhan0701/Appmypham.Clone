@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.DetailCategoryActivity">
+    tools:context=".activity.screenUser.DetailCategoryActivity">
     <Toolbar
         android:id="@+id/app_bar"
         android:title="@string/product"

@@ -1,14 +1,14 @@
 package com.example.appbanhang.retrofit;
 
-import com.example.appbanhang.list_result.AddProductModel;
-import com.example.appbanhang.list_result.AddressModel;
-import com.example.appbanhang.list_result.AdvertisementModel;
-import com.example.appbanhang.list_result.CartModel;
-import com.example.appbanhang.list_result.CategoryModel;
-import com.example.appbanhang.list_result.MagazineModel;
-import com.example.appbanhang.list_result.ProductModel;
-import com.example.appbanhang.list_result.UserModel;
-import com.example.appbanhang.list_result.ViewOrderModel;
+import com.example.appbanhang.model.dataApi.AddProductModel;
+import com.example.appbanhang.model.dataApi.AddressModel;
+import com.example.appbanhang.model.dataApi.AdvertisementModel;
+import com.example.appbanhang.model.dataApi.CartModel;
+import com.example.appbanhang.model.dataApi.CategoryModel;
+import com.example.appbanhang.model.dataApi.MagazineModel;
+import com.example.appbanhang.model.dataApi.ProductModel;
+import com.example.appbanhang.model.dataApi.UserModel;
+import com.example.appbanhang.model.dataApi.ViewOrderModel;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.Field;

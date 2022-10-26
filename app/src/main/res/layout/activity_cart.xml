@@ -7,7 +7,7 @@
     android:weightSum="10"
     android:orientation="vertical"
     tools:ignore="BottomAppBar"
-    tools:context=".activity.CartActivity"
+    tools:context=".activity.screenUser.CartActivity"
     android:layout_height="match_parent">
 
     <Toolbar

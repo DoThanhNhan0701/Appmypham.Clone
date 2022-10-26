@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="RtlHardcoded"
-        tools:context=".activity.MainActivity">
+        tools:context=".activity.screenUser.MainActivity">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -61,16 +61,27 @@
                 android:background="@drawable/slide_itemqs"
                 app:drawableStartCompat="@drawable/icons_search3">
             </TextView>
-            <ViewFlipper
-                android:id="@+id/viewFlipper"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/slide_itemqs"
-                android:elevation="3dp">
-            </ViewFlipper>
+                android:layout_height="wrap_content">
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewViewPager2"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:paddingEnd="70dp"
+                    android:paddingStart="70dp">
+                </androidx.viewpager2.widget.ViewPager2>
+                <me.relex.circleindicator.CircleIndicator3
+                    android:id="@+id/circleIndicator3"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    app:ci_drawable="@drawable/bg_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp">
+                </me.relex.circleindicator.CircleIndicator3>
+            </LinearLayout>
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
