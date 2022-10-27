@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.appbanhang">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
+        android:fullBackupContent="@xml/backup_config"
         android:icon="@drawable/icon_support"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -17,6 +18,9 @@
         android:theme="@style/Theme.Appbanhang"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.screenAdmin.AddImageAdvertise"
+            android:exported="false" />
         <activity
             android:name=".activity.screenAdmin.AdminAdvertiseActivity"
             android:exported="false" />
@@ -89,6 +93,10 @@
         <activity
             android:name=".activity.screenUser.MainActivity"
             android:exported="false" />
+
+        <meta-data
+            android:name="CLOUDINARY_URL"
+            android:value="CLOUDINARY_URL=cloudinary://993952827512817:gR-5rzbkJgWTIWnnz0Om0mpI6nE@dgmyonazl" />
     </application>
 
 </manifest>

@@ -3,6 +3,8 @@ package com.example.appbanhang.activity.screenAdmin;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -28,21 +30,44 @@ public class AdminAdvertiseActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     RecyclerView recyclerViewQc;
+    Button buttonIntent;
+    ImageView imageViewDelete;
+
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     ApiSell apiSell;
     List<Advertisement> advertisementList;
     AdminAdvertiseAdapter adminAdvertiseAdapter;
     LinearLayoutManager linearLayoutManager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_advertise);
         apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
+
         mapping();
+        setDataIntentScreen();
         setActionToolbar();
         setDataAdvertise();
+    }
+    private void setDataIntentScreen() {
+        buttonIntent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentAdd = new Intent(getApplicationContext(), AddImageAdvertise.class);
+                startActivity(intentAdd);
+            }
+        });
+        imageViewDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteItemAdvertise();
+            }
+        });
+    }
+
+    private void deleteItemAdvertise() {
+
     }
 
     private void setDataAdvertise() {
@@ -69,13 +94,10 @@ public class AdminAdvertiseActivity extends AppCompatActivity {
 
     private void setActionToolbar() {
         toolbar.setNavigationIcon(R.drawable.icon_back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentMainAdmin = new Intent(getApplicationContext(), MainActivityAdmin.class);
-                startActivity(intentMainAdmin);
-                finish();
-            }
+        toolbar.setNavigationOnClickListener(view -> {
+            Intent intentMainAdmin = new Intent(getApplicationContext(), MainActivityAdmin.class);
+            startActivity(intentMainAdmin);
+            finish();
         });
     }
 
@@ -88,8 +110,11 @@ public class AdminAdvertiseActivity extends AppCompatActivity {
     private void mapping() {
         toolbar = (Toolbar) findViewById(R.id.toolbarQc);
         recyclerViewQc = (RecyclerView) findViewById(R.id.recyclerViewQcAmin);
+        buttonIntent = (Button) findViewById(R.id.btnaddIntentQc);
+        imageViewDelete = (ImageView) findViewById(R.id.delete_insert_qc);
         advertisementList = new ArrayList<>();
         linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerViewQc.setLayoutManager(linearLayoutManager);
+
     }
 }

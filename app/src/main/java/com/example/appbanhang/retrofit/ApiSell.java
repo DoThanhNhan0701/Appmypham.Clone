@@ -115,4 +115,9 @@ public interface ApiSell {
             @Field("description") String description
 
             );
+    @POST("addadvertise.php")
+    @FormUrlEncoded
+    Observable<AdvertisementModel> addAdvertise(
+            @Field("images") String images
+    );
 }

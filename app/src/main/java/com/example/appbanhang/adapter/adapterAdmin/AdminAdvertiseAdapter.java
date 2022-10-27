@@ -37,7 +37,7 @@ public class AdminAdvertiseAdapter extends RecyclerView.Adapter<AdminAdvertiseAd
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Advertisement advertisement = advertisementList.get(position);
-        holder.txtIdAvertise.setText("ID: " + advertisement.getId());
+        holder.txtIdAvertise.setText("Quãng cáo: " + advertisement.getId());
 
         Glide.with(context).load(advertisement.getImages()).into(holder.imageViewQc);
     }

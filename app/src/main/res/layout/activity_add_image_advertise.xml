@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/white_screen_admin"
+    tools:context=".activity.screenAdmin.AddImageAdvertise">
+    <Toolbar
+        android:id="@+id/toolbar_qc"
+        android:title="Thêm quảng cáo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Toolbar>
+    <LinearLayout
+        android:layout_marginTop="57dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:textColor="#8E4545"
+            android:textStyle="bold"
+            android:text="Vui lòng chọn ảnh bên dưới !"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <ImageView
+            android:id="@+id/themanhqc"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_select_iamges"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+        </ImageView>
+    </LinearLayout>
+    <RelativeLayout
+        android:background="@drawable/layout_upload_images"
+        android:layout_gravity="center|bottom"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+        <ImageView
+            android:id="@+id/iconImages"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/uplaod">
+        </ImageView>
+
+        <Button
+            android:id="@+id/buttonAddImagesQc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iconImages"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/botron_button"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:text="TẢI ẢNH LÊN"
+            android:textColor="#fff">
+
+        </Button>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonAddImagesQc"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:text="Tệp hình ảnh(.jpg, .png)"
+            android:textColor="#784A4A"
+            android:textSize="16sp"
+            android:textStyle="bold"></TextView>
+
+    </RelativeLayout>
+</FrameLayout>
