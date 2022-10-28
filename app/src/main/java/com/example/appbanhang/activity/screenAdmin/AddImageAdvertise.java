@@ -85,9 +85,8 @@ public class AddImageAdvertise extends AppCompatActivity {
                 if(imagePath == null){
                     Toast.makeText(getApplicationContext(), "Bạn chưa chọn ảnh", Toast.LENGTH_SHORT).show();
                 }
-                else {
+                else{
                     uploadImagesCloudinary();
-
                 }
             }
         });

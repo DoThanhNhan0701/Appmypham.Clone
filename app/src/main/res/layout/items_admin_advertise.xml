@@ -7,30 +7,17 @@
     android:background="@drawable/product_background"
     android:elevation="3dp"
     android:layout_height="wrap_content">
-    <RelativeLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/idAdvertise"
+        android:text="ID:"
+        android:paddingTop="6dp"
+        android:textColor="#2E2C2C"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/idAdvertise"
-            android:text="ID:"
-            android:paddingTop="6dp"
-            android:textColor="#2E2C2C"
-            android:textSize="18sp"
-            android:layout_marginStart="20dp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </TextView>
-        <ImageView
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="1dp"
-            android:id="@+id/delete_insert_qc"
-            android:src="@drawable/icons_x"
-            android:layout_width="30dp"
-            android:layout_height="30dp">
-        </ImageView>
-    </RelativeLayout>
+    </TextView>
     <ImageView
         android:id="@+id/imagesAdvertiseAdmin"
         android:scaleType="centerCrop"

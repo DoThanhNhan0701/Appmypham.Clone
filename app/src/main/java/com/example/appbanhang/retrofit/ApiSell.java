@@ -120,4 +120,11 @@ public interface ApiSell {
     Observable<AdvertisementModel> addAdvertise(
             @Field("images") String images
     );
+
+    @POST("deleteadvertise.php")
+    @FormUrlEncoded
+    Observable<AdvertisementModel> deleteAdvertise(
+            @Field("id") int id
+    );
+
 }
