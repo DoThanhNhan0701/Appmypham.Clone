@@ -113,7 +113,7 @@ public class AdminProductActivity extends AppCompatActivity {
                 adminProductAdapter.notifyDataSetChanged();
                 isLoading = false;
             }
-        }, 2000);
+        }, 1000);
     }
 
     private void getAllProduct(int page) {

@@ -39,23 +39,41 @@
                     android:textSize="15sp"
                     android:textStyle="bold"/>
             </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
+            <RelativeLayout
+                android:background="@drawable/border_acount"
                 android:layout_marginTop="10dp"
-                android:hint="Hình ảnh"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:textColorHint="#A7A7A7"
-                app:boxStrokeColor="#EAEAEE"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="63dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputImagesA"
-                    android:textColor="#5B5B5B"
+
+                <TextView
+                    android:id="@+id/hienthinameimages"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center|left"
+                    android:paddingStart="15dp"
+                    android:text="@string/iames"
+                    android:textColor="#A7A7A7"
+                    android:textSize="15sp"
+                    android:textStyle="bold">
+
+                </TextView>
+                <Button
+                    android:id="@+id/buttonSelectImages"
+                    android:text="@string/select"
+                    android:textColor="#fff"
+                    android:background="@drawable/botron_button"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp">
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </Button>
+            </RelativeLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txtPriceOld"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

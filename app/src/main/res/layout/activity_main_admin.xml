@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="DuplicateIds"
-    android:background="#2196F3"
+    android:background="@drawable/white_screen_admin"
     tools:context=".activity.screenAdmin.MainActivityAdmin">
 
     <LinearLayout

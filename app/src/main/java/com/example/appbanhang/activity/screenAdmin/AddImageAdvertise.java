@@ -78,7 +78,12 @@ public class AddImageAdvertise extends AppCompatActivity {
     }
 
     private void upLoadDataCloudinary() {
-        imageUploadImages.setOnClickListener(view -> requestPermission());
+        imageUploadImages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requestPermission();
+            }
+        });
         btnChonImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
