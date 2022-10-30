@@ -36,6 +36,7 @@ import com.example.appbanhang.model.Category;
 import com.example.appbanhang.retrofit.ApiSell;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
+import com.example.appbanhang.utils.cloudinary.ConfigCloudinary;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -57,8 +58,7 @@ public class AdminProduct extends AppCompatActivity {
     TextView txtHienthi;
 
     TextInputEditText textInputEditTextName;
-    TextInputEditText textInputEditTextImages;
-    TextInputEditText textInputEditTextNew;
+    TextInputEditText textInputDiscount;
     TextInputEditText textInputEditTextOld;
     TextInputEditText textInputEditTextSl;
     TextInputEditText textInputEditTextDate;
@@ -92,9 +92,9 @@ public class AdminProduct extends AppCompatActivity {
 
     private void initConfig() {
         try {
-            config.put("cloud_name", "dgmyonazl");
-            config.put("api_key", "993952827512817");
-            config.put("api_secret", "gR-5rzbkJgWTIWnnz0Om0mpI6nE");
+            config.put("cloud_name", ConfigCloudinary.CLOUD_NAME);
+            config.put("api_key", ConfigCloudinary.API_KEY);
+            config.put("api_secret", ConfigCloudinary.API_SECRET);
             MediaManager.init(this, config);
         }catch (Exception e){
             e.printStackTrace();
@@ -163,7 +163,12 @@ public class AdminProduct extends AppCompatActivity {
         btnAddproduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uploadDataNow();
+                if(imagePath == null){
+                    Toast.makeText(getApplicationContext(), "Bạn chưa chọn hình ảnh", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    uploadDataNow();
+                }
             }
         });
     }
@@ -199,38 +204,41 @@ public class AdminProduct extends AppCompatActivity {
         }).dispatch();
     }
 
+    private void showMessage(String message){
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
 
     private void addProduct() {
         String name = Objects.requireNonNull(textInputEditTextName.getText()).toString().trim();
         String images = urlDataImages;
-        String priceNew = Objects.requireNonNull(textInputEditTextNew.getText()).toString().trim();
         String priceOld = Objects.requireNonNull(textInputEditTextOld.getText()).toString().trim();
+        String discount = Objects.requireNonNull(textInputDiscount.getText().toString().trim());
         String soluong = Objects.requireNonNull(textInputEditTextSl.getText()).toString().trim();
         String createDate = Objects.requireNonNull(textInputEditTextDate.getText()).toString().trim();
         String description = Objects.requireNonNull(textInputEditTextDescription.getText()).toString().trim();
         if (TextUtils.isEmpty(name)){
-            Toast.makeText(getApplicationContext(), "Bạn chưa nhập tên sản phẩm", Toast.LENGTH_SHORT).show();
+            showMessage("Bạn chưa nhập tên sản phẩm");
         }
         else if(TextUtils.isEmpty(images)){
-            Toast.makeText(getApplicationContext(), "Bạn chưa chọn ảnh sản phẩm", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(description)){
-            Toast.makeText(getApplicationContext(), "Bạn chưa nhập mô tả sản phẩm", Toast.LENGTH_SHORT).show();
-        }
-        else if(priceNew.equals("")){
-            Toast.makeText(getApplicationContext(), "Bạn chưa nhập giá mới sản phẩm", Toast.LENGTH_SHORT).show();
+            showMessage("Bạn chưa chọn hình ảnh sản phẩm");
         }
         else if(priceOld.equals("")){
-            Toast.makeText(getApplicationContext(), "Bạn chưa nhập giá cũ sản phẩm", Toast.LENGTH_SHORT).show();
+            showMessage("Bạn chưa nhập giá sản phẩm");
+        }
+        else if(discount.equals("")){
+            showMessage("Bạn chưa nhập giảm giá");
         }
         else if(soluong.equals("")){
-            Toast.makeText(getApplicationContext(), "Bạn chưa nhập số lượng sản phẩm", Toast.LENGTH_SHORT).show();
+            showMessage("Bạn chưa nhập số lượng");
+        }
+        else if(TextUtils.isEmpty(description)){
+            showMessage("Bạn chưa nhập chi tiết sản phẩm");
         }
         else if(createDate.equals("")){
-            Toast.makeText(getApplicationContext(), "Bạn chưa nhập ngày tọa sản phẩm", Toast.LENGTH_SHORT).show();
+            showMessage("Bạn chưa nhập ngày xuất bản sản phẩm");
         }
         else{
-            compositeDisposable.add(apiSell.addProduct(categories, name, images, Integer.parseInt(priceNew), Integer.parseInt(priceOld), Integer.parseInt(soluong), createDate, description)
+            compositeDisposable.add(apiSell.addProduct(categories, name, images, Integer.parseInt(priceOld), Integer.parseInt(discount), Integer.parseInt(soluong), createDate, description)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -315,7 +323,7 @@ public class AdminProduct extends AppCompatActivity {
         txtHienthi = (TextView) findViewById(R.id.hienthinameimages);
 
         textInputEditTextName = (TextInputEditText) findViewById(R.id.inputNameA);
-        textInputEditTextNew = (TextInputEditText) findViewById(R.id.inputPriceNewA);
+        textInputDiscount = (TextInputEditText) findViewById(R.id.inputDiscount);
         textInputEditTextOld = (TextInputEditText) findViewById(R.id.inputPriceOldA);
         textInputEditTextSl = (TextInputEditText) findViewById(R.id.inputSoluongA);
         textInputEditTextDate = (TextInputEditText) findViewById(R.id.inputNgaytaoSpA);

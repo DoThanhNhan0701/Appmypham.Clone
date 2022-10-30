@@ -22,13 +22,12 @@ import com.example.appbanhang.utils.ArrayListCart;
 import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class DetailProductActivity extends AppCompatActivity {
     Toolbar toolbar;
     ImageView imageViewTitile, imageViewUser, imageViewAddCart;
-    TextView textViewNameTitle, textViewNamePrice_new, textViewNamePrice_old, textViewDate;
+    TextView textViewNameTitle, textViewNamePrice_new, textViewNamePrice_old, textViewDiscount;
     TextView textViewDescipTitle;
     Button buttonAddCart;
     Spinner spinner;
@@ -61,19 +60,20 @@ public class DetailProductActivity extends AppCompatActivity {
     }
 
     private void setNotificationBadge() {
+        int priceNew = product.getPrice_old() * (100 - product.getDiscount()) / 100;
         if(ArrayListCart.arrayListCart.size() > 0){
             boolean add = false;
             int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
             for(int i = 0; i < ArrayListCart.arrayListCart.size(); i++){
                 if (ArrayListCart.arrayListCart.get(i).getId() == product.getId()){
                     ArrayListCart.arrayListCart.get(i).setAmount_cart(soluong + ArrayListCart.arrayListCart.get(i).getAmount_cart());
-                    int price_new = product.getPrice_new() * ArrayListCart.arrayListCart.get(i).getAmount_cart();
+                    int price_new = priceNew * ArrayListCart.arrayListCart.get(i).getAmount_cart();
                     ArrayListCart.arrayListCart.get(i).setPrice(String.valueOf(price_new));
                     add = true;
                 }
             }
             if(!add){
-                int price_new = product.getPrice_new() * soluong;
+                int price_new = priceNew * soluong;
                 Cart cart = new Cart();
                 cart.setPrice(String.valueOf(price_new));
                 cart.setName(product.getName());
@@ -85,7 +85,7 @@ public class DetailProductActivity extends AppCompatActivity {
 
         }else{
             int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
-            int price_new = product.getPrice_new() * soluong;
+            int price_new = priceNew * soluong;
             Cart cart = new Cart();
             cart.setPrice(String.valueOf(price_new));
             cart.setName(product.getName());
@@ -126,22 +126,23 @@ public class DetailProductActivity extends AppCompatActivity {
         toolbar.setTitle(product.getName());
 
         String detailProduct = product.getName();
-        if(detailProduct.length() <= 17){
+        if(detailProduct.length() <= 13){
             textViewNameTitle.setText(detailProduct);
         }else{
-            textViewNameTitle.setText(detailProduct.substring(0, 18) +"...");
+            textViewNameTitle.setText(detailProduct.substring(0, 14) +"...");
         }
+
+        int price_new = product.getPrice_old() * (100 - product.getDiscount()) / 100;
 
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         textViewNamePrice_new.setText(decimalFormat.format(Double
-                .parseDouble(String.valueOf(product.getPrice_new()))) + " đ");
+                .parseDouble(String.valueOf(price_new))) + " đ");
+
         textViewNamePrice_old.setText(decimalFormat.format(Double
                 .parseDouble(String.valueOf(product.getPrice_old()))) + " đ");
         textViewNamePrice_old.setPaintFlags(textViewNamePrice_old.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String dateProduct = simpleDateFormat.format(product.getCreate_date());
-        textViewDate.setText(dateProduct);
+        textViewDiscount.setText("Sell off: " + product.getDiscount() + "%");
 
         textViewDescipTitle.setText(product.getDescription());
         Glide.with(getApplicationContext()).load(product.getImages()).into(imageViewTitile);
@@ -182,7 +183,7 @@ public class DetailProductActivity extends AppCompatActivity {
         textViewNamePrice_new = (TextView) findViewById(R.id.textViewPriceTitle);
         textViewNamePrice_old = (TextView) findViewById(R.id.textViewPrice);
         textViewDescipTitle = (TextView) findViewById(R.id.textViewDesciptionTitle);
-        textViewDate = (TextView) findViewById(R.id.textViewDate);
+        textViewDiscount = (TextView) findViewById(R.id.textViewDiscount);
         buttonAddCart = (Button) findViewById(R.id.buttonAddCart);
         spinner = (Spinner) findViewById(R.id.spiner);
         notificationBadge = (NotificationBadge) findViewById(R.id.notificationbadge);

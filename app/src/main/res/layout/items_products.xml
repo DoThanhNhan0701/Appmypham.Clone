@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:elevation="3dp"
     android:layout_margin="10dp"
     android:orientation="vertical"
     android:background="@drawable/background_product"
-    android:layout_width="wrap_content"
+    android:layout_width="165dp"
     android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/imagesProduct"
@@ -14,8 +14,18 @@
         android:layout_height="150dp"
         android:layout_margin="8dp"
         tools:srcCompat="@tools:sample/avatars" />
+    <ImageView
+        android:src="@drawable/discount_label"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_width="25dp"
+        android:layout_height="25dp">
+    </ImageView>
     <TextView
         android:id="@+id/textNameProduct"
+        android:layout_below="@+id/imagesProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -26,8 +36,10 @@
         android:text="@string/product"/>
 
     <LinearLayout
+        android:id="@+id/linearLayoutProduct"
         android:layout_marginTop="4dp"
         android:orientation="horizontal"
+        android:layout_below="@+id/textNameProduct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -51,7 +63,9 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayoutProduct2"
         android:layout_marginTop="4dp"
+        android:layout_below="@+id/linearLayoutProduct"
         android:orientation="horizontal"
         android:gravity="center|start"
         android:layout_width="match_parent"
@@ -96,6 +110,7 @@
         </TextView>
     </LinearLayout>
     <TextView
+        android:layout_below="@+id/linearLayoutProduct2"
         android:gravity="center"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="10dp"
@@ -111,4 +126,4 @@
         tools:ignore="SmallSp">
 
     </TextView>
-</LinearLayout>
+</RelativeLayout>

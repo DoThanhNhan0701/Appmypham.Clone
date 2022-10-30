@@ -58,7 +58,9 @@ public class AdminProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Product product = productList.get(position);
             myViewHolder.textViewName.setText(product.getName());
             myViewHolder.textViewPrice_old.setText(String.valueOf(product.getPrice_old()));
-            myViewHolder.textViewPrice_new.setText(String.valueOf(product.getPrice_new()));
+
+            int priceNew = product.getPrice_old() * (100 - product.getDiscount()) / 100;
+            myViewHolder.textViewPrice_new.setText(String.valueOf(priceNew));
             myViewHolder.txtDescriptionProduct.setText(product.getDescription());
 
             @SuppressLint("SimpleDateFormat")

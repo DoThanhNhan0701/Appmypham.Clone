@@ -74,10 +74,10 @@ public class TitileCategoryAdapter extends RecyclerView.Adapter<TitileCategoryAd
         }else{
             holder.textViewName.setText(categoryProduct.substring(0, 20) +"...");
         }
-
+        int priceNew = product.getPrice_old() * (100 - product.getDiscount()) / 100;
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         holder.textViewPrice_new.setText(decimalFormat.format(Double
-                .parseDouble(String.valueOf(product.getPrice_new()))) + "đ");
+                .parseDouble(String.valueOf(priceNew))) + "đ");
         holder.textViewPrice_old.setText(decimalFormat.format(Double
                 .parseDouble(String.valueOf(product.getPrice_old()))) + "đ");
         holder.textViewPrice_old.setPaintFlags(holder.textViewPrice_old

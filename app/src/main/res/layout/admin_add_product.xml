@@ -93,14 +93,14 @@
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="10dp"
-                android:hint="Giá mới"
+                android:hint="Giảm giá"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:textColorHint="#A7A7A7"
                 app:boxStrokeColor="#EAEAEE"
                 android:layout_width="match_parent"
                 android:layout_height="63dp">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputPriceNewA"
+                    android:id="@+id/inputDiscount"
                     android:textColor="#5B5B5B"
                     android:textSize="15sp"
                     android:textStyle="bold"

@@ -108,8 +108,8 @@ public interface ApiSell {
             @Field("category") int category,
             @Field("name") String name,
             @Field("images") String images,
-            @Field("price_new") int price_new,
             @Field("price_old") int price_old,
+            @Field("discount") int discount,
             @Field("amount") int amount,
             @Field("create_date") String create_date,
             @Field("description") String description

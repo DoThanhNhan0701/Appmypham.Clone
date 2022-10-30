@@ -75,7 +75,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <ImageView
                 android:id="@+id/imageViewUser"
                 android:layout_width="100dp"
@@ -107,14 +106,13 @@
 
             </TextView>
 
-
             <TextView
-                android:id="@+id/textViewDate"
+                android:id="@+id/textViewDiscount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/datedetail"
-                android:textSize="12sp"
+                android:text="@string/discount"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -177,33 +175,17 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/app_bar_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom">
-            <LinearLayout
-                android:layout_marginEnd="18dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <LinearLayout
-                    android:id="@+id/homeButtonComment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <Button
-                        android:id="@+id/buttonAddCart"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/botron_button"
-                        android:text="@string/addcart"
-                        android:textColor="#fff">
-                    </Button>
-                </LinearLayout>
-            </LinearLayout>
-
-        </com.google.android.material.bottomappbar.BottomAppBar>
+    <Button
+        android:id="@+id/buttonAddCart"
+        android:layout_gravity="bottom|center"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/botron_button"
+        android:text="@string/addcart"
+        android:textColor="#fff">
+    </Button>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

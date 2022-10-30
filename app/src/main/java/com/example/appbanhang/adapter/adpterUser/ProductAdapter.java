@@ -94,12 +94,15 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             else{
                 myViewHolder.textViewName.setText(nameProduct.substring(0, 16) +"...");
             }
+            int price_new = product.getPrice_old() * (100 - product.getDiscount()) / 100;
 
             DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
             myViewHolder.textViewPrice_new.setText(decimalFormat.format(Double
-                    .parseDouble(String.valueOf(product.getPrice_new()))) + "đ");
+                    .parseDouble(String.valueOf(price_new))) + "đ");
+
             myViewHolder.textViewPrice_old.setText(decimalFormat.format(Double
                     .parseDouble(String.valueOf(product.getPrice_old()))) + "đ");
+
             myViewHolder.textViewPrice_old.setPaintFlags(myViewHolder.textViewPrice_old
                     .getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
             Glide.with(context).load(product.getImages()).into(myViewHolder.imageViewProduct);

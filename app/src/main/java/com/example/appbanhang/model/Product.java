@@ -8,27 +8,25 @@ public class Product implements Serializable {
     private int category;
     private String name;
     private String images;
-    private int price_new;
+    private int discount;
     private int price_old;
     private String description;
     private int amount;
     private Date create_date;
-    private boolean active;
 
     public Product() {
     }
 
-    public Product(int id, int category, String name, String images, int price_new, int price_old, String description, int amount, Date create_date, boolean active) {
+    public Product(int id, int category, String name, String images, int discount, int price_old, String description, int amount, Date create_date) {
         this.id = id;
         this.category = category;
         this.name = name;
         this.images = images;
-        this.price_new = price_new;
+        this.discount = discount;
         this.price_old = price_old;
         this.description = description;
         this.amount = amount;
         this.create_date = create_date;
-        this.active = active;
     }
 
     public int getId() {
@@ -63,12 +61,12 @@ public class Product implements Serializable {
         this.images = images;
     }
 
-    public int getPrice_new() {
-        return price_new;
+    public int getDiscount() {
+        return discount;
     }
 
-    public void setPrice_new(int price_new) {
-        this.price_new = price_new;
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
 
     public int getPrice_old() {
@@ -101,13 +99,5 @@ public class Product implements Serializable {
 
     public void setCreate_date(Date create_date) {
         this.create_date = create_date;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 }
