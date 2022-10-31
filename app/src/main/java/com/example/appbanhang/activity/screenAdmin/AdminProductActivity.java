@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -20,6 +22,11 @@ import com.example.appbanhang.model.Product;
 import com.example.appbanhang.retrofit.ApiSell;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
+import com.example.appbanhang.utils.eventbus.CrudProductEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +39,7 @@ public class AdminProductActivity extends AppCompatActivity {
     Toolbar toolbar;
     Button btnAddProduct;
     AdminProductAdapter adminProductAdapter;
+    Product product;
     List<Product> productList;
     ApiSell apiSell;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -147,7 +155,69 @@ public class AdminProductActivity extends AppCompatActivity {
                 )
         );
     }
+    private void showMessage(String message){
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
 
+    private void updateProduct() {
+        showMessage("Update");
+    }
+
+    private void deleteProduct() {
+        int id = product.getId();
+        compositeDisposable.add(apiSell.deleteProduct(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        productModel -> {
+                            if(productModel.isSuccess()){
+                                showMessage("Bạn đã xóa sản phẩm thành công");
+                            }
+                            else{
+                                showMessage(productModel.getMessage());
+                            }
+                        },
+                        throwable -> {
+                            showMessage(throwable.getMessage());
+                        }
+                )
+        );
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+    @Override
+    protected void onDestroy() {
+        compositeDisposable.clear();
+        super.onDestroy();
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void updateDeleteProduct(CrudProductEvent crudProductEvent){
+        if(crudProductEvent != null){
+            product = crudProductEvent.getProduct();
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        if(item.getTitle().equals("Xóa")){
+            deleteProduct();
+        }
+        else if (item.getTitle().equals("Sửa")){
+            updateProduct();
+        }
+        return super.onContextItemSelected(item);
+    }
 
     private void mapping() {
         toolbar = (Toolbar) findViewById(R.id.toolbarAdmin);

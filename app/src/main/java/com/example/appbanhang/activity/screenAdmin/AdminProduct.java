@@ -33,6 +33,7 @@ import com.cloudinary.android.callback.ErrorInfo;
 import com.cloudinary.android.callback.UploadCallback;
 import com.example.appbanhang.R;
 import com.example.appbanhang.model.Category;
+import com.example.appbanhang.model.Product;
 import com.example.appbanhang.retrofit.ApiSell;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
@@ -66,6 +67,7 @@ public class AdminProduct extends AppCompatActivity {
 
     List<Category> categoryList;
     List<String> stringList;
+    Product product;
     String name;
     int categories = 0;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -87,7 +89,7 @@ public class AdminProduct extends AppCompatActivity {
         setActionData();
         setActioToolbar();
         upLoadDataCloudinary();
-        upLoadDataCloudinaryServer();
+        addProduct();
     }
 
     private void initConfig() {
@@ -158,107 +160,99 @@ public class AdminProduct extends AppCompatActivity {
                     }
                 }
             });
-
-    private void upLoadDataCloudinaryServer() {
-        btnAddproduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(imagePath == null){
-                    Toast.makeText(getApplicationContext(), "Bạn chưa chọn hình ảnh", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    uploadDataNow();
-                }
-            }
-        });
-    }
-
     private void uploadDataNow() {
-        MediaManager.get().upload(imagePath).callback(new UploadCallback() {
-            @Override
-            public void onStart(String requestId) {
-                Log.d(TAG, "onStart: " + "Đang chuẩn bị tải");
-            }
+        if(imagePath == null){
+            showMessage("Bạn chưa chọn hình ảnh sản phẩm");
+        }
+        else{
+            MediaManager.get().upload(imagePath).callback(new UploadCallback() {
+                @Override
+                public void onStart(String requestId) {
+                    Log.d(TAG, "onStart: " + "Đang chuẩn bị tải");
+                }
 
-            @Override
-            public void onProgress(String requestId, long bytes, long totalBytes) {
-                Log.d(TAG, "onProgress: " + "onProgress");
-            }
+                @Override
+                public void onProgress(String requestId, long bytes, long totalBytes) {
+                    Log.d(TAG, "onProgress: " + "onProgress");
+                }
 
-            @Override
-            public void onSuccess(String requestId, Map resultData) {
-                Log.d(TAG, "onSuccess: " + "onSuccess");
-                urlDataImages = Objects.requireNonNull(resultData.get("url").toString());
-                addProduct();
-            }
+                @Override
+                public void onSuccess(String requestId, Map resultData) {
+                    Log.d(TAG, "onSuccess: " + "onSuccess");
+                    urlDataImages = Objects.requireNonNull(resultData.get("url").toString());
+                }
 
-            @Override
-            public void onError(String requestId, ErrorInfo error) {
-                Log.d(TAG, "onError: " + error);
-            }
+                @Override
+                public void onError(String requestId, ErrorInfo error) {
+                    Log.d(TAG, "onError: " + error);
+                }
 
-            @Override
-            public void onReschedule(String requestId, ErrorInfo error) {
-                Log.d(TAG, "onReschedule: " + error);
-            }
-        }).dispatch();
-    }
-
-    private void showMessage(String message){
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                @Override
+                public void onReschedule(String requestId, ErrorInfo error) {
+                    Log.d(TAG, "onReschedule: " + error);
+                }
+            }).dispatch();
+        }
     }
 
     private void addProduct() {
-        String name = Objects.requireNonNull(textInputEditTextName.getText()).toString().trim();
-        String images = urlDataImages;
-        String priceOld = Objects.requireNonNull(textInputEditTextOld.getText()).toString().trim();
-        String discount = Objects.requireNonNull(textInputDiscount.getText().toString().trim());
-        String soluong = Objects.requireNonNull(textInputEditTextSl.getText()).toString().trim();
-        String createDate = Objects.requireNonNull(textInputEditTextDate.getText()).toString().trim();
-        String description = Objects.requireNonNull(textInputEditTextDescription.getText()).toString().trim();
-        if (TextUtils.isEmpty(name)){
-            showMessage("Bạn chưa nhập tên sản phẩm");
-        }
-        else if(TextUtils.isEmpty(images)){
-            showMessage("Bạn chưa chọn hình ảnh sản phẩm");
-        }
-        else if(priceOld.equals("")){
-            showMessage("Bạn chưa nhập giá sản phẩm");
-        }
-        else if(discount.equals("")){
-            showMessage("Bạn chưa nhập giảm giá");
-        }
-        else if(soluong.equals("")){
-            showMessage("Bạn chưa nhập số lượng");
-        }
-        else if(TextUtils.isEmpty(description)){
-            showMessage("Bạn chưa nhập chi tiết sản phẩm");
-        }
-        else if(createDate.equals("")){
-            showMessage("Bạn chưa nhập ngày xuất bản sản phẩm");
-        }
-        else{
-            compositeDisposable.add(apiSell.addProduct(categories, name, images, Integer.parseInt(priceOld), Integer.parseInt(discount), Integer.parseInt(soluong), createDate, description)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            addProductModel -> {
-                                if(addProductModel.isSuccess()){
-                                    Toast.makeText(getApplicationContext(), "Đã thêm sản phẩm thành công !", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), AdminProductActivity.class);
-                                    startActivity(intent);
-                                }
-                                else {
-                                    Toast.makeText(getApplicationContext(), addProductModel.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            },
-                            throwable -> {
-                                Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                    )
-            );
+        btnAddproduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name = Objects.requireNonNull(textInputEditTextName.getText()).toString().trim();
+                String images = urlDataImages;
+                String priceOld = Objects.requireNonNull(textInputEditTextOld.getText()).toString().trim();
+                String discount = Objects.requireNonNull(textInputDiscount.getText().toString().trim());
+                String soluong = Objects.requireNonNull(textInputEditTextSl.getText()).toString().trim();
+                String createDate = Objects.requireNonNull(textInputEditTextDate.getText()).toString().trim();
+                String description = Objects.requireNonNull(textInputEditTextDescription.getText()).toString().trim();
+                if (TextUtils.isEmpty(name)){
+                    showMessage("Bạn chưa nhập tên sản phẩm");
+                }
+                else if(TextUtils.isEmpty(images)){
+                    showMessage("Bạn chưa chọn hình ảnh sản phẩm");
+                    uploadDataNow();
+                }
+                else if(priceOld.equals("")){
+                    showMessage("Bạn chưa nhập giá sản phẩm");
+                }
+                else if(discount.equals("")){
+                    showMessage("Bạn chưa nhập giảm giá");
+                }
+                else if(soluong.equals("")){
+                    showMessage("Bạn chưa nhập số lượng");
+                }
+                else if(TextUtils.isEmpty(description)){
+                    showMessage("Bạn chưa nhập chi tiết sản phẩm");
+                }
+                else if(createDate.equals("")){
+                    showMessage("Bạn chưa nhập ngày xuất bản sản phẩm");
+                }
+                else{
 
-        }
+                    compositeDisposable.add(apiSell.addProduct(categories, name, images, Integer.parseInt(priceOld), Integer.parseInt(discount), Integer.parseInt(soluong), createDate, description)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                    addProductModel -> {
+                                        if(addProductModel.isSuccess()){
+                                            showMessage("Đã thêm sản phẩm thành công !");
+                                            Intent intent = new Intent(getApplicationContext(), AdminProductActivity.class);
+                                            startActivity(intent);
+                                        }
+                                        else {
+                                            showMessage(addProductModel.getMessage());
+                                        }
+                                    },
+                                    throwable -> {
+                                        showMessage(throwable.getMessage());
+                                    }
+                            )
+                    );
+
+                }
+            }
+        });
     }
 
     private void setActionData() {
@@ -272,15 +266,13 @@ public class AdminProduct extends AppCompatActivity {
                                 for(int i = 0; i < categoryList.size(); i++){
                                     name = categoryModel.getResult().get(i).getName();
                                     stringList.add(name);
-                                    Log.d("String list", "setActionData: " + stringList);
                                 }
                             }
                             ArrayAdapter<String> arraySol = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, stringList);
                             spinner.setAdapter(arraySol);
                         },
                         throwable -> {
-                            Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+                            showMessage(throwable.getMessage());                        }
                 )
 
         );
@@ -289,8 +281,6 @@ public class AdminProduct extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 categories = i;
                 categories += 1;
-                Log.d("Vị trí", "onItemSelected: " + categories);
-
             }
 
             @Override
@@ -311,6 +301,15 @@ public class AdminProduct extends AppCompatActivity {
         });
     }
 
+    private void showMessage(String message){
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        compositeDisposable.clear();
+        super.onDestroy();
+    }
 
     private void mapping() {
         categoryList = new ArrayList<>();

@@ -2,6 +2,7 @@ package com.example.appbanhang.adapter.adapterAdmin;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appbanhang.R;
+import com.example.appbanhang.interFace.ItemClickListener;
 import com.example.appbanhang.model.Product;
+import com.example.appbanhang.utils.eventbus.CrudProductEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -69,6 +74,15 @@ public class AdminProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             myViewHolder.txtDateProduct.setText(dateProduct);
 
             Glide.with(context).load(product.getImages()).into(myViewHolder.imageViewProduct);
+
+            myViewHolder.setItemClickListener(new ItemClickListener() {
+                @Override
+                public void onClick(View view, int position, boolean isLongClick) {
+                    if(isLongClick){
+                        EventBus.getDefault().postSticky(new CrudProductEvent(product));
+                    }
+                }
+            });
         }
         else {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
@@ -87,13 +101,14 @@ public class AdminProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return productList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener, View.OnCreateContextMenuListener {
         TextView textViewName;
         TextView textViewPrice_new;
         TextView textViewPrice_old;
         ImageView imageViewProduct;
         TextView txtDateProduct;
         TextView txtDescriptionProduct;
+        private ItemClickListener itemClickListener;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -103,7 +118,31 @@ public class AdminProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             imageViewProduct = (ImageView) itemView.findViewById(R.id.imagesProductAdmin);
             txtDateProduct = (TextView) itemView.findViewById(R.id.date_product);
             txtDescriptionProduct = (TextView) itemView.findViewById(R.id.descripton_product);
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+            itemView.setOnCreateContextMenuListener(this);
 
+        }
+
+        public void setItemClickListener(ItemClickListener itemClickListener) {
+            this.itemClickListener = itemClickListener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            itemClickListener.onClick(view, getAdapterPosition(), false);
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            itemClickListener.onClick(view, getAdapterPosition(), true);
+            return false;
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            contextMenu.add(0, 0, getAdapterPosition(), "Xóa");
+            contextMenu.add(0, 1, getAdapterPosition(), "Sửa");
         }
     }
 }

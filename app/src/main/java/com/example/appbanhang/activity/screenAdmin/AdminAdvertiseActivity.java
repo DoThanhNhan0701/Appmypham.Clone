@@ -141,7 +141,7 @@ public class AdminAdvertiseActivity extends AppCompatActivity {
         EventBus.getDefault().register(this);
     }
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    public void updateDelete(UpdateDeleteEventBus updateDeleteEventBus){
+    public void updateDeleteQc(UpdateDeleteEventBus updateDeleteEventBus){
         if(updateDeleteEventBus != null){
             advertisementUpdate = updateDeleteEventBus.getAdvertisement();
         }

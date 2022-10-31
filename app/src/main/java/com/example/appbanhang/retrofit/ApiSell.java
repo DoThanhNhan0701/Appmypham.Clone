@@ -127,4 +127,9 @@ public interface ApiSell {
             @Field("id") int id
     );
 
+    @POST("deleteproduct.php")
+    @FormUrlEncoded
+    Observable<ProductModel> deleteProduct(
+            @Field("id") int id
+    );
 }
