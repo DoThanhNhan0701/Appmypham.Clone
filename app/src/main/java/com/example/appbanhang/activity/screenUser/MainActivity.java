@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,11 +31,13 @@ import com.example.appbanhang.model.Advertisement;
 import com.example.appbanhang.model.Category;
 import com.example.appbanhang.model.Magazine;
 import com.example.appbanhang.model.Product;
-import com.example.appbanhang.retrofit.ApiSell;
+import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.ArrayListCart;
 import com.example.appbanhang.utils.Utils;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.ArrayList;
@@ -70,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerViewCategory;
     RecyclerView recyclerViewMagazine;
     LinearLayoutManager linearLayoutManagerProduct, linearLayoutManagerCategory, linearLayoutManagerMagazine;
-    ApiSell apiSell;
+    APISellApp APISellApp;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     SlideAppAdapter slideAppAdapter;
@@ -90,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
     NotificationBadge notificationBadge;
     FloatingActionButton floatingActionButton;
 
+    String token;
+
     // Loading more
     Handler handler = new Handler();
     boolean isLoading = false;
@@ -101,8 +106,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
+        APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
         mapping();
+        getToken();
         if (ConnectInternet(this)) {
             actionViewFlipper();
             getProduct(page);
@@ -112,8 +118,40 @@ public class MainActivity extends AppCompatActivity {
             setActivityLayout();
             setDataUser();
         } else {
-            Toast.makeText(getApplicationContext(), "notConnect", Toast.LENGTH_SHORT).show();
+            showMessage("Not Internet");
         }
+    }
+
+    private void showMessage(String message){
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void getToken(){
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if(!TextUtils.isEmpty(s)){
+                    int idUser = Utils.userCurrent.getId();
+                    compositeDisposable.add(APISellApp.updateToken(idUser, s)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                    messageApi -> {
+                                        if(messageApi.isSuccess()){
+                                            Log.d("#", "onSuccess: " + messageApi.getMessage());
+                                        }
+                                        else{
+                                            showMessage(messageApi.getMessage());
+                                        }
+                                    },
+                                    throwable -> {
+                                        showMessage(throwable.getMessage());
+                                    }
+                            )
+                    );
+                }
+            }
+        });
     }
 
     private void getEventLoading() {
@@ -154,13 +192,15 @@ public class MainActivity extends AppCompatActivity {
                 productAdapter.notifyDataSetChanged();
                 isLoading = false;
             }
-        }, 2000);
+        }, 1000);
     }
     private void setDataUser() {
         Paper.init(this);
         Utils.userCurrent = Paper.book().read("user");
         assert Utils.userCurrent != null;
         String userName = Utils.userCurrent.getLast_name();
+        token = Utils.userCurrent.getToken();
+        Log.d("TAG", "onSuccess: " + token);
         textViewUser.setText(userName);
     }
     private void setActivityLayout() {
@@ -202,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void getProduct(int page) {
-        compositeDisposable.add(apiSell.getProduct(page)
+        compositeDisposable.add(APISellApp.getProduct(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -223,18 +263,18 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                             else{
-                                Toast.makeText(getApplicationContext(), "Tất cả sản phẩm đã hết !", Toast.LENGTH_SHORT).show();
+                                showMessage("Tất cả sản phẩm đã hết !");
                                 isLoading = true;
                             }
                         },
                         throwable -> {
-                            Toast.makeText(getApplicationContext(), "Khong get product duoc", Toast.LENGTH_SHORT).show();
+                            showMessage("Not get product");
                         }
                 )
         );
     }
     private void getCategory() {
-        compositeDisposable.add(apiSell.getCategory()
+        compositeDisposable.add(APISellApp.getCategory()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -244,15 +284,18 @@ public class MainActivity extends AppCompatActivity {
                                 categoryAdapter = new CategoryAdapter(getApplicationContext(), categoryList);
                                 recyclerViewCategory.setAdapter(categoryAdapter);
                             }
+                            else{
+                                showMessage(categoryModel.getMessgage());
+                            }
                         },
                         throwable -> {
-                            Toast.makeText(getApplicationContext(), "Không có danh mục sản phẩm", Toast.LENGTH_SHORT).show();
+                            showMessage(throwable.getMessage());
                         }
                 )
         );
     }
     private void getMagazine() {
-        compositeDisposable.add(apiSell.getMagazine()
+        compositeDisposable.add(APISellApp.getMagazine()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -263,11 +306,11 @@ public class MainActivity extends AppCompatActivity {
                                 recyclerViewMagazine.setAdapter(magazineAdapter);
                             }
                             else{
-                                Toast.makeText(getApplicationContext(), magazineModel.getMessage(), Toast.LENGTH_SHORT).show();
+                                showMessage(magazineModel.getMessage());
                             }
                         },
                         throwable -> {
-                            Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                            showMessage(throwable.getMessage());
                         }
                 )
 
@@ -275,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void actionViewFlipper() {
-        compositeDisposable.add(apiSell.getAdvertisement()
+        compositeDisposable.add(APISellApp.getAdvertisement()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -311,12 +354,12 @@ public class MainActivity extends AppCompatActivity {
                                 });
                             }
                             else {
-                                Toast.makeText(getApplicationContext(), advertisementModel.getMessage(), Toast.LENGTH_SHORT).show();
+                                showMessage(advertisementModel.getMessage());
                             }
 
                         },
                         throwable -> {
-                            Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                            showMessage(throwable.getMessage());
                         }
                 )
         );

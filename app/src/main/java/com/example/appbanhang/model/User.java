@@ -8,6 +8,8 @@ public class User {
     private String phone;
     private String password;
     private String user_role;
+    private String uid;
+    private String token;
 
     public User() {
     }
@@ -19,6 +21,22 @@ public class User {
         this.last_name = last_name;
         this.phone = phone;
         this.password = password;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public int getId() {

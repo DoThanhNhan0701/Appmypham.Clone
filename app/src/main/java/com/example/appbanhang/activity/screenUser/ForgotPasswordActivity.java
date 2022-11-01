@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appbanhang.R;
-import com.example.appbanhang.retrofit.ApiSell;
+import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
@@ -26,13 +26,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     Button btnResetPass;
     TextInputEditText txtResetPass;
     ProgressBar progressBar;
-    ApiSell apiSell;
+    APISellApp APISellApp;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-        apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
+        APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
         mapping();
         setForgotPass();
     }
@@ -47,7 +47,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 }
                 else{
                     progressBar.setVisibility(View.VISIBLE);
-                    compositeDisposable.add(apiSell.getGmailRePass(txtGmail)
+                    compositeDisposable.add(APISellApp.getGmailRePass(txtGmail)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,8 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appbanhang.R;
 import com.example.appbanhang.model.Address;
-import com.example.appbanhang.retrofit.ApiSell;
+import com.example.appbanhang.model.dataApi.ContentSendMessages;
+import com.example.appbanhang.retrofit.APISellApp;
+import com.example.appbanhang.retrofit.APISendMessages;
 import com.example.appbanhang.retrofit.RetrofitCliend;
+import com.example.appbanhang.retrofit.RetrofitSendMessage;
 import com.example.appbanhang.utils.ArrayListCart;
 import com.example.appbanhang.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
@@ -29,7 +33,9 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -38,6 +44,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class PayActivity extends AppCompatActivity {
     Toolbar toolbar;
+    TextView txtDemo;
     TextView txtTotalPricePay, txtNamePay, txtGmailPay, txtPhonePay, txtSoluong;
     TextInputEditText textInputCity, textInputDistrict, textInputXa, textInputAdress;
     Button buttonPayTT;
@@ -49,26 +56,32 @@ public class PayActivity extends AppCompatActivity {
     //
     int pos;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiSell apiSell;
+    APISellApp APISellApp;
     int soluong;
     long totalPrice;
+    APISendMessages apiSendMessages;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
-        apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
+        APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
 
         mapping();
         setActionToolBar();
         setPayProduct();
         setInforPayDB();
         setDataSpinner();
+        txtDemo.setOnClickListener(view -> notyfiMessages());
+    }
+
+    private void showMessages(String message){
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     private void setDataSpinner() {
-        compositeDisposable.add(apiSell.getViewAddress(Utils.userCurrent.getId())
+        compositeDisposable.add(APISellApp.getViewAddress(Utils.userCurrent.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -91,7 +104,7 @@ public class PayActivity extends AppCompatActivity {
                             }
                         },
                         throwable -> {
-                            Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                            showMessages(throwable.getMessage());
                         }
                 )
         );
@@ -115,7 +128,6 @@ public class PayActivity extends AppCompatActivity {
                         break;
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -155,7 +167,7 @@ public class PayActivity extends AppCompatActivity {
 
 
 
-                    compositeDisposable.add(apiSell.addCreateOrder
+                    compositeDisposable.add(APISellApp.addCreateOrder
                                     (idUser, String.valueOf(totalPrice), soluong, gmail, Integer.parseInt(sdt), nameCity, nameDistrict, nameXa, nameAddress, nameDate, jsonArray)
 
                             .subscribeOn(Schedulers.io())
@@ -164,15 +176,16 @@ public class PayActivity extends AppCompatActivity {
                                     cartModel -> {
                                         // Failed
                                         if(cartModel.isSuccess()){
-                                            Toast.makeText(PayActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                                            showMessages("Bạn đã đặt hàng thành công");
                                             Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
                                             startActivity(intentMain);
                                             finish();
                                         }
                                     },
                                     throwable -> {
-                                        Toast.makeText(PayActivity.this, "Bạn đã đặt hàng thành công", Toast.LENGTH_SHORT).show();
+                                        showMessages("Bạn đã đặt hàng thành công !!!");
                                         ArrayListCart.arrayListCart.clear();
+                                        notyfiMessages();
                                         Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intentMain);
                                         finish();
@@ -184,6 +197,45 @@ public class PayActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    private void notyfiMessages() {
+        String role = "ROLE_ADMIN";
+        compositeDisposable.add(APISellApp.getToken(role)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        userModel ->{
+                            if(userModel.isSuccess()){
+                                for (int i = 0; i < userModel.getResult().size(); i++){
+                                    Map<String , String> content = new HashMap<>();
+                                    content.put("title", "Thông báo");
+                                    content.put("body", "Bạn có 1 đơn hàng mới");
+                                    String tokens = userModel.getResult().get(i).getToken();
+                                    Log.d("#", "notyfiMessages: " + tokens);
+                                    ContentSendMessages contentSendMessages = new ContentSendMessages(tokens, content);
+                                    apiSendMessages = RetrofitSendMessage.getInstance(Utils.BASE_URL_FCM).create(APISendMessages.class);
+                                    // Send messages
+                                    compositeDisposable.add(apiSendMessages.senMessages(contentSendMessages)
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(
+                                                    reponseMessages -> {
+                                                        showMessages("Success");
+                                                    },
+                                                    throwable -> {
+                                                        showMessages(throwable.getMessage());
+                                                    }
+                                            )
+                                    );
+                                }
+                            }
+                        }, throwable -> {
+                            showMessages(throwable.getMessage());
+                        }
+                )
+
+        );
     }
 
     @SuppressLint("SetTextI18n")
@@ -232,6 +284,7 @@ public class PayActivity extends AppCompatActivity {
         textInputXa = (TextInputEditText) findViewById(R.id.inputXa);
         textInputAdress = (TextInputEditText) findViewById(R.id.inputAddress);
         spinnerAddress = (Spinner)findViewById(R.id.inputAutoSpiner);
+        txtDemo = (TextView) findViewById(R.id.textViewAdress);
         addressList = new ArrayList<>();
         stringList = new ArrayList<>();
 

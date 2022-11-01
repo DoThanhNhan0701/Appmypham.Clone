@@ -12,12 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appbanhang.R;
-import com.example.appbanhang.retrofit.ApiSell;
+import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -33,19 +39,24 @@ public class SignupActivity extends AppCompatActivity {
     Button buttonSignup;
 
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiSell apiSell;
+    APISellApp APISellApp;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
+        APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
         mapping();
         if(ConnectInternet(SignupActivity.this)){
             setSignupApp();
         }else{
             Toast.makeText(getApplicationContext(), "Bạn chưa kết nối Internet", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void showMessage(String messages){
+        Toast.makeText(getApplicationContext(), messages, Toast.LENGTH_SHORT).show();
     }
 
     private void setSignupApp() {
@@ -64,10 +75,6 @@ public class SignupActivity extends AppCompatActivity {
         String phone = txtSignUpPhone.getText().toString().trim();
         String password = txtSignUpPassword.getText().toString().trim();
         String repassword = txtSignUpRePassword.getText().toString().trim();
-        String user_role = "ROLE_USER";
-
-
-
 
         if (TextUtils.isEmpty(gmail)){
             Toast.makeText(this, "Bạn chưa nhập gmail", Toast.LENGTH_SHORT).show();
@@ -89,37 +96,52 @@ public class SignupActivity extends AppCompatActivity {
         }
         else {
             if(password.equals(repassword)){
-                compositeDisposable.add(apiSell.getSignup(gmail, firstname, lastname, phone, password, user_role)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                userModel -> {
-                                    if(userModel.isSuccess()){
-                                        Utils.userCurrent.setGmail(gmail);
-                                        Utils.userCurrent.setPassword(password);
-                                        Utils.userCurrent.setUser_role(user_role);
-
-                                        Intent intentLogin = new Intent(getApplicationContext(), LoginActivity.class);
-                                        startActivity(intentLogin);
-                                        finish();
+                firebaseAuth = FirebaseAuth.getInstance();
+                firebaseAuth.createUserWithEmailAndPassword(gmail, password)
+                        .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful()){
+                                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                                    if(firebaseUser != null){
+                                        dataSign(gmail, firstname, lastname, phone, password, firebaseUser.getUid());
                                     }
-                                    else {
-                                        Toast.makeText(getApplicationContext(), userModel.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                },
-                                throwable -> {
-                                    Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
-                        )
-                );
+                                else{
+                                    showMessage("Tài khoản gmail đã trùng !!!");
+                                }
+                            }
+                        });
             }
             else{
-                Toast.makeText(this, "Mật khẩu của bạn chưa khớp", Toast.LENGTH_SHORT).show();
+                showMessage("Mật khẩu của bạn chưa khớp");
             }
         }
+    }
+    private void dataSign(String gmail, String firstname, String lastname, String phone, String password, String uid){
 
+        compositeDisposable.add(APISellApp.getSignup(gmail, firstname, lastname, phone, password, uid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        userModel -> {
+                            if(userModel.isSuccess()){
+                                Utils.userCurrent.setGmail(gmail);
+                                Utils.userCurrent.setPassword(password);
 
-
+                                Intent intentLogin = new Intent(getApplicationContext(), LoginActivity.class);
+                                startActivity(intentLogin);
+                                finish();
+                            }
+                            else {
+                                showMessage(userModel.getMessage());
+                            }
+                        },
+                        throwable -> {
+                            showMessage(throwable.getMessage());
+                        }
+                )
+        );
     }
     private boolean ConnectInternet(Context context){
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

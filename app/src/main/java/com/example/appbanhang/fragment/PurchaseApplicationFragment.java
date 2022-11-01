@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appbanhang.R;
 import com.example.appbanhang.adapter.adpterUser.OrderAdapter;
-import com.example.appbanhang.retrofit.ApiSell;
+import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
 
@@ -24,19 +24,19 @@ public class PurchaseApplicationFragment extends Fragment {
     RecyclerView recyclerView;
     OrderAdapter orderAdapter;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiSell apiSell;
+    APISellApp APISellApp;
     View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_purchase_application, container, false);
-        apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
+        APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
         mapping();
         getDetailOrder();
         return view;
     }
     private void getDetailOrder() {
-        compositeDisposable.add(apiSell.getViewOrder(Utils.userCurrent.getId())
+        compositeDisposable.add(APISellApp.getViewOrder(Utils.userCurrent.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

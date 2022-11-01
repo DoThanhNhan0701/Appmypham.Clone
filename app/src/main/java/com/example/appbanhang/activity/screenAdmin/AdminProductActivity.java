@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appbanhang.R;
 import com.example.appbanhang.adapter.adapterAdmin.AdminProductAdapter;
 import com.example.appbanhang.model.Product;
-import com.example.appbanhang.retrofit.ApiSell;
+import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
 import com.example.appbanhang.utils.eventbus.CrudProductEvent;
@@ -41,7 +40,7 @@ public class AdminProductActivity extends AppCompatActivity {
     AdminProductAdapter adminProductAdapter;
     Product product;
     List<Product> productList;
-    ApiSell apiSell;
+    APISellApp APISellApp;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     RecyclerView recyclerView;
@@ -55,7 +54,7 @@ public class AdminProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_product);
-        apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
+        APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
 
         mapping();
         setAction();
@@ -125,7 +124,7 @@ public class AdminProductActivity extends AppCompatActivity {
     }
 
     private void getAllProduct(int page) {
-        compositeDisposable.add(apiSell.getProduct(page)
+        compositeDisposable.add(APISellApp.getProduct(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -163,15 +162,26 @@ public class AdminProductActivity extends AppCompatActivity {
         showMessage("Update");
     }
 
+
+    public void reload() {
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
+    }
+
     private void deleteProduct() {
         int id = product.getId();
-        compositeDisposable.add(apiSell.deleteProduct(id)
+        compositeDisposable.add(APISellApp.deleteProduct(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         productModel -> {
                             if(productModel.isSuccess()){
                                 showMessage("Bạn đã xóa sản phẩm thành công");
+                                reload();
                             }
                             else{
                                 showMessage(productModel.getMessage());

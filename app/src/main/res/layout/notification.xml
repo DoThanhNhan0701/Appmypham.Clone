@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="fill_parent"
+    android:layout_height="64dp"
+    android:padding="10dp" >
+
+    <ImageView
+        android:id="@+id/imageNotyfi"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="10dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/titlenotyfi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imageNotyfi"
+        android:text="Testing"
+        android:textColor="#000"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/textbody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titlenotyfi"
+        android:layout_toEndOf="@id/imageNotyfi"
+        android:text="Testing is awecome"
+        android:textColor="#000"
+        android:textSize="13sp" />
+</RelativeLayout>

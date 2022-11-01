@@ -34,7 +34,7 @@ import com.cloudinary.android.callback.UploadCallback;
 import com.example.appbanhang.R;
 import com.example.appbanhang.model.Category;
 import com.example.appbanhang.model.Product;
-import com.example.appbanhang.retrofit.ApiSell;
+import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
 import com.example.appbanhang.utils.cloudinary.ConfigCloudinary;
@@ -53,7 +53,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class AdminProduct extends AppCompatActivity {
     Toolbar toolbar;
     Spinner spinner;
-    ApiSell apiSell;
+    APISellApp APISellApp;
     Button btnAddproduct;
     Button btnSeclectImages;
     TextView txtHienthi;
@@ -82,7 +82,7 @@ public class AdminProduct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_add_product);
-        apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
+        APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
 
         mapping();
         initConfig();
@@ -230,7 +230,7 @@ public class AdminProduct extends AppCompatActivity {
                 }
                 else{
 
-                    compositeDisposable.add(apiSell.addProduct(categories, name, images, Integer.parseInt(priceOld), Integer.parseInt(discount), Integer.parseInt(soluong), createDate, description)
+                    compositeDisposable.add(APISellApp.addProduct(categories, name, images, Integer.parseInt(priceOld), Integer.parseInt(discount), Integer.parseInt(soluong), createDate, description)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
@@ -256,7 +256,7 @@ public class AdminProduct extends AppCompatActivity {
     }
 
     private void setActionData() {
-        compositeDisposable.add(apiSell.getCategory()
+        compositeDisposable.add(APISellApp.getCategory()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

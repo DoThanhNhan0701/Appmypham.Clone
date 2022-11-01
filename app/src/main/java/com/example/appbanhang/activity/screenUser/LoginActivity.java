@@ -13,14 +13,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appbanhang.R;
 import com.example.appbanhang.model.User;
-import com.example.appbanhang.retrofit.ApiSell;
+import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText textInputEditTextGmail;
     TextInputEditText textInputEditTextPass;
     Button buttonLogin;
-    ApiSell apiSell;
+    APISellApp APISellApp;
     List<User> userList;
 
     String gmail;
@@ -45,13 +51,16 @@ public class LoginActivity extends AppCompatActivity {
     boolean isLogin = false;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
+        APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
         mapping();
 
         if(ConnectInternet(LoginActivity.this)){
@@ -78,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-//                            login(Paper.book().read("gmail"), Paper.book().read("password"), Paper.book().read("role"));
                         }
                     }, 1000);
                 }
@@ -87,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(String gmail, String password) {
-        compositeDisposable.add(apiSell.getLogin(gmail,password)
+        compositeDisposable.add(APISellApp.getLogin(gmail,password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -129,7 +137,21 @@ public class LoginActivity extends AppCompatActivity {
                 else{
                     Paper.book().write("gmail", gmail);
                     Paper.book().write("password", password);
-                    login(gmail, password);
+
+                    if(firebaseUser != null){
+                        login(gmail, password);
+                    }
+                    else{
+                        firebaseAuth.signInWithEmailAndPassword(gmail, password)
+                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        login(gmail, password);
+                                    }
+                                }
+                            });
+                    }
                 }
             }
         });
@@ -189,6 +211,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void mapping() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
         textViewSignup = (TextView) findViewById(R.id.textViewSignUpInLogin);
         forgotPassword = (TextView) findViewById(R.id.txtForgotPassword);
         textInputEditTextGmail = (TextInputEditText) findViewById(R.id.inputGmailLogin);

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appbanhang.R;
 import com.example.appbanhang.adapter.adapterAdmin.AdminAdvertiseAdapter;
 import com.example.appbanhang.model.Advertisement;
-import com.example.appbanhang.retrofit.ApiSell;
+import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
 import com.example.appbanhang.utils.eventbus.UpdateDeleteEventBus;
@@ -41,7 +41,7 @@ public class AdminAdvertiseActivity extends AppCompatActivity {
     Advertisement advertisementUpdate;
 
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiSell apiSell;
+    APISellApp APISellApp;
     List<Advertisement> advertisementList;
     AdminAdvertiseAdapter adminAdvertiseAdapter;
     LinearLayoutManager linearLayoutManager;
@@ -50,7 +50,7 @@ public class AdminAdvertiseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_advertise);
-        apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
+        APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
 
         mapping();
         setDataIntentScreen();
@@ -70,7 +70,7 @@ public class AdminAdvertiseActivity extends AppCompatActivity {
 
     private void deleteItemAdvertise() {
         int t = advertisementUpdate.getId();
-        compositeDisposable.add(apiSell.deleteAdvertise(t)
+        compositeDisposable.add(APISellApp.deleteAdvertise(t)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -94,7 +94,7 @@ public class AdminAdvertiseActivity extends AppCompatActivity {
     }
 
     private void setDataAdvertise() {
-        compositeDisposable.add(apiSell.getAdvertisement()
+        compositeDisposable.add(APISellApp.getAdvertisement()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

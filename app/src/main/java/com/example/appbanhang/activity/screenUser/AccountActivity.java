@@ -13,9 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.appbanhang.R;
 import com.example.appbanhang.activity.screenAdmin.MainActivityAdmin;
 import com.example.appbanhang.model.Address;
-import com.example.appbanhang.retrofit.ApiSell;
+import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +32,12 @@ public class AccountActivity extends AppCompatActivity {
     Button buttonLogout;
 
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiSell apiSell;
+    APISellApp APISellApp;
     List<Address> addressList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
+        APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
         setContentView(R.layout.activity_account);
         mapping();
         setDataAccount();
@@ -48,8 +49,10 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Paper.book().delete("user");
+                FirebaseAuth.getInstance().signOut();
                 Intent intentLogin = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intentLogin);
+                finish();
             }
         });
     }
@@ -73,7 +76,7 @@ public class AccountActivity extends AppCompatActivity {
         txtAcconut.setText(Utils.userCurrent.getGmail());
         txtPhone.setText("Số điện thoại: " + Utils.userCurrent.getPhone());
 
-        compositeDisposable.add(apiSell.getViewAddress(Utils.userCurrent.getId())
+        compositeDisposable.add(APISellApp.getViewAddress(Utils.userCurrent.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

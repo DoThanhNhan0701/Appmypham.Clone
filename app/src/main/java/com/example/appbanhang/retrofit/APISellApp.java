@@ -6,6 +6,7 @@ import com.example.appbanhang.model.dataApi.AdvertisementModel;
 import com.example.appbanhang.model.dataApi.CartModel;
 import com.example.appbanhang.model.dataApi.CategoryModel;
 import com.example.appbanhang.model.dataApi.MagazineModel;
+import com.example.appbanhang.model.dataApi.MessageApi;
 import com.example.appbanhang.model.dataApi.ProductModel;
 import com.example.appbanhang.model.dataApi.UserModel;
 import com.example.appbanhang.model.dataApi.ViewOrderModel;
@@ -16,15 +17,12 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-public interface ApiSell {
+public interface APISellApp {
     @GET("getcategory.php")
     Observable<CategoryModel> getCategory();
 
     @GET("getadvertisement.php")
     Observable<AdvertisementModel> getAdvertisement();
-
-//    @GET("getproduct.php")
-//    Observable<ProductModel> getProduct();
 
     @POST("getproduct.php")
     @FormUrlEncoded
@@ -46,8 +44,8 @@ public interface ApiSell {
             @Field("last_name") String last_name,
             @Field("phone") String phone,
             @Field("password") String password,
-            @Field("user_role") String user_role
-    );
+            @Field("uid") String uid
+            );
 
     @POST("login.php")
     @FormUrlEncoded
@@ -131,5 +129,18 @@ public interface ApiSell {
     @FormUrlEncoded
     Observable<ProductModel> deleteProduct(
             @Field("id") int id
+    );
+
+    @POST("updatetokeninuser.php")
+    @FormUrlEncoded
+    Observable<MessageApi> updateToken(
+            @Field("id") int id,
+            @Field("token") String token
+    );
+
+    @POST("gettokenuser.php")
+    @FormUrlEncoded
+    Observable<UserModel> getToken(
+            @Field("user_role") String user_role
     );
 }

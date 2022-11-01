@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appbanhang.R;
 import com.example.appbanhang.adapter.adpterUser.TitileCategoryAdapter;
 import com.example.appbanhang.model.Product;
-import com.example.appbanhang.retrofit.ApiSell;
+import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
 
@@ -28,7 +28,7 @@ public class DetailCategoryActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     int page = 1;
-    ApiSell apiSell;
+    APISellApp APISellApp;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     int category;
     TitileCategoryAdapter titileCategoryAdapter;
@@ -38,7 +38,7 @@ public class DetailCategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_title);
-        apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
+        APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
         category = getIntent().getIntExtra("category", page);
         mapping();
         setActionToolBar();
@@ -47,7 +47,7 @@ public class DetailCategoryActivity extends AppCompatActivity {
 
 
     private void getDateTitleCategory() {
-        compositeDisposable.add(apiSell.getTitleCategory(category)
+        compositeDisposable.add(APISellApp.getTitleCategory(category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

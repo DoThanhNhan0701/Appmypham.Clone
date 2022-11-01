@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appbanhang.R;
 import com.example.appbanhang.adapter.adpterUser.TitileCategoryAdapter;
 import com.example.appbanhang.model.Product;
-import com.example.appbanhang.retrofit.ApiSell;
+import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
 
@@ -32,7 +32,7 @@ public class SearchProductActivity extends AppCompatActivity {
     Toolbar toolbarSearch;
     EditText txtSearchProduct;
     List<Product> productList;
-    ApiSell apiSell;
+    APISellApp APISellApp;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     TitileCategoryAdapter titileCategoryAdapter;
     LinearLayoutManager linearLayoutManager;
@@ -41,7 +41,7 @@ public class SearchProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_product);
-        apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
+        APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
         mapping();
         setActionToolbar();
         setActionSearchProduct();
@@ -73,7 +73,7 @@ public class SearchProductActivity extends AppCompatActivity {
 
     private void getDataSearch(String nameSearch) {
         productList.clear();
-        compositeDisposable.add(apiSell.getSearchProduct(nameSearch)
+        compositeDisposable.add(APISellApp.getSearchProduct(nameSearch)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

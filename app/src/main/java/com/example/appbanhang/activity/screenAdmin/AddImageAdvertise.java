@@ -26,7 +26,7 @@ import com.cloudinary.android.MediaManager;
 import com.cloudinary.android.callback.ErrorInfo;
 import com.cloudinary.android.callback.UploadCallback;
 import com.example.appbanhang.R;
-import com.example.appbanhang.retrofit.ApiSell;
+import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
 import com.squareup.picasso.Picasso;
@@ -45,7 +45,7 @@ public class AddImageAdvertise extends AppCompatActivity {
     Button btnChonImages;
     Toolbar toolbar;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    ApiSell apiSell;
+    APISellApp APISellApp;
     // Upload Images
     private static final int IMAGE_REQUEST = 1;
     public static final String TAG = "Upload ###";
@@ -57,7 +57,7 @@ public class AddImageAdvertise extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_image_advertise);
-        apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
+        APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
 
         mapping();
         actionToolbar();
@@ -128,7 +128,7 @@ public class AddImageAdvertise extends AppCompatActivity {
     }
 
     private void insertDataServer() {
-        compositeDisposable.add(apiSell.addAdvertise(urlDataImages)
+        compositeDisposable.add(APISellApp.addAdvertise(urlDataImages)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

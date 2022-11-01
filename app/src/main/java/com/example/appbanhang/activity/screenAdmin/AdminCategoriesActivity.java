@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appbanhang.R;
 import com.example.appbanhang.adapter.adapterAdmin.AdminCategoriesAdapter;
 import com.example.appbanhang.model.Category;
-import com.example.appbanhang.retrofit.ApiSell;
+import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
 
@@ -33,14 +33,14 @@ public class AdminCategoriesActivity extends AppCompatActivity {
 
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     AdminCategoriesAdapter adminCategoriesAdapter;
-    ApiSell apiSell;
+    APISellApp APISellApp;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_categories);
-        apiSell = RetrofitCliend.getInstance(Utils.BASE_URL).create(ApiSell.class);
+        APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
 
         mapping();
         actionToolbar();
@@ -59,7 +59,7 @@ public class AdminCategoriesActivity extends AppCompatActivity {
     }
 
     private void setDataCategories() {
-        compositeDisposable.add(apiSell.getCategory()
+        compositeDisposable.add(APISellApp.getCategory()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
