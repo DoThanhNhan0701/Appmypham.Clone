@@ -13,7 +13,7 @@ import com.example.appbanhang.activity.screenUser.IntroActivity;
 public class MainActivityAdmin extends AppCompatActivity {
     CardView cardViewWebsite, cardViewCategorise;
     CardView getCardViewWebsite, addProductAdmin;
-    CardView cardViewQc;
+    CardView cardViewQc, cardViewOrder;
 
 
 
@@ -55,6 +55,13 @@ public class MainActivityAdmin extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        cardViewOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AdminOrderActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void mapping() {
@@ -63,5 +70,6 @@ public class MainActivityAdmin extends AppCompatActivity {
         addProductAdmin = (CardView) findViewById(R.id.addproductAdmin);
         cardViewCategorise = (CardView) findViewById(R.id.management_websiteCategories);
         cardViewQc = (CardView) findViewById(R.id.cartViewQc);
+        cardViewOrder = (CardView) findViewById(R.id.cardViewOder);
     }
 }

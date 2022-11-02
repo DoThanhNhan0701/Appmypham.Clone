@@ -83,6 +83,12 @@ public interface APISellApp {
             @Field("iduser") int iduser
     );
 
+    @POST("getallorder.php")
+    @FormUrlEncoded
+    Observable<ViewOrderModel> getAllOrder(
+            @Field("iduser") int iduser
+    );
+
     @POST("viewaddress.php")
     @FormUrlEncoded
     Observable<AddressModel> getViewAddress(

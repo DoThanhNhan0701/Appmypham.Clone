@@ -70,5 +70,4 @@ dependencies {
     //cloudinary sdk
     implementation 'com.cloudinary:cloudinary-android:2.2.0'
 
-
 }
