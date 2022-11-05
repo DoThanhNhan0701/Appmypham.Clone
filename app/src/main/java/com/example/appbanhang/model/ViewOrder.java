@@ -5,11 +5,12 @@ import java.util.List;
 public class ViewOrder {
     private int id;
     private int iduser;
-    private String phone;
-    private String tinh;
+    private String sodienthoai;
+    private String thanhpho;
     private String quan;
     private String phuong;
     private String diachi;
+    private int status;
     private String create_date;
     List<ProductOrder> productorder;
 
@@ -29,20 +30,20 @@ public class ViewOrder {
         this.iduser = iduser;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getSodienthoai() {
+        return sodienthoai;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setSodienthoai(String sodienthoai) {
+        this.sodienthoai = sodienthoai;
     }
 
-    public String getTinh() {
-        return tinh;
+    public String getThanhpho() {
+        return thanhpho;
     }
 
-    public void setTinh(String tinh) {
-        this.tinh = tinh;
+    public void setThanhpho(String thanhpho) {
+        this.thanhpho = thanhpho;
     }
 
     public String getQuan() {
@@ -69,11 +70,19 @@ public class ViewOrder {
         this.diachi = diachi;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public String getCreate_date() {
         return create_date;
     }
 
-    public void setCreate_date(String dateOrder) {
+    public void setCreate_date(String create_date) {
         this.create_date = create_date;
     }
 
@@ -84,7 +93,5 @@ public class ViewOrder {
     public void setProductorder(List<ProductOrder> productorder) {
         this.productorder = productorder;
     }
-
-
-
 }
+

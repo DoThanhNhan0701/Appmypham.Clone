@@ -4,10 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appbanhang.R;
 import com.example.appbanhang.adapter.adpterUser.CartAdapter;
+import com.example.appbanhang.databinding.ActivityCartBinding;
 import com.example.appbanhang.utils.ArrayListCart;
 import com.example.appbanhang.utils.eventbus.TotalEventBus;
 
@@ -25,24 +23,16 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.text.DecimalFormat;
 
 public class CartActivity extends AppCompatActivity {
-
-    Toolbar toolbar;
-    RecyclerView recyclerViewCart;
-    TextView textViewNull;
-    Button buttonPay, buttonBackHome;
-    TextView btntotalPrice, textAmount;
     CartAdapter cartAdapter;
     long priceTotal;
     int dem;
-
-
-
+    private ActivityCartBinding cartBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
+        cartBinding = ActivityCartBinding.inflate(getLayoutInflater());
+        setContentView(cartBinding.getRoot());
 
-        mapping();
         setActionToolBar();
         setDataCartProduct();
         totalPriceProduct();
@@ -50,13 +40,15 @@ public class CartActivity extends AppCompatActivity {
         payProduct();
 
     }
-
+    private void showMessage(String message){
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
     private void payProduct() {
-        buttonPay.setOnClickListener(new View.OnClickListener() {
+        cartBinding.textViewAddCartItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(priceTotal == 0){
-                    Toast.makeText(CartActivity.this, "Giỏ hàng của bạn đang trống, không thể thanh toán được !", Toast.LENGTH_SHORT).show();
+                    showMessage("Giỏ hàng của bạn đang trống, không thể thanh toán được !");
                 }
                 else{
                     Intent intentPay = new Intent(getApplicationContext(), PayActivity.class);
@@ -67,7 +59,7 @@ public class CartActivity extends AppCompatActivity {
                 }
             }
         });
-        buttonBackHome.setOnClickListener(new View.OnClickListener() {
+        cartBinding.textViewBackCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
@@ -78,16 +70,14 @@ public class CartActivity extends AppCompatActivity {
 
 
     }
-
     @SuppressLint("SetTextI18n")
     private void amountProduct() {
         dem = 0;
         for(int i = 0; i < ArrayListCart.arrayListCart.size(); i++){
             dem = dem + ArrayListCart.arrayListCart.get(i).getAmount_cart();
         }
-        textAmount.setText("Số lượng: " + dem + " sản phẩm");
+        cartBinding.textViewAmountCart.setText("Số lượng: " + dem + " sản phẩm");
     }
-
     @SuppressLint("SetTextI18n")
     private void totalPriceProduct() {
         priceTotal = 0;
@@ -95,32 +85,28 @@ public class CartActivity extends AppCompatActivity {
             priceTotal = priceTotal + ((Long.parseLong(ArrayListCart.arrayListCart.get(i).getPrice()) * ArrayListCart.arrayListCart.get(i).getAmount_cart()));
         }
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        btntotalPrice.setText("TỔNG: "+decimalFormat.format(priceTotal));
+        cartBinding.textViewPriceCartTong.setText("TỔNG: "+decimalFormat.format(priceTotal) + "đ");
     }
-
     private void setDataCartProduct() {
         if(ArrayListCart.arrayListCart.size() != 0){
             cartAdapter = new CartAdapter(getApplicationContext(), ArrayListCart.arrayListCart);
-            recyclerViewCart.setAdapter(cartAdapter);
+            cartBinding.RecycleViewCartUser.setAdapter(cartAdapter);
         }else{
-            textViewNull.setVisibility(View.VISIBLE);
+            cartBinding.textNameCartNull.setVisibility(View.VISIBLE);
         }
-
-        recyclerViewCart.setHasFixedSize(true);
+        cartBinding.RecycleViewCartUser.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerViewCart.setLayoutManager(layoutManager);
+        cartBinding.RecycleViewCartUser.setLayoutManager(layoutManager);
     }
-
     private void setActionToolBar() {
-        toolbar.setNavigationIcon(R.drawable.icon_back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        cartBinding.toolbarCartHome.setNavigationIcon(R.drawable.icon_back);
+        cartBinding.toolbarCartHome.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
     }
-
     @Override
     protected void onStart() {
         EventBus.getDefault().register(this);
@@ -140,17 +126,5 @@ public class CartActivity extends AppCompatActivity {
             amountProduct();
             setDataCartProduct();
         }
-    }
-
-    private void mapping() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar_cart_home);
-        recyclerViewCart = (RecyclerView) findViewById(R.id.RecycleViewCartUser);
-        textViewNull = (TextView) findViewById(R.id.textNameCartNull);
-
-        buttonBackHome = (Button) findViewById(R.id.textViewBack_cart);
-        buttonPay = (Button) findViewById(R.id.textViewAddCartItem);
-
-        textAmount = (TextView) findViewById(R.id.textViewAmount_cart);
-        btntotalPrice = (TextView) findViewById(R.id.textViewPrice_cart_tong);
     }
 }

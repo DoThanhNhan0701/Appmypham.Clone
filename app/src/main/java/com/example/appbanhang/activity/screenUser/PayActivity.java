@@ -8,15 +8,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appbanhang.R;
+import com.example.appbanhang.databinding.ActivityPayBinding;
 import com.example.appbanhang.model.Address;
 import com.example.appbanhang.model.dataApi.ContentSendMessages;
 import com.example.appbanhang.retrofit.APISellApp;
@@ -25,7 +22,6 @@ import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.retrofit.RetrofitSendMessage;
 import com.example.appbanhang.utils.ArrayListCart;
 import com.example.appbanhang.utils.Utils;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
 import java.text.DateFormat;
@@ -43,37 +39,29 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class PayActivity extends AppCompatActivity {
-    Toolbar toolbar;
-    TextView txtDemo;
-    TextView txtTotalPricePay, txtNamePay, txtGmailPay, txtPhonePay, txtSoluong;
-    TextInputEditText textInputCity, textInputDistrict, textInputXa, textInputAdress;
-    Button buttonPayTT;
-    Spinner spinnerAddress;
     List<Address> addressList;
     List<String> stringList;
     ArrayAdapter<String> arrayAdd;
-
-    //
-    int pos;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     APISellApp APISellApp;
+    int pos;
     int soluong;
     long totalPrice;
     APISendMessages apiSendMessages;
 
 
+    private ActivityPayBinding payBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pay);
+        payBinding = ActivityPayBinding.inflate(getLayoutInflater());
+        setContentView(payBinding.getRoot());
         APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
 
-        mapping();
         setActionToolBar();
         setPayProduct();
         setInforPayDB();
         setDataSpinner();
-        txtDemo.setOnClickListener(view -> notyfiMessages());
     }
 
     private void showMessages(String message){
@@ -87,20 +75,21 @@ public class PayActivity extends AppCompatActivity {
                 .subscribe(
                         addressModel -> {
                             if(addressModel.isSuccess()){
+                                addressList = new ArrayList<>();
                                 addressList = addressModel.getResult();
                                 for (int i = 0; i < addressList.size(); i++){
-                                    String name = addressList.get(i).getAddress() +"-"
-                                            + addressList.get(i).getPhuong()+"-"+addressList.get(i).getQuan()+"-"+addressList.get(i).getThanhpho();
+                                    String name = addressList.get(i).getAddress() +"-"+ addressList.get(i).getPhuong()+"-"+addressList.get(i).getQuan()+"-"+addressList.get(i).getThanhpho();
+                                    stringList = new ArrayList<>();
                                     stringList.add(name);
                                     arrayAdd = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, stringList);
-                                    spinnerAddress.setAdapter(arrayAdd);
+                                    payBinding.inputAutoSpiner.setAdapter(arrayAdd);
                                 }
                                 setDataAddressPay();
                             }
                             else {
                                 stringList.add("Bạn chưa có địa chỉ, vui lòng nhập địa chỉ bên dưới!");
                                 arrayAdd = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, stringList);
-                                spinnerAddress.setAdapter(arrayAdd);
+                                payBinding.inputAutoSpiner.setAdapter(arrayAdd);
                             }
                         },
                         throwable -> {
@@ -111,7 +100,7 @@ public class PayActivity extends AppCompatActivity {
     }
 
     private void setDataAddressPay() {
-        spinnerAddress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        payBinding.inputAutoSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 pos = i;
@@ -119,10 +108,10 @@ public class PayActivity extends AppCompatActivity {
                     case 0:
                     case 1:
                     case 2:
-                        textInputAdress.setText(addressList.get(i).getAddress());
-                        textInputXa.setText(addressList.get(i).getPhuong());
-                        textInputDistrict.setText(addressList.get(i).getQuan());
-                        textInputCity.setText(addressList.get(i).getThanhpho());
+                        payBinding.inputAddress.setText(addressList.get(i).getAddress());
+                        payBinding.inputXa.setText(addressList.get(i).getPhuong());
+                        payBinding.inputDistrict.setText(addressList.get(i).getQuan());
+                        payBinding.inputCity.setText(addressList.get(i).getThanhpho());
                         break;
                     default:
                         break;
@@ -136,23 +125,23 @@ public class PayActivity extends AppCompatActivity {
 
 
     private void setPayProduct() {
-        buttonPayTT.setOnClickListener(new View.OnClickListener() {
+        payBinding.btnPayPt.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SimpleDateFormat")
             @Override
             public void onClick(View view) {
-                String nameCity = Objects.requireNonNull(textInputCity.getText()).toString().trim();
-                String nameDistrict = Objects.requireNonNull(textInputDistrict.getText()).toString().trim();
-                String nameXa = Objects.requireNonNull(textInputXa.getText()).toString().trim();
-                String nameAddress = Objects.requireNonNull(textInputAdress.getText()).toString().trim();
+                String nameCity = Objects.requireNonNull(payBinding.inputCity.getText()).toString().trim();
+                String nameDistrict = Objects.requireNonNull(payBinding.inputDistrict.getText()).toString().trim();
+                String nameXa = Objects.requireNonNull(payBinding.inputXa.getText()).toString().trim();
+                String nameAddress = Objects.requireNonNull(payBinding.inputAddress.getText()).toString().trim();
 
                 if (TextUtils.isEmpty(nameCity)) {
-                    Toast.makeText(getApplicationContext(), "Bạn chưa nhập Tỉnh / thành", Toast.LENGTH_SHORT).show();
+                    showMessages("Bạn chưa nhập Tỉnh / thành");
                 } else if (TextUtils.isEmpty(nameDistrict)) {
-                    Toast.makeText(getApplicationContext(), "Bạn chưa nhập Quận / huyện", Toast.LENGTH_SHORT).show();
+                    showMessages("Bạn chưa nhập Quân / Huyện");
                 } else if (TextUtils.isEmpty(nameXa)) {
-                    Toast.makeText(getApplicationContext(), "Bạn chưa nhập Phường / xã", Toast.LENGTH_SHORT).show();
+                    showMessages("Bạn chưa nhập Huyện / Xã");
                 } else if (TextUtils.isEmpty(nameAddress)) {
-                    Toast.makeText(getApplicationContext(), "Bạn chưa nhập địa chỉ", Toast.LENGTH_SHORT).show();
+                    showMessages("Bạn chưa nhập địa chỉ");
                 }
                 else {
                     int idUser = Utils.userCurrent.getId();
@@ -162,14 +151,11 @@ public class PayActivity extends AppCompatActivity {
 
                     Date date = java.util.Calendar.getInstance().getTime();
                     DateFormat dateFormat = null;
-                    dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                    dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
                     String nameDate = dateFormat.format(date);
 
-
-
-                    compositeDisposable.add(APISellApp.addCreateOrder
-                                    (idUser, String.valueOf(totalPrice), soluong, gmail, Integer.parseInt(sdt), nameCity, nameDistrict, nameXa, nameAddress, nameDate, jsonArray)
-
+                    compositeDisposable.add(APISellApp.addCreateOrder(idUser, String.valueOf(totalPrice), soluong, gmail, Integer.parseInt(sdt), nameCity, nameDistrict, nameXa, nameAddress, nameDate, jsonArray)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
@@ -230,7 +216,8 @@ public class PayActivity extends AppCompatActivity {
                                     );
                                 }
                             }
-                        }, throwable -> {
+                        },
+                        throwable -> {
                             showMessages(throwable.getMessage());
                         }
                 )
@@ -244,17 +231,17 @@ public class PayActivity extends AppCompatActivity {
         totalPrice = getIntent().getLongExtra("priceTotal", 0);
         soluong = getIntent().getIntExtra("soluong", 0);
 
-        txtTotalPricePay.setText("Tổng tiền: " + decimalFormat.format(totalPrice) + " đ");
-        txtSoluong.setText("Số lượng: " + soluong);
-        txtNamePay.setText("Họ và tên: " + Utils.userCurrent.getFirst_name() + " " + Utils.userCurrent.getLast_name());
-        txtGmailPay.setText("Gmail: " + Utils.userCurrent.getGmail());
-        txtPhonePay.setText("Số điện thoại: "+ Utils.userCurrent.getPhone());
+        payBinding.txtTotalPay.setText("Tổng tiền: " + decimalFormat.format(totalPrice) + " đ");
+        payBinding.txtTotalSoLuong.setText("Số lượng: " + soluong);
+        payBinding.txtNamePay.setText("Họ và tên: " + Utils.userCurrent.getFirst_name() + " " + Utils.userCurrent.getLast_name());
+        payBinding.txtGmailPay.setText("Gmail: " + Utils.userCurrent.getGmail());
+        payBinding.txtPhonePay.setText("Số điện thoại: "+ Utils.userCurrent.getPhone());
 
     }
 
     private void setActionToolBar() {
-        toolbar.setNavigationIcon(R.drawable.icon_back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        payBinding.toolbar.setNavigationIcon(R.drawable.icon_back);
+        payBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentCart = new Intent(getApplicationContext(), CartActivity.class);
@@ -268,27 +255,5 @@ public class PayActivity extends AppCompatActivity {
     protected void onDestroy() {
         compositeDisposable.clear();
         super.onDestroy();
-    }
-
-    private void mapping() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        txtTotalPricePay = (TextView) findViewById(R.id.txtTotalPay);
-        txtSoluong = (TextView) findViewById(R.id.txtTotalSoLuong);
-        txtNamePay = (TextView) findViewById(R.id.txtNamePay);
-        txtGmailPay = (TextView) findViewById(R.id.txtGmailPay);
-        txtPhonePay = (TextView) findViewById(R.id.txtPhonePay);
-
-        textInputCity = (TextInputEditText) findViewById(R.id.inputCity);
-        textInputDistrict = (TextInputEditText) findViewById(R.id.inputDistrict);
-        textInputXa = (TextInputEditText) findViewById(R.id.inputXa);
-        textInputAdress = (TextInputEditText) findViewById(R.id.inputAddress);
-        spinnerAddress = (Spinner)findViewById(R.id.inputAutoSpiner);
-        txtDemo = (TextView) findViewById(R.id.textViewAdress);
-        addressList = new ArrayList<>();
-        stringList = new ArrayList<>();
-
-        buttonPayTT = (Button) findViewById(R.id.btnPayPt);
-
     }
 }

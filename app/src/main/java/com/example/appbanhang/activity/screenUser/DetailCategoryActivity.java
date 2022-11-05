@@ -27,6 +27,7 @@ public class DetailCategoryActivity extends AppCompatActivity {
     Toolbar toolbar;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
+
     int page = 1;
     APISellApp APISellApp;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -38,6 +39,7 @@ public class DetailCategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_title);
+
         APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
         category = getIntent().getIntExtra("category", page);
         mapping();

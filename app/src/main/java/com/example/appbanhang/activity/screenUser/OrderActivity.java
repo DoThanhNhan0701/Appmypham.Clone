@@ -3,34 +3,31 @@ package com.example.appbanhang.activity.screenUser;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.appbanhang.R;
 import com.example.appbanhang.adapter.adpterUser.OrderTagAdapter;
+import com.example.appbanhang.databinding.ActivityOrderBinding;
 import com.google.android.material.tabs.TabLayout;
 
 public class OrderActivity extends AppCompatActivity {
-
-    TabLayout tabLayout;
-    ViewPager2 viewPager2;
     OrderTagAdapter orderTagAdapter;
-    Toolbar toolbar;
-
+    private ActivityOrderBinding orderBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order);
-        mapping();
+        orderBinding = ActivityOrderBinding.inflate(getLayoutInflater());
+        setContentView(orderBinding.getRoot());
+
         setDataTagOrder();
         setActionToolbar();
     }
 
     private void setActionToolbar() {
-        toolbar.setNavigationIcon(R.drawable.icon_back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        orderBinding.toolbarTagAcconut.setNavigationIcon(R.drawable.icon_back);
+        orderBinding.toolbarTagAcconut.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -40,10 +37,10 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     private void setDataTagOrder() {
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        orderBinding.tagLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager2.setCurrentItem(tab.getPosition());
+                orderBinding.viewTagLayout2.setCurrentItem(tab.getPosition());
             }
 
             @Override
@@ -56,25 +53,20 @@ public class OrderActivity extends AppCompatActivity {
 
             }
         });
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        orderBinding.viewTagLayout2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                tabLayout.getTabAt(position).select();
+                orderBinding.tagLayout.getTabAt(position).select();
             }
         });
+
+        orderTagAdapter = new OrderTagAdapter(this);
+        orderBinding.viewTagLayout2.setAdapter(orderTagAdapter);
     }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.inten_in_left, R.anim.inten_out_left);
-    }
-
-    private void mapping() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar_tag_acconut);
-        tabLayout = (TabLayout) findViewById(R.id.tag_layout);
-        viewPager2 = (ViewPager2) findViewById(R.id.view_tag_layout2);
-        orderTagAdapter = new OrderTagAdapter(this);
-        viewPager2.setAdapter(orderTagAdapter);
     }
 }

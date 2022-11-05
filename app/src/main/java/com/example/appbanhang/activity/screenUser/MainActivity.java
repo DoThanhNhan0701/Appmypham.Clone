@@ -7,11 +7,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +26,7 @@ import com.example.appbanhang.adapter.adpterUser.CategoryAdapter;
 import com.example.appbanhang.adapter.adpterUser.MagazineAdapter;
 import com.example.appbanhang.adapter.adpterUser.ProductAdapter;
 import com.example.appbanhang.adapter.adpterUser.SlideAppAdapter;
+import com.example.appbanhang.databinding.ActivityMainBinding;
 import com.example.appbanhang.model.Advertisement;
 import com.example.appbanhang.model.Category;
 import com.example.appbanhang.model.Magazine;
@@ -36,9 +36,7 @@ import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.ArrayListCart;
 import com.example.appbanhang.utils.Utils;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,31 +45,8 @@ import io.paperdb.Paper;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import me.relex.circleindicator.CircleIndicator3;
 
 public class MainActivity extends AppCompatActivity {
-    TextView textViewUser;
-    TextView textViewSearch;
-    ImageView imageViewDetailOrder;
-    ImageView imageViewUser, imageViewAccount;
-
-    ViewPager2 viewPager2;
-    CircleIndicator3 circleIndicator3;
-    Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            int currenPosision = viewPager2.getCurrentItem();
-            if(currenPosision == advertisementList.size() - 1){
-                viewPager2.setCurrentItem(0);
-            }else{
-                viewPager2.setCurrentItem(currenPosision + 1);
-            }
-        }
-    };
-
-    RecyclerView recyclerViewProduct;
-    RecyclerView recyclerViewCategory;
-    RecyclerView recyclerViewMagazine;
     LinearLayoutManager linearLayoutManagerProduct, linearLayoutManagerCategory, linearLayoutManagerMagazine;
     APISellApp APISellApp;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -79,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     SlideAppAdapter slideAppAdapter;
     List<String> listItemsQuangcao;
     List<Advertisement> advertisementList;
+    Runnable runnable;
 
     CategoryAdapter categoryAdapter;
     List<Category> categoryList;
@@ -88,26 +64,24 @@ public class MainActivity extends AppCompatActivity {
 
     MagazineAdapter magazineAdapter;
     List<Magazine> magazineList;
-
-
-    NotificationBadge notificationBadge;
-    FloatingActionButton floatingActionButton;
-
-    String token;
-
     // Loading more
     Handler handler = new Handler();
     boolean isLoading = false;
     int page = 1;
+    String token;
+
+    boolean doubleBackToExitPressedOnce = false;
 
 
-
+    private ActivityMainBinding activityMainBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(activityMainBinding.getRoot());
+
         APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
-        mapping();
+        arrayList();
         getToken();
         if (ConnectInternet(this)) {
             actionViewFlipper();
@@ -153,9 +127,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     private void getEventLoading() {
-        recyclerViewProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        activityMainBinding.recyclerViewProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -200,14 +173,13 @@ public class MainActivity extends AppCompatActivity {
         assert Utils.userCurrent != null;
         String userName = Utils.userCurrent.getLast_name();
         token = Utils.userCurrent.getToken();
-        Log.d("TAG", "onSuccess: " + token);
-        textViewUser.setText(userName);
+        activityMainBinding.textNameUser.setText(userName);
     }
     private void setActivityLayout() {
         if(ArrayListCart.arrayListCart == null){
             ArrayListCart.arrayListCart = new ArrayList<>();
         }
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        activityMainBinding.homeButtonCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentCart = new Intent(getApplicationContext(), CartActivity.class);
@@ -215,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.inten_in_right, R.anim.inten_out_right);
             }
         });
-        imageViewDetailOrder.setOnClickListener(new View.OnClickListener() {
+        activityMainBinding.imageDetailOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentDetailOrder = new Intent(getApplicationContext(), OrderActivity.class);
@@ -223,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.inten_in_right, R.anim.inten_out_right);
             }
         });
-        textViewSearch.setOnClickListener(new View.OnClickListener() {
+        activityMainBinding.txtSearchNameProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentSearch = new Intent(getApplicationContext(), SearchProductActivity.class);
@@ -231,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.inten_in_right, R.anim.inten_out_right);
             }
         });
-        imageViewAccount.setOnClickListener(new View.OnClickListener() {
+        activityMainBinding.imageAccout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentAcount = new Intent(getApplicationContext(), AccountActivity.class);
@@ -251,7 +223,11 @@ public class MainActivity extends AppCompatActivity {
                                 if(productAdapter == null){
                                     listItemsProducts = productModel.getResult();
                                     productAdapter = new ProductAdapter(getApplicationContext(), listItemsProducts);
-                                    recyclerViewProduct.setAdapter(productAdapter);
+                                    activityMainBinding.recyclerViewProduct.setAdapter(productAdapter);
+                                    //product setView
+                                    linearLayoutManagerProduct = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+                                    activityMainBinding.recyclerViewProduct.setLayoutManager(linearLayoutManagerProduct);
+
                                 }else{
                                     int vitri = listItemsProducts.size() - 1;
                                     int soluong = productModel.getResult().size();
@@ -282,7 +258,10 @@ public class MainActivity extends AppCompatActivity {
                             if (categoryModel.isSuccess()) {
                                 categoryList = categoryModel.getResult();
                                 categoryAdapter = new CategoryAdapter(getApplicationContext(), categoryList);
-                                recyclerViewCategory.setAdapter(categoryAdapter);
+                                activityMainBinding.recyclerViewCategory.setAdapter(categoryAdapter);
+                                //category setView
+                                linearLayoutManagerCategory = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+                                activityMainBinding.recyclerViewCategory.setLayoutManager(linearLayoutManagerCategory);
                             }
                             else{
                                 showMessage(categoryModel.getMessgage());
@@ -303,7 +282,10 @@ public class MainActivity extends AppCompatActivity {
                             if(magazineModel.isSuccess()){
                                 magazineList = magazineModel.getResult();
                                 magazineAdapter = new MagazineAdapter(getApplicationContext(), magazineList);
-                                recyclerViewMagazine.setAdapter(magazineAdapter);
+                                activityMainBinding.recyclerViewMagazine.setAdapter(magazineAdapter);
+                                //magazine
+                                linearLayoutManagerMagazine = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+                                activityMainBinding.recyclerViewMagazine.setLayoutManager(linearLayoutManagerMagazine);
                             }
                             else{
                                 showMessage(magazineModel.getMessage());
@@ -318,6 +300,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void actionViewFlipper() {
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                int currenPosision = activityMainBinding.viewViewPager2.getCurrentItem();
+                if(currenPosision == advertisementList.size() - 1){
+                    activityMainBinding.viewViewPager2.setCurrentItem(0);
+                }else{
+                    activityMainBinding.viewViewPager2.setCurrentItem(currenPosision + 1);
+                }
+            }
+        };
+
         compositeDisposable.add(APISellApp.getAdvertisement()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -326,13 +320,13 @@ public class MainActivity extends AppCompatActivity {
                             if (advertisementModel.isSuccess()){
                                 advertisementList = advertisementModel.getResult();
                                 slideAppAdapter = new SlideAppAdapter(getApplicationContext(), advertisementList);
-                                viewPager2.setAdapter(slideAppAdapter);
-                                circleIndicator3.setViewPager(viewPager2);
+                                activityMainBinding.viewViewPager2.setAdapter(slideAppAdapter);
+                                activityMainBinding.circleIndicator3.setViewPager(activityMainBinding.viewViewPager2);
 
                                 // Setting ViewPage2
-                                viewPager2.setOffscreenPageLimit(3);
-                                viewPager2.setClipToPadding(false);
-                                viewPager2.setClipChildren(false);
+                                activityMainBinding.viewViewPager2.setOffscreenPageLimit(3);
+                                activityMainBinding.viewViewPager2.setClipToPadding(false);
+                                activityMainBinding.viewViewPager2.setClipChildren(false);
 
                                 CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
                                 compositePageTransformer.addTransformer(new MarginPageTransformer(20));
@@ -343,8 +337,8 @@ public class MainActivity extends AppCompatActivity {
                                         page.setScaleY(0.85f + r * 0.15f);
                                     }
                                 });
-                                viewPager2.setPageTransformer(compositePageTransformer);
-                                viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                                activityMainBinding.viewViewPager2.setPageTransformer(compositePageTransformer);
+                                activityMainBinding.viewViewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
                                     @Override
                                     public void onPageSelected(int position) {
                                         super.onPageSelected(position);
@@ -364,7 +358,6 @@ public class MainActivity extends AppCompatActivity {
                 )
         );
     }
-
     private boolean ConnectInternet(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -379,6 +372,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        showMessage("Vui lòng nhấn 2 lần để thoát app");
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+    }
 
     @Override
     protected void onDestroy() {
@@ -398,39 +406,11 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(runnable, 3000);
     }
 
-    private void mapping() {
-        textViewSearch = (TextView) findViewById(R.id.txtSearchNameProduct);
-        textViewUser = (TextView) findViewById(R.id.textNameUser);
-        imageViewAccount = (ImageView) findViewById(R.id.imageAccout);
-
-        viewPager2 = (ViewPager2) findViewById(R.id.viewViewPager2);
-        circleIndicator3 = (CircleIndicator3) findViewById(R.id.circleIndicator3);
-
-        recyclerViewProduct = (RecyclerView) findViewById(R.id.recyclerViewProduct);
-        recyclerViewCategory = (RecyclerView) findViewById(R.id.recyclerViewCategory);
-        recyclerViewMagazine = (RecyclerView) findViewById(R.id.recyclerViewMagazine);
-
+    private void arrayList() {
         listItemsQuangcao = new ArrayList<>();
         advertisementList = new ArrayList<>();
-
-        //category
-        linearLayoutManagerCategory = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewCategory.setLayoutManager(linearLayoutManagerCategory);
-        //product
-        linearLayoutManagerProduct = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewProduct.setLayoutManager(linearLayoutManagerProduct);
-        //magazine
-        linearLayoutManagerMagazine = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewMagazine.setLayoutManager(linearLayoutManagerMagazine);
-
-        imageViewUser = (ImageView) findViewById(R.id.imageViewUser);
         categoryList = new ArrayList<>();
         listItemsProducts = new ArrayList<>();
         magazineList = new ArrayList<>();
-
-        notificationBadge = (NotificationBadge) findViewById(R.id.notificationbadge);
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        imageViewDetailOrder = (ImageView) findViewById(R.id.imageDetailOrder);
-
     }
 }

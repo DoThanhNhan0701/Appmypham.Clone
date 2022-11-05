@@ -4,17 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.appbanhang.R;
+import com.example.appbanhang.databinding.ActivityForgotPasswordBinding;
 import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
@@ -23,30 +20,33 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
-    Button btnResetPass;
-    TextInputEditText txtResetPass;
-    ProgressBar progressBar;
     APISellApp APISellApp;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private ActivityForgotPasswordBinding passwordBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgot_password);
+        passwordBinding = ActivityForgotPasswordBinding.inflate(getLayoutInflater());
+        setContentView(passwordBinding.getRoot());
+        
         APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
-        mapping();
         setForgotPass();
     }
 
+    private void showMessages(String message){
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
     private void setForgotPass() {
-        btnResetPass.setOnClickListener(new View.OnClickListener() {
+        passwordBinding.buttonResetpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String txtGmail = Objects.requireNonNull(txtResetPass.getText()).toString().trim();
+                String txtGmail = Objects.requireNonNull(passwordBinding.inputGmailResetpass.getText()).toString().trim();
                 if(TextUtils.isEmpty(txtGmail)){
-                    Toast.makeText(getApplicationContext(), "Bạn chưa nhập gmail !", Toast.LENGTH_SHORT).show();
+                    showMessages("Bạn chưa nhập gmail !");
                 }
                 else{
-                    progressBar.setVisibility(View.VISIBLE);
+                    passwordBinding.progressBarForgotpass.setVisibility(View.VISIBLE);
                     compositeDisposable.add(APISellApp.getGmailRePass(txtGmail)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
@@ -58,12 +58,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();
                                     }else{
-                                        Toast.makeText(getApplicationContext(), userModel.getMessage(), Toast.LENGTH_SHORT).show();
+                                        showMessages(userModel.getMessage());
                                     }
 
                                 },
                                 throwable -> {
-                                    progressBar.setVisibility(View.INVISIBLE);
+                                    passwordBinding.progressBarForgotpass.setVisibility(View.INVISIBLE);
                                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -79,11 +79,5 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     protected void onDestroy() {
         compositeDisposable.clear();
         super.onDestroy();
-    }
-
-    private void mapping() {
-        progressBar = (ProgressBar) findViewById(R.id.progressBarForgotpass);
-        btnResetPass = (Button) findViewById(R.id.buttonResetpass);
-        txtResetPass = (TextInputEditText) findViewById(R.id.inputGmailResetpass);
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -166,155 +166,122 @@
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinatorLayout"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        tools:ignore="RtlHardcoded"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
 
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/app_bar_bottom"
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/app_bar_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:backgroundTint="#F18A6A"
+        tools:ignore="BottomAppBar">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left|right"
-            android:backgroundTint="#f6f6f6"
-            app:fabCradleMargin="10dp"
-            app:fabCradleRoundedCornerRadius="45dp"
-            app:fabCradleVerticalOffset="6dp">
+            android:layout_height="match_parent"
+            android:layout_marginEnd="16dp"
+            android:baselineAligned="false">
+            <LinearLayout
+                android:id="@+id/homeButtonHome"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:src="@drawable/icon_home">
+                </ImageView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="16sp">
+
+                </TextView>
+            </LinearLayout>
 
             <LinearLayout
-                android:layout_marginRight="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <LinearLayout
-                    android:id="@+id/homeButtonHome"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/icon_home">
-                    </ImageView>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Home"
-                        android:textAlignment="center"
-                        android:textColor="#0B0A0A"
-                        android:textSize="14sp">
-                    </TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/homeButtonComment"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:src="@drawable/icon_profile">
-                    </ImageView>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Profile"
-                        android:textAlignment="center"
-                        android:textColor="#0B0A0A"
-                        android:textSize="14sp">
-
-                    </TextView>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/homeButtonBottom"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:orientation="vertical"
-                    android:visibility="invisible">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-                    </ImageView>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Home"
-                        android:textAlignment="center"
-                        android:textColor="#0B0A0A"
-                        android:textSize="14dp">
-                    </TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/homeButtonSupport"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:id="@+id/imageDetailOrder"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/icon_detailorder">
-                    </ImageView>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Đơn hàng"
-                        android:textAlignment="center"
-                        android:textColor="#0B0A0A"
-                        android:textSize="14dp">
-
-                    </TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/homeButtonSetting"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:id="@+id/imageAccout"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/icon_setting">
-                    </ImageView>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Account"
-                        android:textAlignment="center"
-                        android:textColor="#0B0A0A"
-                        android:textSize="14dp">
-                    </TextView>
-                </LinearLayout>
+                android:id="@+id/homeButtonCart"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:orientation="vertical"
+                tools:ignore="UseCompoundDrawables">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:src="@drawable/icon_profile">
+                </ImageView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="16sp">
+                </TextView>
             </LinearLayout>
-        </com.google.android.material.bottomappbar.BottomAppBar>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:maxImageSize="40dp"
-            app:tint="@null"
-            android:backgroundTint="#FF5722"
-            android:elevation="1dp"
-            android:src="@drawable/icon_cart"
-            app:backgroundTint="@color/purple_700"
-            app:layout_anchor="@id/app_bar_bottom">
-        </com.google.android.material.floatingactionbutton.FloatingActionButton>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/homeButtonSupport"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageDetailOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:src="@drawable/icon_detailorder">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/orderhome"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="16sp">
+
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/homeButtonSetting"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageAccout"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:src="@drawable/icon_setting">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Account"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="16sp">
+
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.bottomappbar.BottomAppBar>
+</RelativeLayout>
 

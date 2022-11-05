@@ -6,17 +6,18 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.appbanhang.R;
+import com.example.appbanhang.databinding.ActivitySplashScreenBinding;
 
 import io.paperdb.Paper;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
-
+    private ActivitySplashScreenBinding screenBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        screenBinding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
+        setContentView(screenBinding.getRoot());
         setSplashScreen();
     }
 

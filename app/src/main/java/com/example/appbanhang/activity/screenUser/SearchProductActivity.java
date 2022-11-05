@@ -4,17 +4,15 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appbanhang.R;
 import com.example.appbanhang.adapter.adpterUser.TitileCategoryAdapter;
+import com.example.appbanhang.databinding.ActivitySearchProductBinding;
 import com.example.appbanhang.model.Product;
 import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
@@ -28,27 +26,30 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SearchProductActivity extends AppCompatActivity {
-    RecyclerView recyclerViewSearch;
-    Toolbar toolbarSearch;
-    EditText txtSearchProduct;
     List<Product> productList;
     APISellApp APISellApp;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     TitileCategoryAdapter titileCategoryAdapter;
     LinearLayoutManager linearLayoutManager;
 
+    private ActivitySearchProductBinding searchProductBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_product);
+        searchProductBinding = ActivitySearchProductBinding.inflate(getLayoutInflater());
+        setContentView(searchProductBinding.getRoot());
+
         APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
-        mapping();
         setActionToolbar();
         setActionSearchProduct();
     }
 
+    private void showMessage(String message){
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
     private void setActionSearchProduct() {
-        txtSearchProduct.addTextChangedListener(new TextWatcher() {
+        searchProductBinding.txtSearchProduct.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -59,7 +60,7 @@ public class SearchProductActivity extends AppCompatActivity {
                 if(charSequence.length() == 0){
                     productList.clear();
                     titileCategoryAdapter = new TitileCategoryAdapter(getApplicationContext(), productList);
-                    recyclerViewSearch.setAdapter(titileCategoryAdapter);
+                    searchProductBinding.recyclerSearch.setAdapter(titileCategoryAdapter);
                 }else{
                     getDataSearch(charSequence.toString());
                 }
@@ -79,23 +80,28 @@ public class SearchProductActivity extends AppCompatActivity {
                 .subscribe(
                         productModel -> {
                             if(productModel.isSuccess()){
+                                productList = new ArrayList<>();
                                 productList = productModel.getResult();
                                 titileCategoryAdapter = new TitileCategoryAdapter(getApplicationContext(), productList);
-                                recyclerViewSearch.setAdapter(titileCategoryAdapter);
+                                searchProductBinding.recyclerSearch.setAdapter(titileCategoryAdapter);
+                                // Set view
+                                linearLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
+                                searchProductBinding.recyclerSearch.setHasFixedSize(true);
+                                searchProductBinding.recyclerSearch.setLayoutManager(linearLayoutManager);
                             }else{
-                                Toast.makeText(getApplicationContext(), "Sản phẩm này không có !", Toast.LENGTH_SHORT).show();
+                                showMessage("Sản phẩm này không có !");
                             }
                         },
                         throwable -> {
-                            Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                            showMessage(throwable.getMessage());
                         }
                 )
         );
     }
 
     private void setActionToolbar() {
-        toolbarSearch.setNavigationIcon(R.drawable.icon_back);
-        toolbarSearch.setNavigationOnClickListener(new View.OnClickListener() {
+        searchProductBinding.appBarSearch.setNavigationIcon(R.drawable.icon_back);
+        searchProductBinding.appBarSearch.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -107,17 +113,5 @@ public class SearchProductActivity extends AppCompatActivity {
     protected void onDestroy() {
         compositeDisposable.clear();
         super.onDestroy();
-    }
-
-    private void mapping() {
-        recyclerViewSearch = (RecyclerView) findViewById(R.id.recyclerSearch);
-        toolbarSearch = (Toolbar) findViewById(R.id.app_barSearch);
-        txtSearchProduct = (EditText) findViewById(R.id.txtSearchProduct);
-
-        linearLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
-        recyclerViewSearch.setHasFixedSize(true);
-        recyclerViewSearch.setLayoutManager(linearLayoutManager);
-
-        productList = new ArrayList<>();
     }
 }

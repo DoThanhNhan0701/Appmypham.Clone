@@ -9,27 +9,21 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.appbanhang.R;
-import com.example.appbanhang.model.User;
+import com.example.appbanhang.databinding.ActivityLoginBinding;
 import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import io.paperdb.Paper;
@@ -39,13 +33,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
 public class LoginActivity extends AppCompatActivity {
-    TextView textViewSignup, forgotPassword;
-    TextInputEditText textInputEditTextGmail;
-    TextInputEditText textInputEditTextPass;
-    Button buttonLogin;
     APISellApp APISellApp;
-    List<User> userList;
-
     String gmail;
     String password;
     boolean isLogin = false;
@@ -53,15 +41,13 @@ public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
-
-
-
+    private ActivityLoginBinding loginBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        loginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(loginBinding.getRoot());
         APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
-        mapping();
 
         if(ConnectInternet(LoginActivity.this)){
             setSignupInLogin();
@@ -69,17 +55,19 @@ public class LoginActivity extends AppCompatActivity {
             ForgotPassword();
             isLoginAutomatic();
         }else{
-            Toast.makeText(getApplicationContext(), "Bạn chưa kết nối Internet", Toast.LENGTH_SHORT).show();
+            showMessage("Bạn chưa kết nối Internet");
         }
 
     }
-
+    private void showMessage(String message){
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
     private void isLoginAutomatic() {
         // Read data login
         Paper.init(this);
         if(Paper.book().read("gmail") != null && Paper.book().read("password") != null){
-            textInputEditTextGmail.setText(Paper.book().read("gmail"));
-            textInputEditTextPass.setText(Paper.book().read("password"));
+            loginBinding.inputGmailLogin.setText(Paper.book().read("gmail"));
+            loginBinding.inputPasswordLogin.setText(Paper.book().read("password"));
 
             if(Paper.book().read("isLogin") != null){
                 boolean tamp = Boolean.TRUE.equals(Paper.book().read("isLogin"));
@@ -93,7 +81,43 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+    private void setLoginApp() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
 
+        loginBinding.buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gmail = Objects.requireNonNull(loginBinding.inputGmailLogin.getText()).toString().trim();
+                password = Objects.requireNonNull(loginBinding.inputPasswordLogin.getText()).toString().trim();
+
+                if (TextUtils.isEmpty(gmail)){
+                    showMessage("Bạn chưa nhập gmail !");
+                }
+                else if(TextUtils.isEmpty(password)){
+                    showMessage("Bạn chưa nhập mật khẩu");
+                }
+                else{
+                    Paper.book().write("gmail", gmail);
+                    Paper.book().write("password", password);
+                    if(firebaseUser != null){
+                        login(gmail, password);
+                    }
+                    else{
+                        firebaseAuth.signInWithEmailAndPassword(gmail, password)
+                                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if(task.isSuccessful()){
+                                            login(gmail, password);
+                                        }
+                                    }
+                                });
+                    }
+                }
+            }
+        });
+    }
     private void login(String gmail, String password) {
         compositeDisposable.add(APISellApp.getLogin(gmail,password)
                 .subscribeOn(Schedulers.io())
@@ -111,64 +135,25 @@ public class LoginActivity extends AppCompatActivity {
                                 finish();
                             }
                             else{
-                                Toast.makeText(getApplicationContext(), "Tài khoản và mật khẩu của bạn bị sai !", Toast.LENGTH_SHORT).show();
+                                showMessage("Tài khoản và mật khẩu của bạn bị sai !");
                             }
                         },
                         throwable -> {
-                            Toast.makeText(LoginActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                            showMessage(throwable.getMessage());
                         }
                 )
         );
     }
-
-    private void setLoginApp() {
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gmail = Objects.requireNonNull(textInputEditTextGmail.getText()).toString().trim();
-                password = Objects.requireNonNull(textInputEditTextPass.getText()).toString().trim();
-
-                if (TextUtils.isEmpty(gmail)){
-                    Toast.makeText(getApplicationContext(), "Bạn chưa nhập gmail", Toast.LENGTH_SHORT).show();
-                }
-                else if(TextUtils.isEmpty(password)){
-                    Toast.makeText(getApplicationContext(), "Bạn chưa nhập mật khẩu", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Paper.book().write("gmail", gmail);
-                    Paper.book().write("password", password);
-
-                    if(firebaseUser != null){
-                        login(gmail, password);
-                    }
-                    else{
-                        firebaseAuth.signInWithEmailAndPassword(gmail, password)
-                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isSuccessful()){
-                                        login(gmail, password);
-                                    }
-                                }
-                            });
-                    }
-                }
-            }
-        });
-    }
-
-
     private void ForgotPassword() {
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
+        loginBinding.txtForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentForgot = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
                 startActivity(intentForgot);
+                finish();
             }
         });
     }
-
-
     private boolean ConnectInternet(Context context){
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -183,9 +168,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
-
     private void setSignupInLogin() {
-        textViewSignup.setOnClickListener(new View.OnClickListener() {
+        loginBinding.textViewSignUpInLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentSignup = new Intent(getApplicationContext(), SignupActivity.class);
@@ -193,31 +177,18 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
     @Override
     protected void onDestroy() {
         compositeDisposable.clear();
         super.onDestroy();
     }
-
-
     @Override
     protected void onResume() {
         if(Utils.userCurrent.getGmail() != null && Utils.userCurrent.getPassword() != null){
-            textInputEditTextGmail.setText(Utils.userCurrent.getGmail());
-            textInputEditTextPass.setText(Utils.userCurrent.getPassword());
+            loginBinding.inputGmailLogin.setText(Utils.userCurrent.getGmail());
+            loginBinding.inputPasswordLogin.setText(Utils.userCurrent.getPassword());
         }
         super.onResume();
     }
 
-    private void mapping() {
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        textViewSignup = (TextView) findViewById(R.id.textViewSignUpInLogin);
-        forgotPassword = (TextView) findViewById(R.id.txtForgotPassword);
-        textInputEditTextGmail = (TextInputEditText) findViewById(R.id.inputGmailLogin);
-        textInputEditTextPass = (TextInputEditText) findViewById(R.id.inputPasswordLogin);
-        buttonLogin = (Button) findViewById(R.id.buttonLogin);
-        userList = new ArrayList<>();
-    }
 }

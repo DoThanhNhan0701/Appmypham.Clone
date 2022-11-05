@@ -34,7 +34,6 @@ public class DetailProductActivity extends AppCompatActivity {
     Product product;
     NotificationBadge notificationBadge;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,15 +66,12 @@ public class DetailProductActivity extends AppCompatActivity {
             for(int i = 0; i < ArrayListCart.arrayListCart.size(); i++){
                 if (ArrayListCart.arrayListCart.get(i).getId() == product.getId()){
                     ArrayListCart.arrayListCart.get(i).setAmount_cart(soluong + ArrayListCart.arrayListCart.get(i).getAmount_cart());
-                    int price_new = priceNew * ArrayListCart.arrayListCart.get(i).getAmount_cart();
-                    ArrayListCart.arrayListCart.get(i).setPrice(String.valueOf(price_new));
                     add = true;
                 }
             }
             if(!add){
-                int price_new = priceNew * soluong;
                 Cart cart = new Cart();
-                cart.setPrice(String.valueOf(price_new));
+                cart.setPrice(String.valueOf(priceNew));
                 cart.setName(product.getName());
                 cart.setImages(product.getImages());
                 cart.setAmount_cart(soluong);
@@ -85,9 +81,8 @@ public class DetailProductActivity extends AppCompatActivity {
 
         }else{
             int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
-            int price_new = priceNew * soluong;
             Cart cart = new Cart();
-            cart.setPrice(String.valueOf(price_new));
+            cart.setPrice(String.valueOf(priceNew));
             cart.setName(product.getName());
             cart.setImages(product.getImages());
             cart.setAmount_cart(soluong);

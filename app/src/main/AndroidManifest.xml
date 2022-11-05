@@ -61,9 +61,6 @@
             android:name=".activity.screenUser.DetailMagazineActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.screenUser.MagazineActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.screenAdmin.MainActivityAdmin"
             android:exported="false" />
         <activity

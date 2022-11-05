@@ -1,48 +1,55 @@
 package com.example.appbanhang.activity.screenAdmin;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appbanhang.R;
-import com.example.appbanhang.adapter.adpterUser.OrderAdapter;
-import com.example.appbanhang.model.ViewOrder;
+import com.example.appbanhang.adapter.adapterAdmin.AdminOrderAdapter;
+import com.example.appbanhang.databinding.ActivityAdminOrderBinding;
 import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
-
-import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class AdminOrderActivity extends AppCompatActivity {
-    Toolbar toolbar;
-    RecyclerView recyclerView;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     LinearLayoutManager linearLayoutManager;
     APISellApp apiSellApp;
-    List<ViewOrder> viewOrderList;
-    OrderAdapter orderAdapter;
+    AdminOrderAdapter adminOrderAdapter;
 
-
+    private ActivityAdminOrderBinding adminOrderBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_order);
-        apiSellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
-        mapping();
-        setDataOrder();
+        adminOrderBinding = ActivityAdminOrderBinding.inflate(getLayoutInflater());
+        setContentView(adminOrderBinding.getRoot());
 
+        apiSellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
+        setActionToolbar();
+        setDataOrder();
     }
 
     private void showMessage(String message){
         Toast.makeText(getApplicationContext(),  message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void setActionToolbar() {
+        adminOrderBinding.txtOrder.setNavigationIcon(R.drawable.icon_back);
+        adminOrderBinding.txtOrder.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentMain = new Intent(getApplicationContext(), MainActivityAdmin.class);
+                startActivity(intentMain);
+            }
+        });
     }
 
     private void setDataOrder() {
@@ -52,8 +59,11 @@ public class AdminOrderActivity extends AppCompatActivity {
                 .subscribe(
                         viewOrderModel -> {
                             if(viewOrderModel.isSuccess()){
-                                orderAdapter = new OrderAdapter(getApplicationContext(), viewOrderModel.getResult());
-                                recyclerView.setAdapter(orderAdapter);
+                                adminOrderAdapter = new AdminOrderAdapter(getApplicationContext(), viewOrderModel.getResult());
+                                adminOrderBinding.recyclerViewOrder.setAdapter(adminOrderAdapter);
+                                // Set view
+                                linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+                                adminOrderBinding.recyclerViewOrder.setLayoutManager(linearLayoutManager);
                             }
                             else {
                                 showMessage(viewOrderModel.getMessage());
@@ -64,13 +74,5 @@ public class AdminOrderActivity extends AppCompatActivity {
                         }
                 )
         );
-    }
-
-    private void mapping() {
-        toolbar = (Toolbar) findViewById(R.id.txtOrder);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewOrder);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-
     }
 }
