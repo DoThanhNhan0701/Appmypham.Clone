@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -33,9 +34,11 @@ import com.example.appbanhang.model.Magazine;
 import com.example.appbanhang.model.Product;
 import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
+import com.example.appbanhang.retrofit.TranslateAnimationNavigation;
 import com.example.appbanhang.utils.ArrayListCart;
 import com.example.appbanhang.utils.Utils;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
@@ -46,7 +49,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     LinearLayoutManager linearLayoutManagerProduct, linearLayoutManagerCategory, linearLayoutManagerMagazine;
     APISellApp APISellApp;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -99,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
     private void showMessage(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
+
 
     private void getToken(){
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
@@ -175,26 +179,12 @@ public class MainActivity extends AppCompatActivity {
         token = Utils.userCurrent.getToken();
         activityMainBinding.textNameUser.setText(userName);
     }
+
+    @SuppressLint("ClickableViewAccessibility")
     private void setActivityLayout() {
         if(ArrayListCart.arrayListCart == null){
             ArrayListCart.arrayListCart = new ArrayList<>();
         }
-        activityMainBinding.homeButtonCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentCart = new Intent(getApplicationContext(), CartActivity.class);
-                startActivity(intentCart);
-                overridePendingTransition(R.anim.inten_in_right, R.anim.inten_out_right);
-            }
-        });
-        activityMainBinding.imageDetailOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentDetailOrder = new Intent(getApplicationContext(), OrderActivity.class);
-                startActivity(intentDetailOrder);
-                overridePendingTransition(R.anim.inten_in_right, R.anim.inten_out_right);
-            }
-        });
         activityMainBinding.txtSearchNameProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -203,15 +193,9 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.inten_in_right, R.anim.inten_out_right);
             }
         });
-        activityMainBinding.imageAccout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentAcount = new Intent(getApplicationContext(), AccountActivity.class);
-                startActivity(intentAcount);
-                overridePendingTransition(R.anim.inten_in_right, R.anim.inten_out_right);
+        activityMainBinding.bottomNavigation.setOnNavigationItemSelectedListener(this);
 
-            }
-        });
+        activityMainBinding.sCrollViewMain.setOnTouchListener(new TranslateAnimationNavigation(this, activityMainBinding.bottomNavigation));
     }
     private void getProduct(int page) {
         compositeDisposable.add(APISellApp.getProduct(page)
@@ -412,5 +396,33 @@ public class MainActivity extends AppCompatActivity {
         categoryList = new ArrayList<>();
         listItemsProducts = new ArrayList<>();
         magazineList = new ArrayList<>();
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item_home:
+                showMessage("Trang home");
+                return true;
+            case R.id.item_cart:
+                Intent intentCart = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(intentCart);
+                overridePendingTransition(R.anim.inten_in_right, R.anim.inten_out_right);
+                break;
+            case R.id.item_order:
+                Intent intentDetailOrder = new Intent(getApplicationContext(), OrderActivity.class);
+                startActivity(intentDetailOrder);
+                overridePendingTransition(R.anim.inten_in_right, R.anim.inten_out_right);
+                break;
+            case R.id.item_account:
+                Intent intentAcount = new Intent(getApplicationContext(), AccountActivity.class);
+                startActivity(intentAcount);
+                overridePendingTransition(R.anim.inten_in_right, R.anim.inten_out_right);
+                break;
+            default:
+                break;
+        }
+        return false;
     }
 }

@@ -144,9 +144,24 @@ public interface APISellApp {
             @Field("token") String token
     );
 
-    @POST("gettokenuser.php")
+    @POST("gettokenadmin.php")
     @FormUrlEncoded
-    Observable<UserModel> getToken(
+    Observable<UserModel> getTokenAdmin(
             @Field("user_role") String user_role
+    );
+
+    @POST("gettokenadmin.php")
+    @FormUrlEncoded
+    Observable<UserModel> getTokenUser(
+            @Field("id") int id,
+            @Field("user_role") String user_role
+
+    );
+
+    @POST("setstatusorder.php")
+    @FormUrlEncoded
+    Observable<ViewOrderModel> setStatusOrder(
+            @Field("id") int id,
+            @Field("status") int status
     );
 }

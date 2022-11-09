@@ -101,18 +101,20 @@ public class LoginActivity extends AppCompatActivity {
                     Paper.book().write("gmail", gmail);
                     Paper.book().write("password", password);
                     if(firebaseUser != null){
+                        loginBinding.progressLogin.setVisibility(View.VISIBLE);
                         login(gmail, password);
                     }
                     else{
                         firebaseAuth.signInWithEmailAndPassword(gmail, password)
-                                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if(task.isSuccessful()){
-                                            login(gmail, password);
-                                        }
+                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        loginBinding.progressLogin.setVisibility(View.VISIBLE);
+                                        login(gmail, password);
                                     }
-                                });
+                                }
+                            });
                     }
                 }
             }
@@ -130,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Utils.userCurrent = userModel.getResult().get(0);
                                 // Note user
                                 Paper.book().write("user", userModel.getResult().get(0));
+                                loginBinding.progressLogin.setVisibility(View.INVISIBLE);
                                 Intent intentIntro = new Intent(getApplicationContext(), IntroActivity.class);
                                 startActivity(intentIntro);
                                 finish();

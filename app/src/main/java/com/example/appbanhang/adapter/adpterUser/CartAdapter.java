@@ -1,9 +1,7 @@
 package com.example.appbanhang.adapter.adpterUser;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.example.appbanhang.R;
 import com.example.appbanhang.interFace.ImageViewOnClickListener;
 import com.example.appbanhang.model.Cart;
-import com.example.appbanhang.utils.ArrayListCart;
 import com.example.appbanhang.utils.eventbus.TotalEventBus;
 
 import org.greenrobot.eventbus.EventBus;
@@ -94,30 +91,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
             }
         });
-        holder.btnDeleteItemCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getRootView().getContext());
-                builder.setTitle("Thông báo");
-                builder.setMessage("Bạn muốn xóa sản phẩm này ?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        ArrayListCart.arrayListCart.remove(position);
-                        notifyDataSetChanged();
-                        EventBus.getDefault().postSticky(new TotalEventBus());
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-                builder.show();
-            }
-        });
     }
 
 
@@ -130,7 +103,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         TextView textViewNameCartItems, textViewPriceCartItems, soluongCartItems, textViewItemsPriceAllCart;
         ImageView imageViewItemCart;
         ImageView imageViewCartPlus;
-        ImageView imageViewCartMinus, btnDeleteItemCart;
+        ImageView imageViewCartMinus;
         ImageViewOnClickListener imageViewOnClickListener;
 
 
@@ -143,12 +116,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             imageViewItemCart = itemView.findViewById(R.id.imageViewItemCart);
             imageViewCartPlus = itemView.findViewById(R.id.imageViewPlusCart);
             imageViewCartMinus = itemView.findViewById(R.id.imageViewMinusCart);
-            btnDeleteItemCart = itemView.findViewById(R.id.btnCartX);
             // Click
             imageViewCartPlus.setOnClickListener(this);
             imageViewCartMinus.setOnClickListener(this);
-            btnDeleteItemCart.setOnClickListener(this);
-
         }
 
         @Override

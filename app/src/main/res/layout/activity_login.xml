@@ -6,7 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.screenUser.LoginActivity">
-
+        <ProgressBar
+            android:id="@+id/progress_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        </ProgressBar>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -33,13 +42,13 @@
                             android:hint="@string/gmail"
                             android:textColorHint="#A7A7A7"
                             app:boxStrokeColor="#EAEAEE">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/inputGmailLogin"
-                                android:layout_width="match_parent"
-                                android:layout_height="55dp"
-                                android:textColor="#5B5B5B"
-                                android:textSize="15sp"
-                                android:textStyle="bold"/>
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/inputGmailLogin"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="55dp"
+                                    android:textColor="#5B5B5B"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"/>
                         </com.google.android.material.textfield.TextInputLayout>
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/txtPassword"
@@ -52,14 +61,14 @@
                             app:endIconMode="password_toggle"
                             app:boxStrokeColor="#EAEAEE">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/inputPasswordLogin"
-                                android:layout_width="match_parent"
-                                android:layout_height="55dp"
-                                android:textColor="#5B5B5B"
-                                android:textSize="15sp"
-                                android:textStyle="bold"
-                                tools:ignore="TouchTargetSizeCheck" />
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/inputPasswordLogin"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="55dp"
+                                    android:textColor="#5B5B5B"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    tools:ignore="TouchTargetSizeCheck" />
                         </com.google.android.material.textfield.TextInputLayout>
                         <TextView
                             android:id="@+id/txtForgotPassword"

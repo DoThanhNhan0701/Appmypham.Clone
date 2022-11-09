@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -152,31 +151,30 @@ public class PayActivity extends AppCompatActivity {
                     Date date = java.util.Calendar.getInstance().getTime();
                     DateFormat dateFormat = null;
                     dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
                     String nameDate = dateFormat.format(date);
 
                     compositeDisposable.add(APISellApp.addCreateOrder(idUser, String.valueOf(totalPrice), soluong, gmail, Integer.parseInt(sdt), nameCity, nameDistrict, nameXa, nameAddress, nameDate, jsonArray)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                    cartModel -> {
-                                        // Failed
-                                        if(cartModel.isSuccess()){
-                                            showMessages("Bạn đã đặt hàng thành công");
-                                            Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
-                                            startActivity(intentMain);
-                                            finish();
-                                        }
-                                    },
-                                    throwable -> {
-                                        showMessages("Bạn đã đặt hàng thành công !!!");
-                                        ArrayListCart.arrayListCart.clear();
-                                        notyfiMessages();
-                                        Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
-                                        startActivity(intentMain);
-                                        finish();
-                                    }
-                            )
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                            cartModel -> {
+                                // Failed
+                                if(cartModel.isSuccess()){
+                                    showMessages("Bạn đã đặt hàng thành công");
+                                    Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(intentMain);
+                                    finish();
+                                }
+                            },
+                            throwable -> {
+                                showMessages("Bạn đã đặt hàng thành công !!!");
+                                ArrayListCart.arrayListCart.clear();
+                                notyfiMessages();
+                                Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intentMain);
+                                finish();
+                            }
+                        )
 
                     );
                 }
@@ -187,7 +185,7 @@ public class PayActivity extends AppCompatActivity {
 
     private void notyfiMessages() {
         String role = "ROLE_ADMIN";
-        compositeDisposable.add(APISellApp.getToken(role)
+        compositeDisposable.add(APISellApp.getTokenAdmin(role)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -198,7 +196,6 @@ public class PayActivity extends AppCompatActivity {
                                     content.put("title", "Thông báo");
                                     content.put("body", "Bạn có 1 đơn hàng mới");
                                     String tokens = userModel.getResult().get(i).getToken();
-                                    Log.d("#", "notyfiMessages: " + tokens);
                                     ContentSendMessages contentSendMessages = new ContentSendMessages(tokens, content);
                                     apiSendMessages = RetrofitSendMessage.getInstance(Utils.BASE_URL_FCM).create(APISendMessages.class);
                                     // Send messages

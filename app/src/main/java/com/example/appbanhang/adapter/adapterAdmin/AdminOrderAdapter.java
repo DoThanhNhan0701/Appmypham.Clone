@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,7 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appbanhang.R;
 import com.example.appbanhang.adapter.adpterUser.DetailOrderAdapter;
+import com.example.appbanhang.interFace.ItemClickListener;
 import com.example.appbanhang.model.ViewOrder;
+import com.example.appbanhang.utils.eventbus.OrderEventBus;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -53,6 +58,12 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
         holder.detailRecyclerView.setLayoutManager(linearLayoutManager);
         holder.detailRecyclerView.setAdapter(detailOrderAdapter);
         holder.detailRecyclerView.setRecycledViewPool(recycledViewPool);
+        holder.imageStatusClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EventBus.getDefault().postSticky(new OrderEventBus(order));
+            }
+        });
     }
 
     private String status(int status){
@@ -68,7 +79,7 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
                 resuilt = "Đơn hàng đang giao đến đơn vị vận chuyển";
                 break;
             case 3:
-                resuilt = "Đơng hàng đã giao thành công";
+                resuilt = "Đơn hàng đã giao thành công";
                 break;
             case 4:
                 resuilt = "Đơn hàng đã hủy";
@@ -85,10 +96,12 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
         return viewOrderList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView userIdOder, userDateOrder;
         TextView nameUserOder, addressUserOrder, phoneUserOrder, statusUserOrder;
         RecyclerView detailRecyclerView;
+        ImageView imageStatusClick;
+        private ItemClickListener itemClickListener;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             userIdOder = (TextView) itemView.findViewById(R.id.userIdOrder);
@@ -98,6 +111,7 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.My
             phoneUserOrder = (TextView) itemView.findViewById(R.id.phoneUserOrder);
             statusUserOrder = (TextView) itemView.findViewById(R.id.statusUserOrder);
             detailRecyclerView = (RecyclerView) itemView.findViewById(R.id.recyclerUserOrderAdmin);
+            imageStatusClick = (ImageView) itemView.findViewById(R.id.statusOrderClick);
         }
     }
 }

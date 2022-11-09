@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        android:text="Tình trạng"
+        android:padding="15dp"
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:textAllCaps="true"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+    <TextView
+        android:id="@+id/txxResultStatus"
+        android:text="@string/status"
+        android:textStyle="bold"
+        android:textColor="#f00"
+        android:background="@drawable/border_acount"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:textSize="17sp"
+        android:paddingStart="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="RtlSymmetry">
+    </TextView>
+    <ListView
+        android:id="@+id/listViewStatus"
+        android:padding="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp">
+    </ListView>
+    <Button
+        android:id="@+id/buttonSelectStatus"
+        android:textSize="17sp"
+        android:textColor="#fff"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:text="Đổi tình trạng"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:textAllCaps="false"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/botron_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+</LinearLayout>

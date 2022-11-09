@@ -1,12 +1,16 @@
 package com.example.appbanhang.activity.screenUser;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -97,6 +101,40 @@ public class CartActivity extends AppCompatActivity {
         cartBinding.RecycleViewCartUser.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         cartBinding.RecycleViewCartUser.setLayoutManager(layoutManager);
+        // Delete items cart
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int pos = viewHolder.getAdapterPosition();
+                AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+                builder.setTitle("Thông báo");
+                builder.setMessage("Bạn muốn xóa sản phẩm này ?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ArrayListCart.arrayListCart.remove(pos);
+                        cartAdapter.notifyDataSetChanged();
+                        EventBus.getDefault().postSticky(new TotalEventBus());
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        cartAdapter.notifyDataSetChanged();
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        });
+        helper.attachToRecyclerView(cartBinding.RecycleViewCartUser);
+
     }
     private void setActionToolBar() {
         cartBinding.toolbarCartHome.setNavigationIcon(R.drawable.icon_back);

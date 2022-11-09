@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@string/soluong"
-                    android:textColor="#f00"
+                    android:textColor="#F44336"
                     android:textSize="18sp"
                     android:textStyle="bold">
 
@@ -81,8 +81,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="Tổng"
-                    android:textColor="#f00"
-                    android:textSize="28sp"
+                    android:textColor="#FF5722"
+                    android:textSize="22sp"
                     android:fontFamily="@font/font_family"
                     android:textStyle="bold">
 

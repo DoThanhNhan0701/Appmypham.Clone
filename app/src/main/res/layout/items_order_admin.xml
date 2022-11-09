@@ -11,19 +11,33 @@
     android:layout_marginTop="5dp"
     android:paddingBottom="10dp"
     android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/statusUserOrder"
-        android:text="@string/status"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:layout_marginStart="3dp"
-        android:textColor="#FF5722"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="16sp"
+    <RelativeLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </TextView>
+        <TextView
+            android:id="@+id/statusUserOrder"
+            android:text="@string/status"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginStart="3dp"
+            android:textColor="#FF5722"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <ImageView
+            android:id="@+id/statusOrderClick"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/three_point"
+            android:layout_width="30dp"
+            android:layout_height="30dp">
+        </ImageView>
+    </RelativeLayout>
     <LinearLayout
         android:weightSum="10"
         android:orientation="horizontal"

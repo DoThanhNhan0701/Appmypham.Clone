@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -105,6 +106,7 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
     private void dataSign(String gmail, String firstname, String lastname, String phone, String password, String uid){
+        signupBinding.progressSignup.setVisibility(View.VISIBLE);
         compositeDisposable.add(APISellApp.getSignup(gmail, firstname, lastname, phone, password, uid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -114,6 +116,7 @@ public class SignupActivity extends AppCompatActivity {
                                 Utils.userCurrent.setGmail(gmail);
                                 Utils.userCurrent.setPassword(password);
 
+                                signupBinding.progressSignup.setVisibility(View.INVISIBLE);
                                 Intent intentLogin = new Intent(getApplicationContext(), LoginActivity.class);
                                 startActivity(intentLogin);
                                 finish();

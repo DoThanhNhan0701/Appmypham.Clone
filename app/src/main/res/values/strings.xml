@@ -86,5 +86,7 @@
     <string name="profile">Giỏ hàng</string>
     <string name="home">Trang chủ</string>
     <string name="orderhome">Đơn hàng</string>
+    <string name="account">Tài khoản</string>
+    <string name="cart_item">Giỏ hàng</string>
 
 </resources>

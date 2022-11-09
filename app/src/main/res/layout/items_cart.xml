@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/background_product"
     android:layout_height="130dp"
     android:layout_marginStart="5dp"
     android:layout_marginEnd="5dp"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
-    android:background="@drawable/product_background"
     android:elevation="3dp">
     <LinearLayout
         android:orientation="horizontal"
@@ -29,26 +28,15 @@
             android:layout_marginStart="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <RelativeLayout
+            <TextView
+                android:id="@+id/textViewItemNameCart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/textViewItemNameCart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textColor="@color/black"
-                    android:textSize="18sp">
-                </TextView>
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="18sp">
 
-                <ImageView
-                    android:id="@+id/btnCartX"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="5dp"
-                    android:src="@drawable/icons_x" />
-            </RelativeLayout>
+            </TextView>
             <TextView
                 android:id="@+id/textViewItemPriceCart"
                 android:layout_width="wrap_content"
@@ -93,12 +81,13 @@
                         android:src="@drawable/icons_plus">
                     </ImageView>
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/textViewItemPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginEnd="10dp"
                     android:text="@string/price"
                     android:textColor="#f00"
                     android:textSize="18sp" />
