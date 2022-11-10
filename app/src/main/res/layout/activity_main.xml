@@ -112,6 +112,14 @@
                 android:textStyle="bold">
             </TextView>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewProduct"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="20dp">
+            </androidx.recyclerview.widget.RecyclerView>
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -119,14 +127,6 @@
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/magazine_background"
                 android:layout_height="match_parent">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewProduct"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="20dp"></androidx.recyclerview.widget.RecyclerView>
-
                 <ImageView
                     android:id="@+id/imageViewBelowProduct"
                     android:scaleType="fitXY"
@@ -167,6 +167,16 @@
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
+    <ImageView
+        android:id="@+id/imagesMessage"
+        android:src="@drawable/messenger"
+        android:background="@drawable/icons_messages_main"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp">
+    </ImageView>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:background="@drawable/shape_main_app"

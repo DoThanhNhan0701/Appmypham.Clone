@@ -13,6 +13,7 @@
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/btn_button_cart.xml" value="0.243" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/custom_spinner.xml" value="0.1655" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/ic_cat_bg.xml" value="0.1615" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/icons_messages_main.xml" value="0.223" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/images_category.xml" value="0.1305" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/images_view_radius.xml" value="0.2395" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/layout_title_product.xml" value="0.1" />
@@ -53,6 +54,7 @@
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_management_add_product.xml" value="0.16944444444444445" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_management_categories.xml" value="0.20277777777777778" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_management_main.xml" value="0.264" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_message.xml" value="0.2" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_order.xml" value="0.25" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_pay.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_register.xml" value="0.25" />

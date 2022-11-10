@@ -1,7 +1,9 @@
 package com.example.appbanhang.activity.screenUser;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -193,10 +195,32 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 overridePendingTransition(R.anim.inten_in_right, R.anim.inten_out_right);
             }
         });
+        activityMainBinding.imagesMessage.setOnClickListener(view -> dialogMessages());
+
         activityMainBinding.bottomNavigation.setOnNavigationItemSelectedListener(this);
 
         activityMainBinding.sCrollViewMain.setOnTouchListener(new TranslateAnimationNavigation(this, activityMainBinding.bottomNavigation));
     }
+
+    private void dialogMessages() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Thông báo");
+        builder.setMessage("Bạn muốn chat messages với admin !");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                showMessage("Hello Admin");
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
+
     private void getProduct(int page) {
         compositeDisposable.add(APISellApp.getProduct(page)
                 .subscribeOn(Schedulers.io())
