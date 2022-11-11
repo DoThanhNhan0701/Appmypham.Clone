@@ -3,11 +3,8 @@ package com.example.appbanhang.activity.screenUser;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,37 +39,39 @@ public class SearchProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         searchProductBinding = ActivitySearchProductBinding.inflate(getLayoutInflater());
         setContentView(searchProductBinding.getRoot());
+        productList = new ArrayList<>();
 
         APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
         setActionToolbar();
         setActionSearchProduct();
+        Log.d("FFFFF", "onCreate: " + productList);
     }
 
     private void showMessage(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_toolbar_search, menu);
-
-        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem menuItem) {
-                return false;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-                return false;
-            }
-        };
-        menu.findItem(R.id.item_search).setOnActionExpandListener(onActionExpandListener);
-        SearchView searchView = (SearchView) menu.findItem(R.menu.menu_toolbar_search).getActionView();
-        searchView.setQueryHint("Search product ?");
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_toolbar_search, menu);
+//
+//        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
+//            @Override
+//            public boolean onMenuItemActionExpand(MenuItem menuItem) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+//                return false;
+//            }
+//        };
+//        menu.findItem(R.id.item_search).setOnActionExpandListener(onActionExpandListener);
+//        SearchView searchView = (SearchView) menu.findItem(R.menu.menu_toolbar_search).getActionView();
+//        searchView.setQueryHint("Search product ?");
+//        return true;
+//    }
 
     private void setActionSearchProduct() {
         searchProductBinding.txtSearchProduct.addTextChangedListener(new TextWatcher() {
@@ -106,7 +105,6 @@ public class SearchProductActivity extends AppCompatActivity {
                 .subscribe(
                         productModel -> {
                             if(productModel.isSuccess()){
-                                productList = new ArrayList<>();
                                 productList = productModel.getResult();
                                 titileCategoryAdapter = new TitileCategoryAdapter(getApplicationContext(), productList);
                                 searchProductBinding.recyclerSearch.setAdapter(titileCategoryAdapter);

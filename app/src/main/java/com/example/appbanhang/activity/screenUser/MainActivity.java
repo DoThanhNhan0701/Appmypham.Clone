@@ -113,21 +113,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 if(!TextUtils.isEmpty(s)){
                     int idUser = Utils.userCurrent.getId();
                     compositeDisposable.add(APISellApp.updateToken(idUser, s)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                    messageApi -> {
-                                        if(messageApi.isSuccess()){
-                                            Log.d("#", "onSuccess: " + messageApi.getMessage());
-                                        }
-                                        else{
-                                            showMessage(messageApi.getMessage());
-                                        }
-                                    },
-                                    throwable -> {
-                                        showMessage(throwable.getMessage());
-                                    }
-                            )
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                            messageApi -> {
+                                if(messageApi.isSuccess()){
+                                    Log.d("#", "onSuccess: " + messageApi.getMessage());
+                                }
+                                else{
+                                    showMessage(messageApi.getMessage());
+                                }
+                            },
+                            throwable -> {
+                                showMessage(throwable.getMessage());
+                            }
+                        )
                     );
                 }
             }
@@ -209,7 +209,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                showMessage("Hello Admin");
+                Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

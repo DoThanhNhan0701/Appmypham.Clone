@@ -39,8 +39,8 @@ public class LoginActivity extends AppCompatActivity {
     boolean isLogin = false;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
     private ActivityLoginBinding loginBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,17 +101,22 @@ public class LoginActivity extends AppCompatActivity {
                     Paper.book().write("gmail", gmail);
                     Paper.book().write("password", password);
                     if(firebaseUser != null){
-                        loginBinding.progressLogin.setVisibility(View.VISIBLE);
+                        Log.d("@@@@@", "Hello: ");
                         login(gmail, password);
                     }
                     else{
+                        loginBinding.progressLogin.setVisibility(View.VISIBLE);
                         firebaseAuth.signInWithEmailAndPassword(gmail, password)
                             .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
-                                        loginBinding.progressLogin.setVisibility(View.VISIBLE);
                                         login(gmail, password);
+                                        Log.d("@@@@@1", "onComplete: " + task.getException());
+
+                                    }
+                                    else {
+                                        Log.d("@@@@@2", "onComplete: " + task.getException());
                                     }
                                 }
                             });
@@ -180,6 +185,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
     @Override
     protected void onDestroy() {
         compositeDisposable.clear();
