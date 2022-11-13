@@ -23,7 +23,13 @@
         tools:ignore="DataExtractionRules"
         tools:targetApi="31">
         <activity
-            android:name=".MessageActivity"
+            android:name=".activity.screenAdmin.SendMessagesRole"
+            android:exported="false" />
+        <activity
+            android:name=".activity.screenAdmin.RoleUserMessages"
+            android:exported="false" />
+        <activity
+            android:name=".activity.screenUser.MessageActivity"
             android:exported="false" />
         <activity
             android:name=".activity.screenAdmin.AddImageAdvertise"

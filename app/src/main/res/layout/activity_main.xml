@@ -170,10 +170,10 @@
     <ImageView
         android:id="@+id/imagesMessage"
         android:src="@drawable/messenger"
-        android:background="@drawable/icons_messages_main"
         android:layout_alignParentBottom="true"
+        android:background="@drawable/icons_messages_main"
         android:layout_alignParentEnd="true"
-        android:layout_margin="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_width="60dp"
         android:layout_height="60dp">
     </ImageView>

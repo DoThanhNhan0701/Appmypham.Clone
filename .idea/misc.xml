@@ -14,6 +14,7 @@
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/botron_button.xml" value="0.1535" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/btn_button_cart.xml" value="0.243" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/custom_spinner.xml" value="0.1655" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/customs_edittext_messages.xml" value="0.2085" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/ic_cat_bg.xml" value="0.1615" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/icons_messages_main.xml" value="0.223" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/drawable/images_category.xml" value="0.1305" />
@@ -56,11 +57,13 @@
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_management_add_product.xml" value="0.16944444444444445" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_management_categories.xml" value="0.20277777777777778" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_management_main.xml" value="0.264" />
-        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_message.xml" value="0.2" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_message.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_order.xml" value="0.25" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_pay.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_role_user_messages.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_search_product.xml" value="0.2" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_send_messages_role.xml" value="0.25" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_signup.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_sonmoi.xml" value="0.1953125" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/activity_splash_screen.xml" value="0.2265625" />
@@ -86,12 +89,14 @@
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_category_product.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_chat_messages.xml" value="0.24895833333333334" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_chat_messages_left.xml" value="0.2" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_chat_messages_right.xml" value="0.25" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_detail_order.xml" value="0.25" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_loading.xml" value="0.25" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_magazine.xml" value="0.24895833333333334" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_order.xml" value="0.24895833333333334" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_order_admin.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_products.xml" value="0.536" />
+        <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_role_messages.xml" value="0.264" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/items_slide_app.xml" value="0.19814814814814816" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/loading_forgotpassword.xml" value="0.23796296296296296" />
         <entry key="..\:/Android-studio/Appbanhang/app/src/main/res/layout/loading_product_main.xml" value="0.24895833333333334" />

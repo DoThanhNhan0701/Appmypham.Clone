@@ -4,28 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
+
     <TextView
         android:id="@+id/items_chatMessage"
-        android:hint="Nội dung chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:background="@drawable/background_messages_top"
+        android:hint="Nội dung chat"
         android:padding="10dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:textSize="15sp"
-        android:layout_alignParentEnd="true"
-        android:textStyle="bold"
         android:textColor="#000"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        tools:ignore="RtlSymmetry">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/itemsTimeMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:ignore="RtlSymmetry">
-    </TextView>
-    <TextView
-        android:id="@+id/itemsMessageRight"
-        android:layout_alignParentEnd="true"
         android:layout_below="@+id/items_chatMessage"
-        android:text="20:00h"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_alignParentEnd="true"
+        android:text="20:00h">
 
     </TextView>
 </RelativeLayout>

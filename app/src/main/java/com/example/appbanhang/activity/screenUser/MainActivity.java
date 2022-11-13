@@ -74,9 +74,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     boolean isLoading = false;
     int page = 1;
     String token;
+    int idRoleAdmin;
 
     boolean doubleBackToExitPressedOnce = false;
-
 
     private ActivityMainBinding activityMainBinding;
     @Override
@@ -132,6 +132,25 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }
             }
         });
+
+        compositeDisposable.add(APISellApp.getTokenAdmin(Utils.ROLE_ADMIN)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        userModel -> {
+                            if(userModel.isSuccess()){
+                                idRoleAdmin = userModel.getResult().get(0).getId();
+                                Utils.ID_RECEIVED = String.valueOf(idRoleAdmin);
+                                Log.d("TAG", "getToken: " + idRoleAdmin);
+                            }else {
+                                showMessage(userModel.getMessage());
+                            }
+                        },
+                        throwable -> {
+                            showMessage(throwable.getMessage());
+                        }
+                )
+        );
     }
     private void getEventLoading() {
         activityMainBinding.recyclerViewProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -203,24 +222,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private void dialogMessages() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Thông báo");
-        builder.setMessage("Bạn muốn chat messages với admin !");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        builder.show();
+        if(idRoleAdmin == Utils.userCurrent.getId()){
+            showMessage("Bạn là admin, bạn không thể chat với mình được !!!");
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Thông báo");
+            builder.setMessage("Bạn muốn chat messages với admin !");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
+                    startActivity(intent);
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            builder.show();
+        }
     }
 
     private void getProduct(int page) {

@@ -184,8 +184,7 @@ public class PayActivity extends AppCompatActivity {
     }
 
     private void notyfiMessages() {
-        String role = "ROLE_ADMIN";
-        compositeDisposable.add(APISellApp.getTokenAdmin(role)
+        compositeDisposable.add(APISellApp.getTokenAdmin(Utils.ROLE_ADMIN)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

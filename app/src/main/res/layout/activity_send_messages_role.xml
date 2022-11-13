@@ -4,51 +4,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".activity.screenUser.MessageActivity">
+    tools:context=".activity.screenAdmin.SendMessagesRole">
     <Toolbar
-        android:id="@+id/toolbarRoleMessagesSend"
+        android:id="@+id/toolbarMessRole"
+        android:layout_alignParentTop="true"
         android:title="@string/messages"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+    </Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleViewMessages"
+        android:id="@+id/recyclerViewSendMessageUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/linearMessageRole"
+        android:layout_below="@+id/toolbarMessRole"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:layout_above="@+id/linearMessageAdmin"
-        android:layout_below="@+id/toolbarRoleMessagesSend">
+        tools:ignore="UnknownId">
 
     </androidx.recyclerview.widget.RecyclerView>
     <LinearLayout
-        android:id="@+id/linearMessageAdmin"
+        android:id="@+id/linearMessageRole"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/txtTextSent"
+            android:id="@+id/sendMessageRole"
+            android:hint="@string/messages"
             android:paddingTop="15dp"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:paddingBottom="15dp"
-            android:layout_weight="9"
-            android:hint="@string/nhaptinnhan"
             android:background="@drawable/customs_edittext_messages"
+            android:layout_weight="9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </EditText>
         <ImageView
-            android:id="@+id/imagesSent"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:id="@+id/sendMessageUser"
             android:src="@drawable/send"
+            android:layout_weight="1"
             android:layout_width="30dp"
             android:layout_height="30dp">
         </ImageView>
+
     </LinearLayout>
+
 </RelativeLayout>

@@ -198,8 +198,7 @@ public class AdminOrderActivity extends AppCompatActivity {
 
 
     private void notyfiMessages() {
-        String role = "ROLE_USER";
-        compositeDisposable.add(apiSellApp.getTokenUser(viewOrder.getId(), role)
+        compositeDisposable.add(apiSellApp.getTokenUser(viewOrder.getId(), Utils.ROLE_USER)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

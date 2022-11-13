@@ -88,5 +88,8 @@
     <string name="orderhome">Đơn hàng</string>
     <string name="account">Tài khoản</string>
     <string name="cart_item">Giỏ hàng</string>
+    <string name="messages">Messages</string>
+    <string name="iduser">idUser</string>
+    <string name="nhaptinnhan">Nhập tin nhắn ?</string>
 
 </resources>
