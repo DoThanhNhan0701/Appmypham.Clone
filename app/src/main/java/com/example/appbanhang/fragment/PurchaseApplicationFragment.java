@@ -1,6 +1,7 @@
 package com.example.appbanhang.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appbanhang.R;
 import com.example.appbanhang.adapter.adpterUser.OrderAdapter;
+import com.example.appbanhang.model.ViewOrder;
 import com.example.appbanhang.retrofit.APISellApp;
 import com.example.appbanhang.retrofit.RetrofitCliend;
 import com.example.appbanhang.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -25,6 +30,7 @@ public class PurchaseApplicationFragment extends Fragment {
     OrderAdapter orderAdapter;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     APISellApp APISellApp;
+    List<ViewOrder> orderList;
     View view;
 
     @Override
@@ -35,6 +41,9 @@ public class PurchaseApplicationFragment extends Fragment {
         getDetailOrder();
         return view;
     }
+    private void showMessages(String message){
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
     private void getDetailOrder() {
         compositeDisposable.add(APISellApp.getViewOrder(Utils.userCurrent.getId())
                 .subscribeOn(Schedulers.io())
@@ -42,12 +51,22 @@ public class PurchaseApplicationFragment extends Fragment {
                 .subscribe(
                         viewOrderModel -> {
                             if(viewOrderModel.isSuccess()){
-                                orderAdapter = new OrderAdapter(getContext(), viewOrderModel.getResult());
-                                recyclerView.setAdapter(orderAdapter);
+                                orderList = viewOrderModel.getResult();
+                                for (int i = 0; i < viewOrderModel.getResult().size(); i++){
+                                    if(viewOrderModel.getResult().get(i).getStatus() == 0){
+                                        Log.d("GGGGG", "getDetailOrder: " + viewOrderModel.getResult().get(i).getStatus());
+                                        orderAdapter = new OrderAdapter(getContext(), viewOrderModel.getResult());
+                                        recyclerView.setAdapter(orderAdapter);
+                                    }
+                                }
+
+                            }
+                            else{
+                                showMessages(viewOrderModel.getMessage());
                             }
                         },
                         throwable -> {
-                            Toast.makeText(getContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                            showMessages(throwable.getMessage());
                         }
                 )
         );
@@ -63,6 +82,7 @@ public class PurchaseApplicationFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerOrder);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
+        orderList = new ArrayList<>();
     }
 
 }

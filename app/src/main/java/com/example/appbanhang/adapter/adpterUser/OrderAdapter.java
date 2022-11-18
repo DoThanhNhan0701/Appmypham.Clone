@@ -39,6 +39,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         ViewOrder order = viewOrderList.get(position);
         holder.idOrder.setText("Đơn hàng: "+ order.getId());
         holder.txtDateOrder.setText(order.getCreate_date());
+        holder.statusOrder.setText(status(order.getStatus()));
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
                 holder.detailRecyclerView.getContext(), LinearLayoutManager.VERTICAL, false);
@@ -50,18 +51,44 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         holder.detailRecyclerView.setRecycledViewPool(recycledViewPool);
     }
 
+    private String status(int status){
+        String resuilt = "";
+        switch (status){
+            case 0:
+                resuilt = "Đơn hàng đã đặt";
+                break;
+            case 1:
+                resuilt = "Đơn hàng đang được xử lí !";
+                break;
+            case 2:
+                resuilt = "Đơn hàng đang giao đến đơn vị vận chuyển";
+                break;
+            case 3:
+                resuilt = "Đơn hàng đã giao thành công";
+                break;
+            case 4:
+                resuilt = "Đơn hàng đã hủy";
+                break;
+            default:
+                break;
+        }
+
+        return resuilt;
+    }
+
     @Override
     public int getItemCount() {
         return viewOrderList.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView idOrder, txtDateOrder;
+        TextView idOrder, txtDateOrder, statusOrder;
         RecyclerView detailRecyclerView;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             idOrder = (TextView) itemView.findViewById(R.id.txtIdOrder);
             txtDateOrder = (TextView) itemView.findViewById(R.id.txtDateOder);
+            statusOrder = itemView.findViewById(R.id.statusOrderNow);
             detailRecyclerView = (RecyclerView) itemView.findViewById(R.id.recyclerItemOrder);
         }
     }

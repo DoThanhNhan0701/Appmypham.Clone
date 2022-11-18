@@ -6,5 +6,6 @@
         android:id="@+id/item_search"
         android:title="@string/search"
         android:icon="@drawable/icons_search3"
-        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+        app:actionViewClass="android.widget.SearchView" />
+
 </menu>

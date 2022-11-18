@@ -1,13 +1,16 @@
 package com.example.appbanhang.activity.screenUser;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -32,6 +35,9 @@ public class SearchProductActivity extends AppCompatActivity {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     TitileCategoryAdapter titileCategoryAdapter;
     LinearLayoutManager linearLayoutManager;
+    Toolbar toolbar;
+    SearchView searchView;
+
 
     private ActivitySearchProductBinding searchProductBinding;
     @Override
@@ -39,63 +45,58 @@ public class SearchProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         searchProductBinding = ActivitySearchProductBinding.inflate(getLayoutInflater());
         setContentView(searchProductBinding.getRoot());
-        productList = new ArrayList<>();
 
+        productList = new ArrayList<>();
         APISellApp = RetrofitCliend.getInstance(Utils.BASE_URL).create(APISellApp.class);
         setActionToolbar();
-        setActionSearchProduct();
-        Log.d("FFFFF", "onCreate: " + productList);
     }
 
     private void showMessage(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu_toolbar_search, menu);
-//
-//        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
-//            @Override
-//            public boolean onMenuItemActionExpand(MenuItem menuItem) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-//                return false;
-//            }
-//        };
-//        menu.findItem(R.id.item_search).setOnActionExpandListener(onActionExpandListener);
-//        SearchView searchView = (SearchView) menu.findItem(R.menu.menu_toolbar_search).getActionView();
-//        searchView.setQueryHint("Search product ?");
-//        return true;
-//    }
-
-    private void setActionSearchProduct() {
-        searchProductBinding.txtSearchProduct.addTextChangedListener(new TextWatcher() {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_toolbar_search, menu);
+        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+            public boolean onMenuItemActionExpand(MenuItem menuItem) {
+                return true;
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.length() == 0){
+            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+                return true;
+            }
+        };
+        menu.findItem(R.id.item_search).setOnActionExpandListener(onActionExpandListener);
+        MenuItem ourSearchItem = menu.findItem(R.id.item_search);
+        searchView = (SearchView) ourSearchItem.getActionView();
+        searchView.setQueryHint("Nhập từ khóa ?");
+        searchView.getQuery();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Log.d("$$$$$1", "onQueryTextSubmit: " + s);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if(s.length() == 0){
                     productList.clear();
                     titileCategoryAdapter = new TitileCategoryAdapter(getApplicationContext(), productList);
                     searchProductBinding.recyclerSearch.setAdapter(titileCategoryAdapter);
                 }else{
-                    getDataSearch(charSequence.toString());
+                    getDataSearch(s);
                 }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
+                return true;
             }
         });
+        return true;
     }
+
 
     private void getDataSearch(String nameSearch) {
         productList.clear();
@@ -124,12 +125,14 @@ public class SearchProductActivity extends AppCompatActivity {
     }
 
     private void setActionToolbar() {
-        searchProductBinding.appBarSearch.setNavigationIcon(R.drawable.icon_back);
-        searchProductBinding.appBarSearch.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
+        toolbar = findViewById(R.id.toolbarSearch);
+        setSupportActionBar(toolbar);
+        getSupportActionBar();
+        toolbar.setNavigationIcon(R.drawable.icon_back);
+        toolbar.setNavigationOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 

@@ -42,9 +42,16 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/icons_user"></ImageView>
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/icons_user">
+            </ImageView>
         </RelativeLayout>
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/piechart"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="350dp">
+        </com.github.mikephil.charting.charts.PieChart>
         <GridLayout
             android:columnCount="2"
             android:rowCount="3"
@@ -312,7 +319,6 @@
 
 
         </GridLayout>
-
     </LinearLayout>
 
 </ScrollView>

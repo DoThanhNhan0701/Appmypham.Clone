@@ -53,7 +53,9 @@ public class MessageActivity extends AppCompatActivity {
     private void inserUser() {
         HashMap<String, Object> roleUser = new HashMap<>();
         roleUser.put("id", Utils.userCurrent.getId());
-        roleUser.put("userName", Utils.userCurrent.getFirst_name());
+        roleUser.put("lastName", Utils.userCurrent.getLast_name());
+        roleUser.put("firstName", Utils.userCurrent.getFirst_name());
+        roleUser.put("phone", Utils.userCurrent.getPhone());
         db.collection("roleUser").document(String.valueOf(Utils.userCurrent.getId())).set(roleUser);
     }
 

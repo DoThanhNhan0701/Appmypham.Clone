@@ -9,6 +9,18 @@
     android:layout_marginTop="5dp"
     android:paddingBottom="10dp"
     android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/statusOrderNow"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#FF5722"
+        android:textSize="18sp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
     <LinearLayout
         android:weightSum="10"
         android:orientation="horizontal"

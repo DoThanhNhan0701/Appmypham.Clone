@@ -31,16 +31,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </TextView>
-        <TextView
-            android:id="@+id/idRoleMessage"
-            android:text="@string/iduser"
-            android:padding="5dp"
-            android:textSize="16sp"
-            android:textColor="#000"
-            android:textStyle="bold"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        </TextView>
+            <TextView
+                android:id="@+id/idRoleMessage"
+                android:text="@string/iduser"
+                android:padding="5dp"
+                android:textSize="16sp"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:id="@+id/idRolePhone"
+                android:text="@string/phone"
+                android:padding="5dp"
+                android:textSize="16sp"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+        </LinearLayout>
     </LinearLayout>
 
 

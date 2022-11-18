@@ -8,6 +8,7 @@ import com.example.appbanhang.model.dataApi.CategoryModel;
 import com.example.appbanhang.model.dataApi.MagazineModel;
 import com.example.appbanhang.model.dataApi.MessageApi;
 import com.example.appbanhang.model.dataApi.ProductModel;
+import com.example.appbanhang.model.dataApi.StatisticalModel;
 import com.example.appbanhang.model.dataApi.UserModel;
 import com.example.appbanhang.model.dataApi.ViewOrderModel;
 
@@ -164,4 +165,9 @@ public interface APISellApp {
             @Field("id") int id,
             @Field("status") int status
     );
+
+
+    @GET("getstatistical.php")
+    Observable<StatisticalModel> getStatistical();
+
 }
